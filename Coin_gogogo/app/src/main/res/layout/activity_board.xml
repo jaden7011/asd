@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.BoardActivity">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_post"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:theme="@style/ToolBarTheme"
+            app:layout_constraintBottom_toTopOf="@id/Board_Recycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="175dp"
+                tools:layout_editor_absoluteY="14dp">
+
+            </TextView>
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.github.mikephil.charting.charts.CandleStickChart
+            android:id="@+id/priceChart"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toTopOf="@id/Board_Recycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_post"
+            app:layout_constraintVertical_weight="1" />
+
+        <androidx.recyclerview.widget.RecyclerView
+
+            android:id="@+id/Board_Recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/priceChart" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
