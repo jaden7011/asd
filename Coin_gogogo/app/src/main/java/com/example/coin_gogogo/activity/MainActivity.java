@@ -16,9 +16,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.coin_gogogo.R;
+import com.example.coin_gogogo.Retrofit.Repository;
 import com.example.coin_gogogo.adapter.Coin_Adapter;
 import com.example.coin_gogogo.data.Coin_Info;
 import com.example.coin_gogogo.data.Coin_Map;
+import com.example.coin_gogogo.data.Result;
 import com.example.coin_gogogo.data.Ticker;
 import com.example.coin_gogogo.data.Ticker_List;
 import com.example.coin_gogogo.data.Transaction;
@@ -37,6 +39,8 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 RxAndroidUtils.getInstance().getEditTextObservable(binding.searchET);
 
         ET_Observable_Disposable = editTextObservable
-                .debounce(500, TimeUnit.MILLISECONDS) 
+                .debounce(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s->{
                     Log.d(RxAndroidUtils.getInstance().getTAG(),s);
@@ -103,9 +107,23 @@ public class MainActivity extends AppCompatActivity {
                 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        NetworkThread thread= new NetworkThread();
-        isRunning=true;
-        thread.start();
+//        NetworkThread thread= new NetworkThread();
+//        isRunning=true;
+//        thread.start();
+
+        Repository.getInstance().get_ticker("BTC").enqueue(new Callback<Result>() {
+            @Override
+            public void onResponse(Call<Result> call, retrofit2.Response<Result> response) {
+                Result result = response.body();
+                Log.d("re",result.getTicker().fluctate_rate_24H);
+            }
+
+            @Override
+            public void onFailure(Call<Result> call, Throwable t) {
+                Log.d("re","f");
+            }
+        });
+
     }
 
     class NetworkThread extends Thread{
@@ -123,7 +141,11 @@ public class MainActivity extends AppCompatActivity {
                                 Get_Ticker(Key_sub, new Listener_Complete_Get_Ticker() {
                                     @Override
                                     public void onComplete(Ticker ticker) { //변동률 찾고
-                                        coin_Info_map.put(Key_sub,new Coin_Info(Val_fullname,Key_sub,transaction.price,ticker.prev_closing_price,ticker.fluctate_rate_24H,ticker.acc_trade_value_24H));
+                                        coin_Info_map.put(Key_sub,new Coin_Info(Val_fullname,
+                                                Key_sub,transaction.price,
+                                                ticker.prev_closing_price,
+                                                ticker.fluctate_rate_24H,
+                                                ticker.acc_trade_value_24H));
 
                                         if(coin_Info_map.size() == 36)
                                             runOnUiThread(new Runnable() {

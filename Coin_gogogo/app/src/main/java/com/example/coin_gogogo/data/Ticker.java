@@ -3,12 +3,15 @@ package com.example.coin_gogogo.data;
 import com.google.gson.annotations.SerializedName;
 
 public class Ticker {
+
     @SerializedName("prev_closing_price")
     public String prev_closing_price; //전일 종가
     @SerializedName("acc_trade_value_24H")
     public String acc_trade_value_24H; //최근 24시간 거래금액
     @SerializedName("fluctate_rate_24H")
     public String fluctate_rate_24H; //최근 24시간 변동률
+
+    public Ticker(){}
 
     public Ticker(String prev_closing_price, String acc_trade_value_24H, String fluctate_rate_24H) {
         this.prev_closing_price = prev_closing_price;
