@@ -16,11 +16,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.coin_gogogo.R;
-import com.example.coin_gogogo.Retrofit.Repository;
+import com.example.coin_gogogo.Retrofit.ExampleService;
+import com.example.coin_gogogo.Retrofit.RetrofitFactory;
 import com.example.coin_gogogo.adapter.Coin_Adapter;
 import com.example.coin_gogogo.data.Coin_Info;
 import com.example.coin_gogogo.data.Coin_Map;
-import com.example.coin_gogogo.data.Result;
 import com.example.coin_gogogo.data.Ticker;
 import com.example.coin_gogogo.data.Ticker_List;
 import com.example.coin_gogogo.data.Transaction;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Coin_Info> coins = new ArrayList<>();
     private final Coin_Map coin_map = new Coin_Map();
     private final Map<String,String> Coin_Map = coin_map.getCoin_names();
-    private Map<String,Coin_Info> coin_Info_map = coin_map.getCoins_map();;
+    private Map<String,Coin_Info> coin_Info_map = coin_map.getCoins_map();
     private ArrayList<Coin_Info> res_coins  = new ArrayList<>();
     private Coin_Adapter coin_adpater;
     private boolean isRunning=true;
@@ -111,19 +111,91 @@ public class MainActivity extends AppCompatActivity {
 //        isRunning=true;
 //        thread.start();
 
-        Repository.getInstance().get_ticker("BTC").enqueue(new Callback<Result>() {
-            @Override
-            public void onResponse(Call<Result> call, retrofit2.Response<Result> response) {
-                Result result = response.body();
-                Log.d("re",result.getTicker().fluctate_rate_24H);
-            }
+//        Repository.getInstance().get_ticker("BTC").enqueue(new Callback<Ticker>() {
+//            @Override
+//            public void onResponse(Call<Ticker> call, retrofit2.Response<Ticker> response) {
+//                Ticker result = response.body();
+//                Log.d("retrofit2",result.getTicker().fluctate_rate_24H);
+//                Log.d("retrofit2",result.getTicker().prev_closing_price);
+//            }
+//            @Override
+//            public void onFailure(Call<Ticker> call, Throwable t) {
+//                Log.d("retrofit2","f ticker");
+//            }
+//        });
+//
+//        Repository.getInstance().get_transaction("BTC",1).enqueue(new Callback<Transaction_List>() {
+//            @Override
+//            public void onResponse(Call<Transaction_List> call, retrofit2.Response<Transaction_List> response) {
+//                Transaction_List result = response.body();
+//                Log.d("retrofit2",result.data.get(0).price);
+//                Log.d("retrofit2",result.data.get(0).transaction_date);
+//                Log.d("retrofit2","갯수: "+result.data.size());
+//            }
+//            @Override
+//            public void onFailure(Call<Transaction_List> call, Throwable t) {
+//                Log.d("retrofit2","f transac");
+//            }
+//        });
 
-            @Override
-            public void onFailure(Call<Result> call, Throwable t) {
-                Log.d("re","f");
-            }
-        });
+        Get_API();
 
+//        Observable<Coin_Info> observable = Observable
+//                .in
+    }
+
+    public void Get_API(){
+
+        for(Map.Entry<String,String> entry : Coin_Map.entrySet()) {
+            String Key_sub = entry.getKey(); //ex) BTC
+            String Val_fullname = entry.getValue(); //ex) 비트코인
+
+            RetrofitFactory
+                    .createRetrofit("https://api.bithumb.com/")
+                    .create(ExampleService.class)
+                    .tickerInfo(Key_sub)
+                    .enqueue(new Callback<Ticker>() {
+                        @Override
+                        public void onResponse(Call<Ticker> call, retrofit2.Response<Ticker> response1) {
+                            RetrofitFactory
+                                    .createRetrofit("https://api.bithumb.com/") // Retrofit객체 반환
+                                    .create(ExampleService.class)
+                                    .transactionInfo(Key_sub, 1)
+                                    .enqueue(new Callback<Transaction_List>() {
+                                        @Override
+                                        public void onResponse(Call<Transaction_List> call, retrofit2.Response<Transaction_List> response2) {
+                                            Ticker ticker = response1.body();
+                                            Transaction_List transactions = response2.body();
+
+                                            Coin_Info coin_info = new Coin_Info(
+                                                    Val_fullname,
+                                                    Key_sub,
+                                                    transactions.data.get(0).price,
+                                                    ticker.prev_closing_price,
+                                                    ticker.fluctate_rate_24H,
+                                                    ticker.acc_trade_value_24H);
+
+                                            coin_Info_map.put(Key_sub,coin_info);
+
+//                                            Log.d("retrofit2",ticker.getTicker().fluctate_rate_24H);
+//                                            Log.d("retrofit2",ticker.getTicker().prev_closing_price);
+//                                            Log.d("retrofit2",transactions.data.get(0).price);
+//                                            Log.d("retrofit2",transactions.data.get(0).transaction_date);
+//                                            Log.d("retrofit2","갯수: "+transactions.data.size());
+                                            Log.d("retrofit2","결과물: "+coin_Info_map.size());
+                                        }
+                                        @Override
+                                        public void onFailure(Call<Transaction_List> call, Throwable t) {
+                                            Log.d("retrofit2","f transac");
+                                        }
+                                    });
+                        }
+                        @Override
+                        public void onFailure(Call<Ticker> call, Throwable t) {
+                            Log.d("retrofit2","f ticker");
+                        }
+                    });
+        }
     }
 
     class NetworkThread extends Thread{

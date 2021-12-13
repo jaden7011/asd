@@ -7,9 +7,8 @@ public class Result {
     @SerializedName("data")
     private Ticker ticker;
 
-    @SerializedName("Transaction")
+//    @SerializedName("data")
     private Transaction transaction;
-
 
     public Ticker getTicker(){
         return ticker;

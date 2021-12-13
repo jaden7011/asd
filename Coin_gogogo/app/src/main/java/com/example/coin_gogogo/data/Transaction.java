@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Transaction {
 
+    private Transaction transaction;
+
     //    거래 체결 시간 타임 스탬프
 //    (YYYY-MM-DD HH:MM:SS)
     @SerializedName("transaction_date")
@@ -21,5 +23,9 @@ public class Transaction {
         this.transaction_date = transaction_date;
         this.price = price;
         this.type = type;
+    }
+
+    public Transaction getTransaction(){
+        return this.transaction;
     }
 }
