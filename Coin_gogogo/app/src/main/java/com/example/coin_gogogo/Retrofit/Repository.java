@@ -3,6 +3,7 @@ package com.example.coin_gogogo.Retrofit;
 import com.example.coin_gogogo.data.Ticker_Response;
 import com.example.coin_gogogo.data.Transaction_List_Response;
 
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 public class Repository {
@@ -19,7 +20,7 @@ public class Repository {
         return instance;
     }
 
-    public io.reactivex.rxjava3.core.Single<Ticker_Response> get_Ticker_Single(){
+    public Observable<Ticker_Response> get_Ticker(){
         return RetrofitFactory
                 .createRetrofit("https://api.bithumb.com/")
                 .create(ExampleService.class)

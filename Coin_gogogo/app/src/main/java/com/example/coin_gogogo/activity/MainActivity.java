@@ -18,6 +18,7 @@ import com.example.coin_gogogo.data.Coin_Map;
 import com.example.coin_gogogo.data.Ticker;
 import com.example.coin_gogogo.data.Ticker_Response;
 import com.example.coin_gogogo.data.Transaction;
+import com.example.coin_gogogo.data.Transaction_List_Response;
 import com.example.coin_gogogo.databinding.ActivityMainBinding;
 import com.example.coin_gogogo.utility.RxAndroidUtils;
 import com.example.coin_gogogo.utility.Utility;
@@ -34,8 +35,9 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
@@ -109,105 +111,100 @@ public class MainActivity extends AppCompatActivity {
                 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-       Observable<Coin_Info> observable = Observable
-               .fromIterable(coins)
-               .subscribeOn(Schedulers.io())
-               .observeOn(AndroidSchedulers.mainThread());
+        Observable<Coin_Info> observable = Observable
+                .fromIterable(coins)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
 
-               observable.subscribe(new io.reactivex.rxjava3.core.Observer<Coin_Info>() {
-                   @Override
-                   public void onSubscribe(@NonNull Disposable d) {
-                       Log.d("onSubscribe","name: ");
+        observable.subscribe(new io.reactivex.rxjava3.core.Observer<Coin_Info>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d("onSubscribe","name: ");
 //                       Get_API();
 //                coin_infos.add(new Coin_Info("1","a","24","24","24","24"));
 //                coin_infos.add(new Coin_Info("2","a","24","24","24","24"));
 //                coin_infos.add(new Coin_Info("3","a","24","24","24","24"));
 //                coin_infos.add(new Coin_Info("4","a","24","24","24","24"));
 //                coin_infos.add(new Coin_Info("5","a","24","24","24","24"));
-                   }
+            }
 
-                   @Override
-                   public void onNext(@NonNull Coin_Info coin_info) {
-                       Log.d("observable","name: "+coin_info.Name);
-                       Toast(coin_info.Name);
-                   }
+            @Override
+            public void onNext(@NonNull Coin_Info coin_info) {
+                Log.d("observable","name: "+coin_info.Name);
+                Toast(coin_info.Name);
+            }
 
-                   @Override
-                   public void onError(@NonNull Throwable e) {
+            @Override
+            public void onError(@NonNull Throwable e) {
 
-                   }
+            }
 
-                   @Override
-                   public void onComplete() {
+            @Override
+            public void onComplete() {
 
-                   }
-               });
+            }
+        });
 
         Get_API();
+
+        //todo 적당히 몇 개만 찾아서 띄우고 대화방으로 넘어가는 걸로 -> 검색기능은 repeate이 없으면 쉬움 -? repeate이 있다면 중간에 transaction에서 필터링 해줘야함
+
     }
 
     public void Get_API(){
 
-       Repository.getInstance().get_Ticker_Single()
+       Repository.getInstance().get_Ticker()
                .subscribeOn(Schedulers.io())
-//               .observeOn(AndroidSchedulers.mainThread())
-               .subscribe(new SingleObserver<Ticker_Response>() {
+               .doOnError(Throwable::printStackTrace)
+               .subscribe(new Observer<Ticker_Response>() {
                    @Override
-                   public void onSubscribe(@NonNull Disposable d) {}
+                   public void onSubscribe(@NonNull Disposable d) {
+                   }
                    @Override
-                   public void onSuccess(@NonNull Ticker_Response result) {
+                   public void onNext(@NonNull Ticker_Response result) {
 
-                       for (Map.Entry<String,Object> entry : result.data.entrySet()){
+                       for (Map.Entry<String,Object> entry : result.data.entrySet()) {
                            String name = entry.getKey();
                            Object obj = entry.getValue();
 
                            if (!name.equals("date")) { //데이터 마지막에 껴있는 date 항목 제외
-
                                //gson으로 object -> json -> class로 변경
                                Gson gson = new Gson();
                                String json = gson.toJson(obj);
-                               Ticker ticker = gson.fromJson(json,Ticker.class);
+                               Ticker ticker = gson.fromJson(json, Ticker.class);
 
+                               Repository.getInstance().get_Transaction_Single(name, 1)
+                                       .subscribeOn(Schedulers.io())
+                                       .observeOn(AndroidSchedulers.mainThread())
+                                       .subscribe(new Consumer<Transaction_List_Response>() {
+                                           @Override
+                                           public void accept(Transaction_List_Response transaction_list_response) throws Throwable {
+                                               coin_infos.add(new Coin_Info(
+                                                       name,
+                                                       name,
+                                                       transaction_list_response.data.get(0).price,
+                                                       ticker.prev_closing_price,
+                                                       ticker.fluctate_rate_24H,
+                                                       ticker.acc_trade_value_24H
+                                               ));
+
+                                               if (coin_infos.size() == result.data.size() - 1) {
+                                                   Log.d("Get_API size: ", result.data.size() - 1 + "");
+                                                   Show_Recycler();
+                                               }
+                                           }
+                                       });
                                Log.d("Get_APIx", obj + "");
                                Log.d("Get_API", ticker.prev_closing_price + "");
                            }
                        }
-
-//                       while(ticker_response.data.iterator().hasNext()){
-//                           Ticker ticker = ticker_response.data.iterator().next();
-////                           Repository.getInstance().get_Transaction_Single(ticker.order_currency,1)
-//                                   .subscribeOn(Schedulers.io())
-//                                   .observeOn(AndroidSchedulers.mainThread())
-//                                   .subscribe(new SingleObserver<Transaction_List_Response>() {
-//                                       @Override
-//                                       public void onSubscribe(@NonNull Disposable d) {}
-//                                       @Override
-//                                       public void onSuccess(@NonNull Transaction_List_Response transaction_list_response) {
-//                                           Log.d("Get_API",ticker_response.data.size()+"");
-//                                           Log.d("Get_API",ticker.order_currency+"");
-//                                           Log.d("Get_API",transaction_list_response.data.get(0).price+"");
-//
-//                                           coin_infos.add(new Coin_Info(
-//                                                   ticker.order_currency,
-//                                                   ticker.order_currency,
-//                                                   transaction_list_response.data.get(0).price,
-//                                                   ticker.prev_closing_price,
-//                                                   ticker.fluctate_rate_24H,
-//                                                   ticker.acc_trade_value_24H
-//                                           ));
-//
-//                                           if(!ticker_response.data.iterator().hasNext()){
-//                                               Log.d("Get_API",ticker_response.data.size()+"");
-//                                               Show_Recycler();
-//                                           }
-//                                       }
-//                                       @Override
-//                                       public void onError(@NonNull Throwable e) {Log.d("Get_API","error");}
-//                                   });
-//                       }
                    }
                    @Override
-                   public void onError(@NonNull Throwable e) {Log.d("Get_API","error:"+e.getMessage());}
+                   public void onError(@NonNull Throwable e) {
+                   }
+                   @Override
+                   public void onComplete() {
+                   }
                });
     }
 
