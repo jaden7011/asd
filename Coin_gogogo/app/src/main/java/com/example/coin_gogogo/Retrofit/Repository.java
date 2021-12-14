@@ -4,7 +4,6 @@ import com.example.coin_gogogo.data.Ticker_Response;
 import com.example.coin_gogogo.data.Transaction_List_Response;
 
 import io.reactivex.rxjava3.core.Single;
-import retrofit2.Call;
 
 public class Repository {
 
@@ -20,28 +19,14 @@ public class Repository {
         return instance;
     }
 
-    public Call<Ticker_Response> get_ticker(String path) {
+    public io.reactivex.rxjava3.core.Single<Ticker_Response> get_Ticker_Single(){
         return RetrofitFactory
                 .createRetrofit("https://api.bithumb.com/")
                 .create(ExampleService.class)
-                .tickerInfo(path);
+                .TICKER_SINGLE();
     }
 
-    public Call<Transaction_List_Response> get_transaction(String path, int count) {
-        return RetrofitFactory
-                .createRetrofit("https://api.bithumb.com/") // Retrofit객체 반환
-                .create(ExampleService.class)
-                .transactionInfo(path, count);
-    }
-
-    public io.reactivex.rxjava3.core.Single<Ticker_Response> get_Ticker_Single(String path){
-        return RetrofitFactory
-                .createRetrofit("https://api.bithumb.com/")
-                .create(ExampleService.class)
-                .TICKER_SINGLE(path);
-    }
-
-    public Single<Transaction_List_Response> get_Transzction_Single(String path, int count){
+    public Single<Transaction_List_Response> get_Transaction_Single(String path, int count){
         return RetrofitFactory
                 .createRetrofit("https://api.bithumb.com/")
                 .create(ExampleService.class)

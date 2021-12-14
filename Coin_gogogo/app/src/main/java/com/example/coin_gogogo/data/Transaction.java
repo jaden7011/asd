@@ -24,8 +24,4 @@ public class Transaction {
         this.price = price;
         this.type = type;
     }
-
-    public Transaction getTransaction(){
-        return this.transaction;
-    }
 }
