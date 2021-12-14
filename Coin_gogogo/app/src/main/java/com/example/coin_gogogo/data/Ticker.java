@@ -4,9 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Ticker {
 
-    @SerializedName("data")
-    private Ticker ticker;
-
     @SerializedName("prev_closing_price")
     public String prev_closing_price; //전일 종가
     @SerializedName("acc_trade_value_24H")
@@ -36,9 +33,5 @@ public class Ticker {
 
     public void setFluctate_rate_24H(String fluctate_rate_24H) {
         this.fluctate_rate_24H = fluctate_rate_24H;
-    }
-
-    public Ticker getTicker(){
-        return this.ticker;
     }
 }

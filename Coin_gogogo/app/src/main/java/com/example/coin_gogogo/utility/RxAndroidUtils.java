@@ -19,7 +19,7 @@ public class RxAndroidUtils {
     }
 
     public Observable<String> getEditTextObservable(EditText editText){
-        return RxTextView.textChanges(editText).map(charSequence -> charSequence.toString());
+        return RxTextView.textChanges(editText).map(CharSequence::toString);
     }
 
     public String getTAG(){

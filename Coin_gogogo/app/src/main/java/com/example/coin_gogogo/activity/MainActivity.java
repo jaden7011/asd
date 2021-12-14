@@ -16,15 +16,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.coin_gogogo.R;
-import com.example.coin_gogogo.Retrofit.ExampleService;
-import com.example.coin_gogogo.Retrofit.RetrofitFactory;
+import com.example.coin_gogogo.Retrofit.Repository;
 import com.example.coin_gogogo.adapter.Coin_Adapter;
 import com.example.coin_gogogo.data.Coin_Info;
 import com.example.coin_gogogo.data.Coin_Map;
 import com.example.coin_gogogo.data.Ticker;
-import com.example.coin_gogogo.data.Ticker_List;
+import com.example.coin_gogogo.data.Ticker_Response;
 import com.example.coin_gogogo.data.Transaction;
-import com.example.coin_gogogo.data.Transaction_List;
+import com.example.coin_gogogo.data.Transaction_List_Response;
 import com.example.coin_gogogo.databinding.ActivityMainBinding;
 import com.example.coin_gogogo.utility.RxAndroidUtils;
 import com.example.coin_gogogo.utility.Utility;
@@ -32,15 +31,18 @@ import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,11 +52,12 @@ public class MainActivity extends AppCompatActivity {
     private final Coin_Map coin_map = new Coin_Map();
     private final Map<String,String> Coin_Map = coin_map.getCoin_names();
     private Map<String,Coin_Info> coin_Info_map = coin_map.getCoins_map();
-    private ArrayList<Coin_Info> res_coins  = new ArrayList<>();
     private Coin_Adapter coin_adpater;
     private boolean isRunning=true;
     private final Activity activity = this;
     private Disposable ET_Observable_Disposable;
+
+    private Set<Coin_Info> coin_infos = new HashSet<>();
 
     public interface Listener_Complete_Get_Transaction {
         void onComplete(Transaction transaction);
@@ -138,10 +141,76 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        Get_API();
+//       Observable<Coin_Info> observable = Observable
+//               .fromIterable(coin_infos)
+//               .subscribeOn(Schedulers.io())
+//               .observeOn(AndroidSchedulers.mainThread());
+//
+//               observable.subscribe(new io.reactivex.rxjava3.core.Observer<Coin_Info>() {
+//                   @Override
+//                   public void onSubscribe(@NonNull Disposable d) {
+//                       Log.d("onSubscribe","name: ");
+//                       Get_API();
+////                coin_infos.add(new Coin_Info("1","a","24","24","24","24"));
+////                coin_infos.add(new Coin_Info("2","a","24","24","24","24"));
+////                coin_infos.add(new Coin_Info("3","a","24","24","24","24"));
+////                coin_infos.add(new Coin_Info("4","a","24","24","24","24"));
+////                coin_infos.add(new Coin_Info("5","a","24","24","24","24"));
+//                   }
+//
+//                   @Override
+//                   public void onNext(@NonNull Coin_Info coin_info) {
+//                       Log.d("observable","name: "+coin_info.Name);
+//                       binding.searchET.setText(coin_info.Name);
+//                       Toast(coin_info.Name);
+//                   }
+//
+//                   @Override
+//                   public void onError(@NonNull Throwable e) {
+//
+//                   }
+//
+//                   @Override
+//                   public void onComplete() {
+//
+//                   }
+//               });
 
-//        Observable<Coin_Info> observable = Observable
-//                .in
+
+//        Set<String> set = new HashSet<>();
+//
+//        Observable<String> observable1 = Observable
+//                .fromIterable(set)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread());
+//
+//        observable1
+//                .subscribe(new Observer<String>() {
+//            @Override
+//            public void onSubscribe(@NonNull Disposable d) {
+//                set.add("1");
+//                set.add("2");
+//                set.add("3");
+//                set.add("4");
+//            }
+//
+//            @Override
+//            public void onNext(@NonNull String s) {
+//                Log.d("observable","name: "+s);
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        });
+
+        Get_API();
     }
 
     public void Get_API(){
@@ -150,113 +219,71 @@ public class MainActivity extends AppCompatActivity {
             String Key_sub = entry.getKey(); //ex) BTC
             String Val_fullname = entry.getValue(); //ex) 비트코인
 
-            RetrofitFactory
-                    .createRetrofit("https://api.bithumb.com/")
-                    .create(ExampleService.class)
-                    .tickerInfo(Key_sub)
-                    .enqueue(new Callback<Ticker>() {
+            Repository.getInstance().get_Transzction_Single(Key_sub,1)
+                    .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<Transaction_List_Response>() {
                         @Override
-                        public void onResponse(Call<Ticker> call, retrofit2.Response<Ticker> response1) {
-                            RetrofitFactory
-                                    .createRetrofit("https://api.bithumb.com/") // Retrofit객체 반환
-                                    .create(ExampleService.class)
-                                    .transactionInfo(Key_sub, 1)
-                                    .enqueue(new Callback<Transaction_List>() {
+                        public void onSubscribe(@NonNull Disposable d) {}
+                        @Override
+                        public void onSuccess(@NonNull Transaction_List_Response transactions) {
+                            Repository.getInstance().get_Ticker_Single(Key_sub)
+                                    .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(new SingleObserver<Ticker_Response>() {
                                         @Override
-                                        public void onResponse(Call<Transaction_List> call, retrofit2.Response<Transaction_List> response2) {
-                                            Ticker ticker = response1.body();
-                                            Transaction_List transactions = response2.body();
-
-                                            Coin_Info coin_info = new Coin_Info(
+                                        public void onSubscribe(@NonNull Disposable d) {}
+                                        @Override
+                                        public void onSuccess(@NonNull Ticker_Response ticker) {
+                                            coin_infos.add(new Coin_Info(
                                                     Val_fullname,
                                                     Key_sub,
                                                     transactions.data.get(0).price,
-                                                    ticker.prev_closing_price,
-                                                    ticker.fluctate_rate_24H,
-                                                    ticker.acc_trade_value_24H);
+                                                    ticker.data.prev_closing_price,
+                                                    ticker.data.fluctate_rate_24H,
+                                                    ticker.data.acc_trade_value_24H
+                                            ));
 
-                                            coin_Info_map.put(Key_sub,coin_info);
+                                            Log.d("retrofit2x","prev_closing_price: "+ticker.data.prev_closing_price);
+                                            Log.d("retrofit2x","fluctate_rate_24H: "+ticker.data.fluctate_rate_24H);
+                                            Log.d("retrofit2x","acc_trade_value_24H: "+ticker.data.acc_trade_value_24H);
+                                            Log.d("retrofit2x","transactions price: "+transactions.data.get(0).price);
 
-//                                            Log.d("retrofit2",ticker.getTicker().fluctate_rate_24H);
-//                                            Log.d("retrofit2",ticker.getTicker().prev_closing_price);
-//                                            Log.d("retrofit2",transactions.data.get(0).price);
-//                                            Log.d("retrofit2",transactions.data.get(0).transaction_date);
-//                                            Log.d("retrofit2","갯수: "+transactions.data.size());
-                                            Log.d("retrofit2","결과물: "+coin_Info_map.size());
+                                            if (coin_infos.size() == 36){
+                                                Log.d("retrofit2x","결과물: "+coin_infos.size());
+                                                Show_Recycler();
+                                            }else
+                                                Log.d("retrofit2","결과물: "+coin_infos.size());
                                         }
                                         @Override
-                                        public void onFailure(Call<Transaction_List> call, Throwable t) {
-                                            Log.d("retrofit2","f transac");
-                                        }
+                                        public void onError(@NonNull Throwable e) {}
                                     });
                         }
                         @Override
-                        public void onFailure(Call<Ticker> call, Throwable t) {
-                            Log.d("retrofit2","f ticker");
-                        }
+                        public void onError(@NonNull Throwable e) {}
                     });
         }
     }
 
-    class NetworkThread extends Thread{
-        @Override
-        public void run() {
-            while(isRunning) {
-                try {
-                    for(Map.Entry<String,String> entry : Coin_Map.entrySet()){
-                        String Key_sub = entry.getKey(); //ex) BTC
-                        String Val_fullname = entry.getValue(); //ex) 비트코인
-
-                        Get_Transaction(Key_sub, new Listener_Complete_Get_Transaction() {
-                            @Override
-                            public void onComplete(Transaction transaction) { //현재가 먼저 찾고
-                                Get_Ticker(Key_sub, new Listener_Complete_Get_Ticker() {
-                                    @Override
-                                    public void onComplete(Ticker ticker) { //변동률 찾고
-                                        coin_Info_map.put(Key_sub,new Coin_Info(Val_fullname,
-                                                Key_sub,transaction.price,
-                                                ticker.prev_closing_price,
-                                                ticker.fluctate_rate_24H,
-                                                ticker.acc_trade_value_24H));
-
-                                        if(coin_Info_map.size() == 36)
-                                            runOnUiThread(new Runnable() {
-                                                @Override
-                                                public void run() {
-//                                                Log.d("runOnUIThread","original size: "+Coin_Map.keySet().size()+"\nres size: "+coin_Info_map.size());
-                                                    Show_Recycler();
-                                                }
-                                            });
-                                    }
-                                });
-                            }
-                        });
-                    }
-                    Thread.sleep(5000);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
     public void Show_Recycler(){
-        if(coin_Info_map.size() != 36)
+        if(coin_infos.size() != 36)
             return;
+        coins.addAll(coin_infos);
 
-//        Log.d("Show_Recycler","size : "+coin_Info_map.size());
-        isRunning = false;
-        coins.clear();
-        for(Map.Entry<String,Coin_Info> entry : coin_Info_map.entrySet()){
-//            Log.d("Show_Recycler","name : "+entry.getValue().Name+"\nprice: "+entry.getValue().Price);
-            coins.add(entry.getValue());
-        }
         Log.d("Show_Recycler","size : "+coins.size());
+
+        coins.sort(new Comparator<Coin_Info>() {
+            @Override
+            public int compare(Coin_Info o1, Coin_Info o2) {
+                Log.d("Show_Recycler","o1 : "+o1.Total+"\no2 : "+o2.Total);
+                if(Double.parseDouble(o1.Total) <= Double.parseDouble(o2.Total))
+                    return 1;
+                else return -1;
+            }
+        });
+
         coin_adpater.CoinDiffUtil(new ArrayList<>(coins));
-//        coin_adpater.notifyDataSetChanged();
-        coin_Info_map.clear();
-        isRunning = true;
+        coins.clear();
     }
 
 
@@ -320,7 +347,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Transaction Transaction_history_Respose(String response){
         Gson gson = new Gson();
-        Transaction_List dataList = gson.fromJson(response, Transaction_List.class);
+        Transaction_List_Response dataList = gson.fromJson(response, Transaction_List_Response.class);
 
         //상태값이 성공일 때 -> 데이터 뿌려줄 예정
         if(dataList.status.equals("0000")){
@@ -339,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Ticker Ticker_Respose(String response){
         Gson gson = new Gson();
-        Ticker_List dataList = gson.fromJson(response, Ticker_List.class);
+        Ticker_Response dataList = gson.fromJson(response, Ticker_Response.class);
 
         //상태값이 성공일 때 -> 데이터 뿌려줄 예정
         if(dataList.status.equals("0000")){
