@@ -21,10 +21,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.coin_gogogo.R;
+import com.example.coin_gogogo.adapter.Post_Adapter;
 import com.example.coin_gogogo.data.Candle;
 import com.example.coin_gogogo.data.Candle_List;
 import com.example.coin_gogogo.databinding.ActivityBoardBinding;
-import com.example.coin_gogogo.utility.MPchart;
+import com.example.coin_gogogo.info.PostInfo;
+import com.example.coin_gogogo.utility.Utility;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -35,6 +37,7 @@ import com.google.gson.Gson;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,8 +49,10 @@ public class BoardActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBar actionBar;
     private String name;
-    private CandleStickChart candleStickChart;
     private RequestQueue requestQueue;
+    private Utility utility;
+    private Post_Adapter post_adapter;
+    private ArrayList<PostInfo> postInfos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +62,11 @@ public class BoardActivity extends AppCompatActivity {
         if (requestQueue == null)
             requestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        candleStickChart = binding.priceChart;
         Bundle bundle = getIntent().getExtras();
         name = bundle.getString("name");
         Log.d("Start BoardActivity","coin: "+ name);
-        setToolbar();
 
+        setToolbar();
         Get_Candlestick(name);
     }
 
@@ -85,7 +89,8 @@ public class BoardActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("onResponse_Candlestick","onResponse 진입");
-                        Candle_Response(response);
+                        ArrayList<Candle> candles = Candle_Response(response);
+                        Show_Recycler(candles);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -103,28 +108,71 @@ public class BoardActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void Candle_Response(String response){
+    private ArrayList<Candle> Candle_Response(String response){
         Gson gson = new Gson();
         Candle_List dataList = gson.fromJson(response, Candle_List.class);
 
         //상태값이 성공일 때 -> 데이터 뿌려줄 예정
         if(dataList.status.equals("0000")){
-            Log.d("Respose","R:");
+            Log.d("Response","R: success");
             ArrayList<Candle> candles = new ArrayList<>();
 
             for(int x=0; x<dataList.data.size();x++) {
                 Candle candle = String_to_candle(dataList.data.get(x).toString());
                 candles.add(candle);
             }
-//
-//            initChart(candleStickChart);
-//            Set_priceData(candleStickChart,candles);
-
-            MPchart.getInstance(candleStickChart).Init_Chart();
-            MPchart.getInstance(candleStickChart).Set_priceData(candles);
+            return candles;
         }else{
-            Log.d("Candle_Respose","R: error");
+            Log.d("Candle_Response","R: error");
+            return null;
         }
+    }
+
+    private void Show_Recycler(ArrayList<Candle> candles){
+        postInfos = new ArrayList<>();
+        postInfos.add(null);
+        postInfos.add(new PostInfo(
+                "id",
+                "publisher",
+                "title",
+                "contents",
+                new Date(),
+                "docid",
+                "location"
+        ));
+        postInfos.add(new PostInfo(
+                "id",
+                "publisher",
+                "title",
+                "contents",
+                new Date(),
+                "docid",
+                "location"
+        ));
+        postInfos.add(new PostInfo(
+                "id",
+                "publisher",
+                "title",
+                "contents",
+                new Date(),
+                "docid",
+                "location"
+        ));
+        postInfos.add(new PostInfo(
+                "id",
+                "publisher",
+                "title",
+                "contents",
+                new Date(),
+                "docid",
+                "location"
+        ));
+
+        post_adapter = new Post_Adapter(this,postInfos,candles);
+        utility = new Utility(this,binding.BoardRecycler,post_adapter);
+        utility.RecyclerInit("VERTICAL");
+        post_adapter.notifyDataSetChanged();
+//        post_adapter.PostDiffUtil(postInfos);
     }
 
     public Candle String_to_candle(String str){

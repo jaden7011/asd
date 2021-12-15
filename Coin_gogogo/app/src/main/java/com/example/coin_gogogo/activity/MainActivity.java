@@ -1,6 +1,5 @@
 package com.example.coin_gogogo.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.example.coin_gogogo.R;
 import com.example.coin_gogogo.Retrofit.Repository;
 import com.example.coin_gogogo.adapter.Coin_Adapter;
@@ -49,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private Map<String,Coin_Info> coin_Info_map = coin_map.getCoins_map();
     private Coin_Adapter coin_adpater;
     private boolean isRunning=true;
-    private final Activity activity = this;
     private Disposable ET_Observable_Disposable;
 
     private HashMap<String,Coin_Info> coin_infos = new HashMap<>();
@@ -78,11 +75,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        if (requestQueue == null)
-            requestQueue = Volley.newRequestQueue(getApplicationContext());
-
         coin_adpater = new Coin_Adapter(this,new ArrayList<Coin_Info>());
-        Utility utility = new Utility(activity,binding.CoinRecyclerView,coin_adpater);
+        Utility utility = new Utility(this,binding.CoinRecyclerView,coin_adpater);
         utility.RecyclerInit("VERTICAL");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -106,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                         }else{
                             Toast("검색결과가 없습니다.");
                         }
-                    }else if(s.length() == 0 ){
+                    }else if(s.length() == 0){
                         Get_API();
                     }
                 });
@@ -146,8 +140,6 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        Get_API();
-
         //todo 적당히 몇 개만 찾아서 띄우고 대화방으로 넘어가는 걸로 -> 검색기능은 repeate이 없으면 쉬움 -? repeate이 있다면 중간에 transaction에서 필터링 해줘야함
 
     }
@@ -176,11 +168,10 @@ public class MainActivity extends AppCompatActivity {
                                Repository.getInstance().get_Transaction_Single(name, 1)
                                        .subscribeOn(Schedulers.io())
                                        .observeOn(AndroidSchedulers.mainThread())
+                                       .doOnError(Throwable::printStackTrace)
                                        .subscribe(new Consumer<Transaction_List_Response>() {
                                            @Override
                                            public void accept(Transaction_List_Response transaction_list_response) throws Throwable {
-
-                                               Log.d("Get_API accept: ", result.data.size() - 1 + "");
 
                                                coin_infos.put(name,new Coin_Info(
                                                        name,

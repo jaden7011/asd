@@ -2,6 +2,7 @@ package com.example.coin_gogogo.utility;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 
 import com.example.coin_gogogo.data.Candle;
 import com.github.mikephil.charting.charts.CandleStickChart;
@@ -26,11 +27,13 @@ public class MPchart {
     public static MPchart getInstance(CandleStickChart candleStickChart){
         if(instance == null)
             instance = new MPchart(candleStickChart);
+        //todo 새롭게 생성안하고 계속 같은걸 써서 다른 차트로 넘기면 안나옴 고치자
 
         return instance;
     }
 
     public void Init_Chart(){
+        Log.d("Init_Chart","Init_Chart: ");
         CandleStickChart priceChart = this.candleStickChart;
 
         priceChart.getDescription().setEnabled(false);
@@ -65,11 +68,12 @@ public class MPchart {
         Right_Axis.setGridColor(Color.rgb(50,59,79));
 
         priceChart.setAutoScaleMinMaxEnabled(true);
-        priceChart.getLegend().setEnabled(true);
+        priceChart.getLegend().setEnabled(false);
     }
 
     public void Set_priceData(ArrayList<Candle> candles) {
         CandleStickChart priceChart = this.candleStickChart;
+        Log.d("Set_priceData","candles: "+candles.size());
 
         List<CandleEntry> candleEntries = new ArrayList<>();
 
@@ -114,9 +118,5 @@ public class MPchart {
         priceChart.setVisibleXRange(10,LIMIT_NUM); //한 화면에 보이는 갯수
         //가장 최근의 데이터로 스크롤해줌.
         priceChart.moveViewToX(priceChart.getData().getEntryCount() - (LIMIT_NUM+1));
-    }
-
-    public CandleStickChart getCandleStickChart() {
-        return candleStickChart;
     }
 }
