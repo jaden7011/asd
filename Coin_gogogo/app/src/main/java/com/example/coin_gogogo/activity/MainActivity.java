@@ -27,15 +27,14 @@ import com.google.gson.Gson;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -53,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private final Activity activity = this;
     private Disposable ET_Observable_Disposable;
 
-    private Set<Coin_Info> coin_infos = new HashSet<>();
+    private HashMap<String,Coin_Info> coin_infos = new HashMap<>();
     Set<String> set = new HashSet<>();
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
@@ -104,46 +103,56 @@ public class MainActivity extends AppCompatActivity {
                 .debounce(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s->{
+                    s = s.toUpperCase();
                     Log.d(RxAndroidUtils.getInstance().getTAG(),s);
+
                     if(s.length() >= 2) {
-                        Toast("님 이제 retrofit + rxjava로 api 가져와보세요");
+                        HashMap<String,Coin_Info> searched = Search(s);
+                        Log.d("Search","size:" + searched.size());
+
+                        if (searched != null && searched.size() != 0){
+                            Toast("검색되었습니다.");
+                            Show_Recycler(searched);
+                        }else{
+                            Toast("검색결과가 없습니다.");
+                        }
                     }
                 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        Observable<Coin_Info> observable = Observable
-                .fromIterable(coins)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-
-        observable.subscribe(new io.reactivex.rxjava3.core.Observer<Coin_Info>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                Log.d("onSubscribe","name: ");
-//                       Get_API();
-//                coin_infos.add(new Coin_Info("1","a","24","24","24","24"));
-//                coin_infos.add(new Coin_Info("2","a","24","24","24","24"));
-//                coin_infos.add(new Coin_Info("3","a","24","24","24","24"));
-//                coin_infos.add(new Coin_Info("4","a","24","24","24","24"));
-//                coin_infos.add(new Coin_Info("5","a","24","24","24","24"));
-            }
-
-            @Override
-            public void onNext(@NonNull Coin_Info coin_info) {
-                Log.d("observable","name: "+coin_info.Name);
-                Toast(coin_info.Name);
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
+//        Observable<Coin_Info> observable = Observable
+//                .fromIterable(coins)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread());
+//
+//        observable.subscribe(new io.reactivex.rxjava3.core.Observer<Coin_Info>() {
+//            @Override
+//            public void onSubscribe(@NonNull Disposable d) {
+//                Log.d("onSubscribe","name: ");
+////                       Get_API();
+////                coin_infos.add(new Coin_Info("1","a","24","24","24","24"));
+////                coin_infos.add(new Coin_Info("2","a","24","24","24","24"));
+////                coin_infos.add(new Coin_Info("3","a","24","24","24","24"));
+////                coin_infos.add(new Coin_Info("4","a","24","24","24","24"));
+////                coin_infos.add(new Coin_Info("5","a","24","24","24","24"));
+//            }
+//
+//            @Override
+//            public void onNext(@NonNull Coin_Info coin_info) {
+//                Log.d("observable","name: "+coin_info.Name);
+//                Toast(coin_info.Name);
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        });
 
         Get_API();
 
@@ -153,15 +162,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void Get_API(){
 
-       Repository.getInstance().get_Ticker()
+       Repository.getInstance().get_Ticker("ALL")
                .subscribeOn(Schedulers.io())
+//               .observeOn(AndroidSchedulers.mainThread())
                .doOnError(Throwable::printStackTrace)
-               .subscribe(new Observer<Ticker_Response>() {
+               .subscribe(new Consumer<Ticker_Response>() {
                    @Override
-                   public void onSubscribe(@NonNull Disposable d) {
-                   }
-                   @Override
-                   public void onNext(@NonNull Ticker_Response result) {
+                   public void accept(Ticker_Response result) throws Throwable {
+                       Log.d("Get_API onNext: ", result.data.size() - 1 + "");
 
                        for (Map.Entry<String,Object> entry : result.data.entrySet()) {
                            String name = entry.getKey();
@@ -179,7 +187,10 @@ public class MainActivity extends AppCompatActivity {
                                        .subscribe(new Consumer<Transaction_List_Response>() {
                                            @Override
                                            public void accept(Transaction_List_Response transaction_list_response) throws Throwable {
-                                               coin_infos.add(new Coin_Info(
+
+                                               Log.d("Get_API accept: ", result.data.size() - 1 + "");
+
+                                               coin_infos.put(name,new Coin_Info(
                                                        name,
                                                        name,
                                                        transaction_list_response.data.get(0).price,
@@ -190,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
 
                                                if (coin_infos.size() == result.data.size() - 1) {
                                                    Log.d("Get_API size: ", result.data.size() - 1 + "");
-                                                   Show_Recycler();
+                                                   Show_Recycler(coin_infos);
                                                }
                                            }
                                        });
@@ -199,17 +210,11 @@ public class MainActivity extends AppCompatActivity {
                            }
                        }
                    }
-                   @Override
-                   public void onError(@NonNull Throwable e) {
-                   }
-                   @Override
-                   public void onComplete() {
-                   }
                });
     }
 
-    public void Show_Recycler(){
-        coins.addAll(coin_infos);
+    public void Show_Recycler(HashMap<String,Coin_Info> param_coin_set){
+        coins.addAll(param_coin_set.values());
 
         Log.d("Show_Recycler","size : "+coins.size());
 
@@ -224,6 +229,19 @@ public class MainActivity extends AppCompatActivity {
 
         coin_adpater.CoinDiffUtil(new ArrayList<>(coins));
         coins.clear();
+    }
+
+    public HashMap<String,Coin_Info> Search(String keyword){
+
+        HashMap<String,Coin_Info> searched = new HashMap<>();
+
+        for(Map.Entry<String,Coin_Info> entry : coin_infos.entrySet()){
+            if(entry.getKey().contains(keyword)){
+                searched.put(entry.getKey(),entry.getValue());
+            }
+        }
+
+        return searched;
     }
 
 //
