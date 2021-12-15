@@ -1,10 +1,13 @@
 package com.example.coin_gogogo.activity;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,8 +23,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.coin_gogogo.R;
 import com.example.coin_gogogo.data.Candle;
 import com.example.coin_gogogo.data.Candle_List;
-import com.example.coin_gogogo.data.Coin_Map;
 import com.example.coin_gogogo.databinding.ActivityBoardBinding;
+import com.example.coin_gogogo.utility.MPchart;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -45,7 +48,6 @@ public class BoardActivity extends AppCompatActivity {
     private String name;
     private CandleStickChart candleStickChart;
     private RequestQueue requestQueue;
-    private final Coin_Map coin_map = new Coin_Map();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +60,10 @@ public class BoardActivity extends AppCompatActivity {
         candleStickChart = binding.priceChart;
         Bundle bundle = getIntent().getExtras();
         name = bundle.getString("name");
+        Log.d("Start BoardActivity","coin: "+ name);
         setToolbar();
 
-        for(Map.Entry<String,String> entry : coin_map.getCoin_names().entrySet()){
-            if(name.equals(entry.getValue()))
-                Get_Candlestick(entry.getKey());
-        }
+        Get_Candlestick(name);
     }
 
     public void setToolbar () {
@@ -78,7 +78,6 @@ public class BoardActivity extends AppCompatActivity {
 
     private void Get_Candlestick(String CoinNm){
 
-        final String CoinName = CoinNm;
         String url = "https://api.bithumb.com/public/candlestick/"+CoinNm+"_KRW/24h";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET,url,
@@ -86,7 +85,7 @@ public class BoardActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.d("onResponse_Candlestick","onResponse 진입");
-                        Candle_Respose(response);
+                        Candle_Response(response);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -104,9 +103,8 @@ public class BoardActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void Candle_Respose(String response){
+    private void Candle_Response(String response){
         Gson gson = new Gson();
-        //원하는 형태로 받아오기.....짱인데?
         Candle_List dataList = gson.fromJson(response, Candle_List.class);
 
         //상태값이 성공일 때 -> 데이터 뿌려줄 예정
@@ -118,9 +116,14 @@ public class BoardActivity extends AppCompatActivity {
                 Candle candle = String_to_candle(dataList.data.get(x).toString());
                 candles.add(candle);
             }
+//
+//            initChart(candleStickChart);
+//            Set_priceData(candleStickChart,candles);
 
-            initChart(candleStickChart);
-            Set_priceData(candleStickChart,candles);
+            MPchart.getInstance(candleStickChart).Init_Chart();
+            MPchart.getInstance(candleStickChart).Set_priceData(candles);
+        }else{
+            Log.d("Candle_Respose","R: error");
         }
     }
 
@@ -156,7 +159,7 @@ public class BoardActivity extends AppCompatActivity {
 
     public void initChart(CandleStickChart priceChart){
         priceChart.getDescription().setEnabled(false);
-        priceChart.setMaxVisibleValueCount(100);
+//        priceChart.setMaxVisibleValueCount(50);
         priceChart.setPinchZoom(true);
         priceChart.setDrawGridBackground(false);
 
@@ -166,7 +169,7 @@ public class BoardActivity extends AppCompatActivity {
 //        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 //        //세로선 표시여부
 //        xAxis.setDrawGridLines(false);
-//        xAxis.setAxisLineColor(Color.rgb(50,59,76));
+        xAxis.setAxisLineColor(Color.BLACK);
 //        xAxis.setGridColor(Color.rgb(50,59,76));
         xAxis.setEnabled(false);
 
@@ -176,16 +179,17 @@ public class BoardActivity extends AppCompatActivity {
 
         //오른쪽 y축
         YAxis Right_Axis = priceChart.getAxisRight();
-        Right_Axis.setLabelCount(4,false);
+        Right_Axis.setLabelCount(3,false);
         Right_Axis.setTextColor(Color.BLACK);
 
         //가로선 표시여부
         Right_Axis.setDrawGridLines(true);
         // 차트의 오른쪽 테두리 라인 설정
         Right_Axis.setDrawAxisLine(true);
-        Right_Axis.setAxisLineColor(Color.rgb(50,59,76));
+        Right_Axis.setAxisLineColor(Color.BLACK);
         Right_Axis.setGridColor(Color.rgb(50,59,79));
 
+        priceChart.setAutoScaleMinMaxEnabled(true);
         priceChart.getLegend().setEnabled(true);
     }
 
@@ -228,11 +232,20 @@ public class BoardActivity extends AppCompatActivity {
         priceChart.setData(candleData);
         priceChart.invalidate();
 
-        final int LIMIT_NUM = 100;
+        final int LIMIT_NUM = 30;
 
         priceChart.setVisibleXRange(10,LIMIT_NUM); //한 화면에 보이는 갯수
         //가장 최근의 데이터로 스크롤해줌.
         priceChart.moveViewToX(priceChart.getData().getEntryCount() - (LIMIT_NUM+1));
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 

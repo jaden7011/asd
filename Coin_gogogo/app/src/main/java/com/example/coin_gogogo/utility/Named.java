@@ -9,6 +9,7 @@ public class Named {
     public static final int GRID= 402;
     public static final int LOADING_VIEWTYPE = 1919;
     public static final int POSTING_VIEWTYPE = 1920;
+    public static final int CHART_VIEWTYPE = 1921;
 
     public static final int BOARD_FRAGMENT = 1201;
     public static final int NOTIFICATION_FRAGMENT = 1202;

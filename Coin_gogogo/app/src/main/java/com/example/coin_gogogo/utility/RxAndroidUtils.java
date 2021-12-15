@@ -8,10 +8,6 @@ public class RxAndroidUtils {
     private static final String RXTAG = RxAndroidUtils.class.getSimpleName();
     private static RxAndroidUtils instance;
 
-    RxAndroidUtils(){
-
-    }
-
     public static RxAndroidUtils getInstance(){
         if(instance == null)
             instance = new RxAndroidUtils();
