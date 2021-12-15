@@ -85,16 +85,6 @@ public class MainActivity extends AppCompatActivity {
         Utility utility = new Utility(activity,binding.CoinRecyclerView,coin_adpater);
         utility.RecyclerInit("VERTICAL");
 
-//        binding.btn.setOnClickListener(new View.OnClickListener() {
-//            @Override엘
-//            public void onClick(View v) {
-//                String c_name = binding.tv.getText().toString().toUpperCase();
-//                if(Coin_Map.containsKey(c_name))
-//                    Get_Candlestick(binding.tv.getText().toString().toUpperCase());
-//                else
-//                    Toast("서비스하지 않는 코인입니다.");
-//            }
-//        });
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Observable<String> editTextObservable =
                 RxAndroidUtils.getInstance().getEditTextObservable(binding.searchET);
@@ -116,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                         }else{
                             Toast("검색결과가 없습니다.");
                         }
+                    }else if(s.length() == 0 ){
+                        Get_API();
                     }
                 });
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

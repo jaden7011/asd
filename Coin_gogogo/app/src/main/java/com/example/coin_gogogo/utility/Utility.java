@@ -1,6 +1,7 @@
 package com.example.coin_gogogo.utility;
 
 import android.app.Activity;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +14,10 @@ public class Utility {
     private Activity activity;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter<RecyclerView.ViewHolder> adapter;
+
+    public Utility(Activity activity){
+        this.activity = activity;
+    }
 
     public Utility(Activity activity, RecyclerView recyclerView, RecyclerView.Adapter<RecyclerView.ViewHolder> adapter) {
         this.activity = activity;
@@ -55,6 +60,7 @@ public class Utility {
 //            adapter = null;
 //            recyclerView = null;
 //        }
-
     }
+    public void Toast(String str){
+        Toast.makeText(this.activity,str,Toast.LENGTH_SHORT).show(); }
 }
