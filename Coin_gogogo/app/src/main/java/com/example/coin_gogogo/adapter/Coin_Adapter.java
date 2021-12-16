@@ -93,7 +93,7 @@ public class Coin_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             public void onClick(View v) {
                 //todo 종토방 및 차트 등등
                 Intent intent = new Intent(activity, BoardActivity.class);
-                intent.putExtra("name", coin_holder.Name.getText());
+                intent.putExtra("coin", coin_holder.Name.getText());
                 activity.startActivityForResult(intent, POSTHODER_TO_POSTACTIVITY);
             }
         });

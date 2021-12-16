@@ -2,6 +2,7 @@ package com.example.coin_gogogo.adapter;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coin_gogogo.R;
+import com.example.coin_gogogo.activity.PostActivity;
 import com.example.coin_gogogo.data.Candle;
 import com.example.coin_gogogo.info.PostInfo;
 import com.example.coin_gogogo.utility.MPchart;
@@ -114,6 +116,8 @@ public class Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 @Override
                 public void onClick(View v) {
                     //todo 종토방 및 차트 등등
+                    Intent intent = new Intent(activity, PostActivity.class);
+                    activity.startActivity(intent);
                 }
             });
             return post_holder;

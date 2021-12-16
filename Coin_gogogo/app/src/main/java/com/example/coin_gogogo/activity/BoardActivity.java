@@ -1,13 +1,16 @@
 package com.example.coin_gogogo.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -43,12 +46,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import static com.example.coin_gogogo.utility.Named.DELETE_RESULT;
+import static com.example.coin_gogogo.utility.Named.WRITE_RESULT;
+
 public class BoardActivity extends AppCompatActivity {
 
     ActivityBoardBinding binding;
     private Toolbar toolbar;
     private ActionBar actionBar;
-    private String name;
+    private String coin;
     private RequestQueue requestQueue;
     private Utility utility;
     private Post_Adapter post_adapter;
@@ -63,11 +69,11 @@ public class BoardActivity extends AppCompatActivity {
             requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         Bundle bundle = getIntent().getExtras();
-        name = bundle.getString("name");
-        Log.d("Start BoardActivity","coin: "+ name);
+        coin = bundle.getString("coin");
+        Log.d("Start BoardActivity","coin: "+ coin);
 
         setToolbar();
-        Get_Candlestick(name);
+        Get_Candlestick(coin);
     }
 
     public void setToolbar () {
@@ -77,7 +83,7 @@ public class BoardActivity extends AppCompatActivity {
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);//기본 제목을 없애줍니다.
         actionBar.setDisplayHomeAsUpEnabled(true);
-        toolbar.setTitle(name);
+        toolbar.setTitle(coin);
     }
 
     private void Get_Candlestick(String CoinNm){
@@ -132,40 +138,31 @@ public class BoardActivity extends AppCompatActivity {
         postInfos = new ArrayList<>();
         postInfos.add(null);
         postInfos.add(new PostInfo(
-                "id",
                 "publisher",
                 "title",
                 "contents",
                 new Date(),
                 "docid",
-                "location"
+                "1234",
+                coin
         ));
         postInfos.add(new PostInfo(
-                "id",
                 "publisher",
                 "title",
                 "contents",
                 new Date(),
                 "docid",
-                "location"
+                "1234",
+                coin
         ));
         postInfos.add(new PostInfo(
-                "id",
                 "publisher",
                 "title",
                 "contents",
                 new Date(),
                 "docid",
-                "location"
-        ));
-        postInfos.add(new PostInfo(
-                "id",
-                "publisher",
-                "title",
-                "contents",
-                new Date(),
-                "docid",
-                "location"
+                "1234",
+                coin
         ));
 
         post_adapter = new Post_Adapter(this,postInfos,candles);
@@ -290,11 +287,55 @@ public class BoardActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        switch (item.getItemId()){
+            case R.id.toolbar_main_write_post_btn:{
+                Activity(WriteActivity.class, coin);
+                break;
+            }
+            case R.id.toolbar_main_search:{
+//                if(myAccount != null)
+//                    Activity(SearchActivity.class,myAccount.getLocation());
+                break;
+            }
+            case R.id.toolbar_main_reset:{
+//                item.setEnabled(false);
+//                boardFragment.UpScrolled();
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        item.setEnabled(true);
+                    }
+                }, 1500); //딜레이 타임 조절
+                break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == WRITE_RESULT) { //글쓰기 리턴값
+            Log.d("From WriteActivity","requestCode: "+requestCode);
+            //todo 새로고침
+        }
+
+        if (resultCode == DELETE_RESULT) { //글삭제 리턴값
+            //todo 새로고침
+            Log.d("From PostActivity","requestCode: "+requestCode);
+        }
+    }
+    public void Activity(Class c){
+        Intent intent = new Intent(this,c);
+        startActivityForResult(intent,1);
+    }
+
+    public void Activity(Class c,String coin){
+        Intent intent = new Intent(this,c);
+        intent.putExtra("coin",coin);
+        startActivityForResult(intent,1);
+    }
 
 }

@@ -2,9 +2,7 @@ package com.example.coin_gogogo.info;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,19 +15,18 @@ public class CommentInfo implements Parcelable {
     private String id;
     private int good;
     private HashMap<String, Integer> good_user;
-    private ArrayList<RecommentInfo> recomments;
     private String DateFormate_for_layout;
     private String How_Long;
+    private String password;
 
     public CommentInfo(){}
 
-    public CommentInfo(String contents, String publisher, Date createdAt, String id, int good, HashMap<String, Integer> good_user, ArrayList<RecommentInfo> recomments, String key) {
+    public CommentInfo(String contents, String publisher,String password, Date createdAt, String id, int good, HashMap<String, Integer> good_user, String key) {
         this.contents = contents;
         this.publisher = publisher;
         this.createdAt = createdAt;
         this.id = id;
         this.good = good;
-        this.recomments = recomments;
         this.key = key;
         this.good_user = good_user; //생성자 파라미터에는 없지만 처음 생성할 때는 비어있는게 정상이니 그대로 생성.
     }
@@ -43,23 +40,22 @@ public class CommentInfo implements Parcelable {
         this.good = p.getGood();
         this.DateFormate_for_layout = p.getDateFormate_for_layout();
         this.good_user = new HashMap<String,Integer>(p.getGood_user());
-        this.recomments = deepCopy_RecommentInfo(p.getRecomments());
         this.key = p.getKey();
+        this.password=p.password;
     }
 
     protected CommentInfo(Parcel in) {
+        password = in.readString();
         contents = in.readString();
         publisher = in.readString();
         createdAt = new Date(in.readLong());
         id = in.readString();
         good = in.readInt();
-        recomments = in.createTypedArrayList(RecommentInfo.CREATOR);
         key = in.readString();
         DateFormate_for_layout = in.readString();
         How_Long = in.readString();
 
         int size = in.readInt();
-        Log.d("vktmffjqmf2",""+size);
         if(size != 0) {
             good_user = new HashMap<>();
             for (int i = 0; i < size; i++) {
@@ -72,18 +68,17 @@ public class CommentInfo implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(password);
         dest.writeString(contents);
         dest.writeString(publisher);
         dest.writeLong(createdAt.getTime());
         dest.writeString(id);
         dest.writeInt(good);
-        dest.writeTypedList(recomments);
         dest.writeString(key);
         dest.writeString(DateFormate_for_layout);
         dest.writeString(How_Long);
 
         dest.writeInt(good_user.size());
-        Log.d("vktmffjqmf",""+good_user.size());
         for(Map.Entry<String, Integer> entry : good_user.entrySet()) {
             String key = entry.getKey();
             int val = Integer.parseInt(String.valueOf(entry.getValue())); //해쉬값에 있는 int가 number형이라 에러났던건데 그거때문에 오래 삽질했음.
@@ -109,6 +104,12 @@ public class CommentInfo implements Parcelable {
         }
     };
 
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public String getContents() {
         return contents;
     }
@@ -139,12 +140,6 @@ public class CommentInfo implements Parcelable {
     public void setGood(int good) {
         this.good = good;
     }
-    public ArrayList<RecommentInfo> getRecomments() {
-        return recomments;
-    }
-    public void setRecomments(ArrayList<RecommentInfo> recomments) {
-        this.recomments = recomments;
-    }
     public String getKey() {
         return key;
     }
@@ -168,18 +163,6 @@ public class CommentInfo implements Parcelable {
     }
     public void setGood_user(HashMap<String, Integer> good_user) {
         this.good_user = good_user;
-    }
-
-    public ArrayList<RecommentInfo> deepCopy_RecommentInfo(ArrayList<RecommentInfo> oldone){
-
-        ArrayList<RecommentInfo> newone = new ArrayList<>();
-
-        for(int x=0; x<oldone.size(); x++) {
-            if(oldone.get(x)==null)
-                continue;
-            newone.add(new RecommentInfo(oldone.get(x)));
-        }
-        return newone;
     }
 
 }
