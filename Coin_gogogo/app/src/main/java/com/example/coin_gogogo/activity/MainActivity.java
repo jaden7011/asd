@@ -149,13 +149,21 @@ public class MainActivity extends AppCompatActivity {
        Repository.getInstance().get_Ticker("ALL")
                .subscribeOn(Schedulers.io())
 //               .observeOn(AndroidSchedulers.mainThread())
+               .retry()
                .doOnError(Throwable::printStackTrace)
                .subscribe(new Consumer<Ticker_Response>() {
                    @Override
                    public void accept(Ticker_Response result) throws Throwable {
                        Log.d("Get_API onNext: ", result.data.size() - 1 + "");
+                       int cnt = 0;
 
                        for (Map.Entry<String,Object> entry : result.data.entrySet()) {
+                           Log.d("Get_API cnt: ", cnt + "");
+                           if(cnt == 30)
+                               break;
+                           else
+                               cnt++;
+
                            String name = entry.getKey();
                            Object obj = entry.getValue();
 
@@ -181,15 +189,17 @@ public class MainActivity extends AppCompatActivity {
                                                        ticker.fluctate_rate_24H,
                                                        ticker.acc_trade_value_24H
                                                ));
-
-                                               if (coin_infos.size() == result.data.size() - 1) {
+                                               Log.d("Get_API coin_infos: ", coin_infos.size() + "");
+//                                               if (coin_infos.size() == result.data.size() - 1)
+                                               if(coin_infos.size() == 30)
+                                               {
                                                    Log.d("Get_API size: ", result.data.size() - 1 + "");
                                                    Show_Recycler(coin_infos);
                                                }
                                            }
                                        });
-                               Log.d("Get_APIx", obj + "");
-                               Log.d("Get_API", ticker.prev_closing_price + "");
+//                               Log.d("Get_APIx", obj + "");
+//                               Log.d("Get_API", ticker.prev_closing_price + "");
                            }
                        }
                    }

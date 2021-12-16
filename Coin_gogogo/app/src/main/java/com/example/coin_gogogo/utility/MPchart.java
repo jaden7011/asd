@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
+import com.example.coin_gogogo.R;
 import com.example.coin_gogogo.data.Candle;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -20,36 +21,31 @@ public class MPchart {
     private static MPchart instance;
     private CandleStickChart candleStickChart;
 
-    MPchart(CandleStickChart candleStickChart){
+    public MPchart(CandleStickChart candleStickChart){
         this.candleStickChart = candleStickChart;
-    }
-
-    public static MPchart getInstance(CandleStickChart candleStickChart){
-        if(instance == null)
-            instance = new MPchart(candleStickChart);
-        //todo 새롭게 생성안하고 계속 같은걸 써서 다른 차트로 넘기면 안나옴 고치자
-
-        return instance;
     }
 
     public void Init_Chart(){
         Log.d("Init_Chart","Init_Chart: ");
         CandleStickChart priceChart = this.candleStickChart;
 
-        priceChart.getDescription().setEnabled(false);
-//        priceChart.setMaxVisibleValueCount(50);
+        priceChart.getDescription().setEnabled(true);
+        priceChart.setMaxVisibleValueCount(30);
         priceChart.setPinchZoom(true);
-        priceChart.setDrawGridBackground(false);
+        priceChart.setDrawGridBackground(true);
+        priceChart.getDescription().setText("일봉차트");
+        priceChart.getDescription().setTextColor(R.color.classicBlue);
+//        priceChart.getDescription().setPosition(XAxis.XAxisPosition.BOTTOM,YAxis.YAxisLabelPosition.OUTSIDE_CHART);
 
         //x축
         XAxis xAxis = priceChart.getXAxis();
 //        xAxis.setTextColor(Color.BLACK);
 //        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 //        //세로선 표시여부
-//        xAxis.setDrawGridLines(false);
+        xAxis.setDrawGridLines(true);
         xAxis.setAxisLineColor(Color.BLACK);
-//        xAxis.setGridColor(Color.rgb(50,59,76));
-        xAxis.setEnabled(false);
+        xAxis.setGridColor(Color.rgb(50,59,76));
+        xAxis.setEnabled(true);
 
         //왼쪽 y축
         YAxis Left_Axis = priceChart.getAxisLeft();
@@ -57,7 +53,7 @@ public class MPchart {
 
         //오른쪽 y축
         YAxis Right_Axis = priceChart.getAxisRight();
-        Right_Axis.setLabelCount(3,false);
+        Right_Axis.setLabelCount(5,false);
         Right_Axis.setTextColor(Color.BLACK);
 
         //가로선 표시여부
@@ -66,6 +62,9 @@ public class MPchart {
         Right_Axis.setDrawAxisLine(true);
         Right_Axis.setAxisLineColor(Color.BLACK);
         Right_Axis.setGridColor(Color.rgb(50,59,79));
+
+//        Right_Axis.setSpaceTop(0.5f);
+//        Right_Axis.setSpaceBottom(0.5f);
 
         priceChart.setAutoScaleMinMaxEnabled(true);
         priceChart.getLegend().setEnabled(false);
@@ -79,20 +78,19 @@ public class MPchart {
 
         for (int x = 0; x < candles.size(); x++) {
             candleEntries.add(new CandleEntry(
-                    // todo 인식이 안되는 ,,
-//                    (float)candles.get(x).createdAt,
                     x,
-                    candles.get(x).high,
-                    candles.get(x).low,
-                    candles.get(x).open,
-                    candles.get(x).close
+                    Float.parseFloat(candles.get(x).high),
+                    Float.parseFloat(candles.get(x).low),
+                    Float.parseFloat(candles.get(x).open),
+                    Float.parseFloat(candles.get(x).close)
             ));
-
 //            Log.d("candle", "creat: " + candles.get(x).createdAt + "\nhigh: " + candles.get(x).high + "\nlow: " + candles.get(x).low + "\nopen: " + candles.get(x).open + "\nclose: " + candles.get(x).close);
         }
 
-        CandleDataSet candleDataSet = new CandleDataSet(candleEntries, "");
-        candleDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        CandleDataSet candleDataSet = new CandleDataSet(candleEntries, "일봉차트");
+
+        candleDataSet.setAxisDependency(YAxis.AxisDependency.RIGHT);
+
         //심지
         candleDataSet.setShadowColor(Color.LTGRAY);
         candleDataSet.setShadowWidth(0.85f);
@@ -104,7 +102,7 @@ public class MPchart {
         candleDataSet.setIncreasingPaintStyle(Paint.Style.FILL);
 
         candleDataSet.setNeutralColor(Color.rgb(6, 18, 34));
-        candleDataSet.setDrawValues(false);
+        candleDataSet.setDrawValues(true);
 
         // 터치시 노란 선 제거
 //      candleDataSet.setHighLightColor(Color.TRANSPARENT);
@@ -113,10 +111,11 @@ public class MPchart {
         priceChart.setData(candleData);
         priceChart.invalidate();
 
-        final int LIMIT_NUM = 30;
+        final int LIMIT_NUM = 75;
 
         priceChart.setVisibleXRange(10,LIMIT_NUM); //한 화면에 보이는 갯수
-        //가장 최근의 데이터로 스크롤해줌.
+//        //가장 최근의 데이터로 스크롤해줌.
         priceChart.moveViewToX(priceChart.getData().getEntryCount() - (LIMIT_NUM+1));
     }
+
 }

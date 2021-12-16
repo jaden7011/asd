@@ -1,5 +1,6 @@
 package com.example.coin_gogogo.Retrofit;
 
+import com.example.coin_gogogo.data.Candle_List;
 import com.example.coin_gogogo.data.Ticker_Response;
 import com.example.coin_gogogo.data.Transaction_List_Response;
 
@@ -31,6 +32,13 @@ public class Repository {
                 .createRetrofit("https://api.bithumb.com/")
                 .create(ExampleService.class)
                 .TRANSACTION_LIST_SINGLE(path,count);
+    }
+
+    public Single<Candle_List> get_CandleList_Single(String path){
+        return RetrofitFactory
+                .createRetrofit("https://api.bithumb.com/")
+                .create(ExampleService.class)
+                .CANDLE_LIST_SINGLE(path);
     }
 
 }

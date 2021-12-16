@@ -1,5 +1,6 @@
 package com.example.coin_gogogo.Retrofit;
 
+import com.example.coin_gogogo.data.Candle_List;
 import com.example.coin_gogogo.data.Ticker_Response;
 import com.example.coin_gogogo.data.Transaction_List_Response;
 
@@ -17,6 +18,11 @@ public interface ExampleService {
 
     @GET("public/ticker/{path}_KRW")
     Single<Ticker_Response> TICKER_SINGLE(
+            @Path("path") String path
+    );
+
+    @GET("public/candlestick/{path}_KRW/24h")
+    Single<Candle_List> CANDLE_LIST_SINGLE(
             @Path("path") String path
     );
 

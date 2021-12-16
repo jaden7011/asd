@@ -2,11 +2,11 @@ package com.example.coin_gogogo.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -15,36 +15,27 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.coin_gogogo.R;
+import com.example.coin_gogogo.Retrofit.Repository;
 import com.example.coin_gogogo.adapter.Post_Adapter;
 import com.example.coin_gogogo.data.Candle;
 import com.example.coin_gogogo.data.Candle_List;
+import com.example.coin_gogogo.data.MutableLiveData_candles;
 import com.example.coin_gogogo.databinding.ActivityBoardBinding;
 import com.example.coin_gogogo.info.PostInfo;
 import com.example.coin_gogogo.utility.Utility;
-import com.github.mikephil.charting.charts.CandleStickChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.CandleData;
-import com.github.mikephil.charting.data.CandleDataSet;
-import com.github.mikephil.charting.data.CandleEntry;
-import com.google.gson.Gson;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.SingleObserver;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 import static com.example.coin_gogogo.utility.Named.DELETE_RESULT;
 import static com.example.coin_gogogo.utility.Named.WRITE_RESULT;
@@ -59,25 +50,37 @@ public class BoardActivity extends AppCompatActivity {
     private Utility utility;
     private Post_Adapter post_adapter;
     private ArrayList<PostInfo> postInfos;
+    private MutableLiveData_candles liveData_candles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_board);
 
-        if (requestQueue == null)
-            requestQueue = Volley.newRequestQueue(getApplicationContext());
+        liveData_candles = new ViewModelProvider(this)
+                .get(MutableLiveData_candles.class);
+
+        liveData_candles.get().observe(this, new Observer<ArrayList<Candle>>() {
+            @Override
+            public void onChanged(ArrayList<Candle> candles) {
+                Show_Recycler(candles);
+            }
+        });
+//
+//        if (requestQueue == null)
+//            requestQueue = Volley.newRequestQueue(getApplicationContext());
 
         Bundle bundle = getIntent().getExtras();
         coin = bundle.getString("coin");
         Log.d("Start BoardActivity","coin: "+ coin);
 
         setToolbar();
-        Get_Candlestick(coin);
+//        Get_Candlestick(coin);
+        Get_API(coin);
     }
 
     public void setToolbar () {
-        toolbar = findViewById(R.id.toolbar_post);
+        toolbar = findViewById(R.id.toolbar_board);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
@@ -86,55 +89,55 @@ public class BoardActivity extends AppCompatActivity {
         toolbar.setTitle(coin);
     }
 
-    private void Get_Candlestick(String CoinNm){
-
-        String url = "https://api.bithumb.com/public/candlestick/"+CoinNm+"_KRW/24h";
-
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,url,
-                new Response.Listener<String>() {
+    private void Get_API(String coin){
+        Repository.getInstance().get_CandleList_Single(coin)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Candle_List>() {
                     @Override
-                    public void onResponse(String response) {
-                        Log.d("onResponse_Candlestick","onResponse 진입");
-                        ArrayList<Candle> candles = Candle_Response(response);
-                        Show_Recycler(candles);
+                    public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {}
+                    @Override
+                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull Candle_List candle_list) {
+                        Log.d("onSuccess","onSuccess[size]: "+candle_list.data.size());
+//                        Log.d("onSuccess","onSuccess[0]: "+candle_list.data.get(0).get(0));
+//                        Log.d("onSuccess","onSuccess[1]: "+candle_list.data.get(0).get(1));
+//                        Log.d("onSuccess","onSuccess[2]: "+candle_list.data.get(0).get(2));
+//                        Log.d("onSuccess","onSuccess[3]: "+candle_list.data.get(0).get(3));
+//                        Log.d("onSuccess","onSuccess[4]: "+candle_list.data.get(0).get(4));
+//                        Log.d("onSuccess","onSuccess[5]: "+candle_list.data.get(0).get(5));
+
+                        ArrayList<Candle> candles = new ArrayList<>();
+
+                        for(int y = 0; y<candle_list.data.size(); y++){
+                            ArrayList<String> candle_data = candle_list.data.get(y);
+
+                                candles.add(new Candle(
+                                        candle_data.get(0),
+                                        candle_data.get(1),
+                                        candle_data.get(2),
+                                        candle_data.get(3),
+                                        candle_data.get(4),
+                                        candle_data.get(5)));
+//                                Log.d("onSuccess","onSuccess[0]: "+candle_list.data.get(x).get(0));
+//                                Log.d("onSuccess","onSuccess[1]: "+candle_list.data.get(x).get(1));
+//                                Log.d("onSuccess","onSuccess[2]: "+candle_list.data.get(x).get(2));
+//                                Log.d("onSuccess","onSuccess[3]: "+candle_list.data.get(x).get(3));
+//                                Log.d("onSuccess","onSuccess[4]: "+candle_list.data.get(x).get(4));
+//                                Log.d("onSuccess","onSuccess[5]: "+candle_list.data.get(x).get(5));
+                            }
+                        Log.d("onSuccess","candles: "+candles.size());
+                        liveData_candles.get().setValue(candles);
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("onErrorResponse","에러남: "+error);
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> params = new HashMap<String,String>();
-                return params;
-            }
-        };
-        stringRequest.setShouldCache(false);
-        requestQueue.add(stringRequest);
-    }
 
-    private ArrayList<Candle> Candle_Response(String response){
-        Gson gson = new Gson();
-        Candle_List dataList = gson.fromJson(response, Candle_List.class);
-
-        //상태값이 성공일 때 -> 데이터 뿌려줄 예정
-        if(dataList.status.equals("0000")){
-            Log.d("Response","R: success");
-            ArrayList<Candle> candles = new ArrayList<>();
-
-            for(int x=0; x<dataList.data.size();x++) {
-                Candle candle = String_to_candle(dataList.data.get(x).toString());
-                candles.add(candle);
-            }
-            return candles;
-        }else{
-            Log.d("Candle_Response","R: error");
-            return null;
-        }
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        Log.d("onError","onError: "+e.getMessage());
+                    }
+                });
     }
 
     private void Show_Recycler(ArrayList<Candle> candles){
+        Log.d("Show_Recycler","candles size: "+candles.size());
         postInfos = new ArrayList<>();
         postInfos.add(null);
         postInfos.add(new PostInfo(
@@ -172,118 +175,6 @@ public class BoardActivity extends AppCompatActivity {
 //        post_adapter.PostDiffUtil(postInfos);
     }
 
-    public Candle String_to_candle(String str){
-        str = str.replace("[","");
-        str = str.replace("]","");
-//        Log.d("str_to_candle",str);
-
-        Candle candle = new Candle();
-        StringTokenizer stk = new StringTokenizer(str,",");
-        BigDecimal b2 = new BigDecimal(Double.parseDouble(stk.nextToken())); //이렇게 하면 지수표기 안붙음
-
-//        Log.d("str_to_candle",b2.toString());
-
-        Long createdAt = Long.parseLong(b2.toString());
-        float open = Float.parseFloat(stk.nextToken());
-        float close = Float.parseFloat(stk.nextToken());
-        float high = Float.parseFloat(stk.nextToken());
-        float low = Float.parseFloat(stk.nextToken());
-        float bids = Float.parseFloat(stk.nextToken());
-
-//        Log.d("str_to_candle","creat: "+createdAt+"\nhigh: "+high+"\nlow: "+low+"\nopen: "+open+"\nclose: "+close);
-
-        candle.createdAt = createdAt;
-        candle.open = open;
-        candle.close = close;
-        candle.high = high;
-        candle.low = low;
-        candle.bids = bids;
-
-        return candle;
-    }
-
-    public void initChart(CandleStickChart priceChart){
-        priceChart.getDescription().setEnabled(false);
-//        priceChart.setMaxVisibleValueCount(50);
-        priceChart.setPinchZoom(true);
-        priceChart.setDrawGridBackground(false);
-
-        //x축
-        XAxis xAxis = priceChart.getXAxis();
-//        xAxis.setTextColor(Color.BLACK);
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        //세로선 표시여부
-//        xAxis.setDrawGridLines(false);
-        xAxis.setAxisLineColor(Color.BLACK);
-//        xAxis.setGridColor(Color.rgb(50,59,76));
-        xAxis.setEnabled(false);
-
-        //왼쪽 y축
-        YAxis Left_Axis = priceChart.getAxisLeft();
-        Left_Axis.setEnabled(false);
-
-        //오른쪽 y축
-        YAxis Right_Axis = priceChart.getAxisRight();
-        Right_Axis.setLabelCount(3,false);
-        Right_Axis.setTextColor(Color.BLACK);
-
-        //가로선 표시여부
-        Right_Axis.setDrawGridLines(true);
-        // 차트의 오른쪽 테두리 라인 설정
-        Right_Axis.setDrawAxisLine(true);
-        Right_Axis.setAxisLineColor(Color.BLACK);
-        Right_Axis.setGridColor(Color.rgb(50,59,79));
-
-        priceChart.setAutoScaleMinMaxEnabled(true);
-        priceChart.getLegend().setEnabled(true);
-    }
-
-    public void Set_priceData(CandleStickChart priceChart,ArrayList<Candle> candles) {
-        List<CandleEntry> candleEntries = new ArrayList<>();
-
-        for (int x = 0; x < candles.size(); x++) {
-            candleEntries.add(new CandleEntry(
-                    // todo 인식이 안되는 ,,
-//                    (float)candles.get(x).createdAt,
-                    x,
-                    candles.get(x).high,
-                    candles.get(x).low,
-                    candles.get(x).open,
-                    candles.get(x).close
-            ));
-
-//            Log.d("candle", "creat: " + candles.get(x).createdAt + "\nhigh: " + candles.get(x).high + "\nlow: " + candles.get(x).low + "\nopen: " + candles.get(x).open + "\nclose: " + candles.get(x).close);
-        }
-
-        CandleDataSet candleDataSet = new CandleDataSet(candleEntries, "");
-        candleDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        //심지
-        candleDataSet.setShadowColor(Color.LTGRAY);
-        candleDataSet.setShadowWidth(0.85f);
-        //음봉
-        candleDataSet.setDecreasingColor(Color.BLUE);
-        candleDataSet.setIncreasingPaintStyle(Paint.Style.FILL);
-        //양봉
-        candleDataSet.setIncreasingColor(Color.RED);
-        candleDataSet.setIncreasingPaintStyle(Paint.Style.FILL);
-
-        candleDataSet.setNeutralColor(Color.rgb(6, 18, 34));
-        candleDataSet.setDrawValues(false);
-
-        // 터치시 노란 선 제거
-//      candleDataSet.setHighLightColor(Color.TRANSPARENT);
-
-        CandleData candleData = new CandleData(candleDataSet);
-        priceChart.setData(candleData);
-        priceChart.invalidate();
-
-        final int LIMIT_NUM = 30;
-
-        priceChart.setVisibleXRange(10,LIMIT_NUM); //한 화면에 보이는 갯수
-        //가장 최근의 데이터로 스크롤해줌.
-        priceChart.moveViewToX(priceChart.getData().getEntryCount() - (LIMIT_NUM+1));
-    }
-
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -315,6 +206,13 @@ public class BoardActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) { //커스텀툴바의 메뉴를 적용해주기
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == WRITE_RESULT) { //글쓰기 리턴값
@@ -337,5 +235,81 @@ public class BoardActivity extends AppCompatActivity {
         intent.putExtra("coin",coin);
         startActivityForResult(intent,1);
     }
-
 }
+
+//    private void Get_Candlestick(String CoinNm){
+//
+//        String url = "https://api.bithumb.com/public/candlestick/"+CoinNm+"_KRW/24h";
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET,url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Log.d("onResponse_Candlestick","onResponse 진입");
+//                        ArrayList<Candle> candles = Candle_Response(response);
+//                        Show_Recycler(candles);
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d("onErrorResponse","에러남: "+error);
+//            }
+//        }){
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String,String> params = new HashMap<String,String>();
+//                return params;
+//            }
+//        };
+//        stringRequest.setShouldCache(false);
+//        requestQueue.add(stringRequest);
+//    }
+//
+//    private ArrayList<Candle> Candle_Response(String response){
+//        Gson gson = new Gson();
+//        Candle_List dataList = gson.fromJson(response, Candle_List.class);
+//
+//        //상태값이 성공일 때 -> 데이터 뿌려줄 예정
+//        if(dataList.status.equals("0000")){
+//            Log.d("Response","R: success");
+//            ArrayList<Candle> candles = new ArrayList<>();
+//
+//            for(int x=0; x<dataList.data.size();x++) {
+//                Candle candle = String_to_candle(dataList.data.get(x).toString());
+//                candles.add(candle);
+//            }
+//            return candles;
+//        }else{
+//            Log.d("Candle_Response","R: error");
+//            return null;
+//        }
+//    }
+//public Candle String_to_candle(String str){
+//        str = str.replace("[","");
+//        str = str.replace("]","");
+////        Log.d("str_to_candle",str);
+//
+//        Candle candle = new Candle();
+//        StringTokenizer stk = new StringTokenizer(str,",");
+//        BigDecimal b2 = new BigDecimal(Double.parseDouble(stk.nextToken())); //이렇게 하면 지수표기 안붙음
+//
+////        Log.d("str_to_candle",b2.toString());
+////
+////        Long createdAt = Long.parseLong(b2.toString());
+////        float open = Float.parseFloat(stk.nextToken());
+////        float close = Float.parseFloat(stk.nextToken());
+////        float high = Float.parseFloat(stk.nextToken());
+////        float low = Float.parseFloat(stk.nextToken());
+////        float bids = Float.parseFloat(stk.nextToken());
+//
+////        Log.d("str_to_candle","creat: "+createdAt+"\nhigh: "+high+"\nlow: "+low+"\nopen: "+open+"\nclose: "+close);
+//
+//        candle.createdAt = b2.toString();
+//        candle.open = stk.nextToken();
+//        candle.close = stk.nextToken();
+//        candle.high = stk.nextToken();
+//        candle.low = stk.nextToken();
+//        candle.bids = stk.nextToken();
+//
+//        return candle;
+//    }
