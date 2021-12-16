@@ -60,23 +60,6 @@ public class PostInfo implements Parcelable{
         this.password = password;
     }
 
-    public PostInfo(String publisher, String title, String contents, Date createdAt, String docid, int good,
-                    int comment, ArrayList<CommentInfo> comments, HashMap<String, Integer> good_user,String password,String coin) {
-        //게시판 갱신/업로드용(format포함)
-        this.title = title;
-        this.contents = contents;
-        this.publisher = publisher;
-        this.createdAt = createdAt;
-        this.docid = docid;
-        this.good = good;
-        this.comment = comment;
-        this.comments = comments;
-        this.good_user = good_user;
-        this.DateFormate_for_layout = new SimpleDateFormat("yyyy/MM/dd hh:mm", Locale.getDefault()).format(createdAt);
-        this.password = password;
-        this.coin = coin;
-    }
-
     public Map<String, Object> getPostInfo() {
         Map<String, Object> docData = new HashMap<>();
         docData.put("title", title);

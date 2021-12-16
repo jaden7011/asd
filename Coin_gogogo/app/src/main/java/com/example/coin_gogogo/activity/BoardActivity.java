@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,10 +28,10 @@ import com.example.coin_gogogo.data.Candle_List;
 import com.example.coin_gogogo.data.MutableLiveData_candles;
 import com.example.coin_gogogo.databinding.ActivityBoardBinding;
 import com.example.coin_gogogo.info.PostInfo;
+import com.example.coin_gogogo.model.Firebase_Model;
 import com.example.coin_gogogo.utility.Utility;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.SingleObserver;
@@ -49,8 +50,27 @@ public class BoardActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private Utility utility;
     private Post_Adapter post_adapter;
-    private ArrayList<PostInfo> postInfos;
     private MutableLiveData_candles liveData_candles;
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("onResume","onResume");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("onRestart","onRestart");
+//        Get_Post();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("onDestroy","onDestroy");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +97,27 @@ public class BoardActivity extends AppCompatActivity {
         setToolbar();
 //        Get_Candlestick(coin);
         Get_API(coin);
+    }
+
+    public void Get_Post(){
+        binding.boardLoadingview.loaderLyaout.setVisibility(View.VISIBLE);
+
+        ArrayList<PostInfo> posts_new = new ArrayList<>();
+        posts_new.add(null);
+
+        Firebase_Model.getInstance().Request_Posts(coin, new Firebase_Model.Listener_Request_Posts() {
+            @Override
+            public void onComplete(ArrayList<PostInfo> newPosts) {
+                binding.boardLoadingview.loaderLyaout.setVisibility(View.GONE);
+                posts_new.addAll(newPosts);
+                post_adapter.PostDiffUtil(posts_new);
+                binding.BoardRecycler.smoothScrollToPosition(0);
+            }
+            @Override
+            public void onFail() {
+                binding.boardLoadingview.loaderLyaout.setVisibility(View.GONE);
+            }
+        });
     }
 
     public void setToolbar () {
@@ -110,7 +151,6 @@ public class BoardActivity extends AppCompatActivity {
 
                         for(int y = 0; y<candle_list.data.size(); y++){
                             ArrayList<String> candle_data = candle_list.data.get(y);
-
                                 candles.add(new Candle(
                                         candle_data.get(0),
                                         candle_data.get(1),
@@ -128,7 +168,6 @@ public class BoardActivity extends AppCompatActivity {
                         Log.d("onSuccess","candles: "+candles.size());
                         liveData_candles.get().setValue(candles);
                     }
-
                     @Override
                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
                         Log.d("onError","onError: "+e.getMessage());
@@ -138,41 +177,15 @@ public class BoardActivity extends AppCompatActivity {
 
     private void Show_Recycler(ArrayList<Candle> candles){
         Log.d("Show_Recycler","candles size: "+candles.size());
-        postInfos = new ArrayList<>();
+
+        ArrayList<PostInfo> postInfos = new ArrayList<>();
         postInfos.add(null);
-        postInfos.add(new PostInfo(
-                "publisher",
-                "title",
-                "contents",
-                new Date(),
-                "docid",
-                "1234",
-                coin
-        ));
-        postInfos.add(new PostInfo(
-                "publisher",
-                "title",
-                "contents",
-                new Date(),
-                "docid",
-                "1234",
-                coin
-        ));
-        postInfos.add(new PostInfo(
-                "publisher",
-                "title",
-                "contents",
-                new Date(),
-                "docid",
-                "1234",
-                coin
-        ));
 
         post_adapter = new Post_Adapter(this,postInfos,candles);
         utility = new Utility(this,binding.BoardRecycler,post_adapter);
         utility.RecyclerInit("VERTICAL");
-        post_adapter.notifyDataSetChanged();
-//        post_adapter.PostDiffUtil(postInfos);
+
+        Get_Post();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -189,8 +202,8 @@ public class BoardActivity extends AppCompatActivity {
                 break;
             }
             case R.id.toolbar_main_reset:{
-//                item.setEnabled(false);
-//                boardFragment.UpScrolled();
+                item.setEnabled(false);
+                Get_Post();
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -217,6 +230,7 @@ public class BoardActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == WRITE_RESULT) { //글쓰기 리턴값
             Log.d("From WriteActivity","requestCode: "+requestCode);
+            Get_Post();
             //todo 새로고침
         }
 

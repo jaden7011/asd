@@ -38,10 +38,10 @@ public class PostInfo_DiffUtil extends DiffUtil.Callback{
         final PostInfo oldpost = oldPosts.get(oldItemPosition);
         final PostInfo newpost = newPosts.get(newItemPosition);
 
-        if(oldpost == null || newpost ==null) { //리사이클러뷰의 다운스크롤을 위해 넣은 로딩홀더를 다른 아이템취급하기 위함임
+        if(oldpost == null || newpost == null) { //리사이클러뷰의 다운스크롤을 위해 넣은 로딩홀더를 다른 아이템취급하기 위함임
 //            Log.d("무슨일ㄹㅇ리이ㅣ", "old: " + oldItemPosition);
 //            Log.d("무슨일ㄹㅇ리이ㅣ", "new: " + newItemPosition);
-            return false;
+            return true;
         }
 
         return oldpost.getDocid().equals(newpost.getDocid());
@@ -52,11 +52,10 @@ public class PostInfo_DiffUtil extends DiffUtil.Callback{
         final PostInfo oldpost = oldPosts.get(oldItemPosition);
         final PostInfo newpost = newPosts.get(newItemPosition);
 
-
         if(oldpost == null || newpost ==null) { //리사이클러뷰의 다운스크롤을 위해 넣은 로딩홀더를 다른 아이템취급하기 위함임
 //            Log.d("무슨일ㄹㅇ리이ㅣ", "old: " + oldItemPosition);
 //            Log.d("무슨일ㄹㅇ리이ㅣ", "new: " + newItemPosition);
-            return false;
+            return true;
         }
 
 //        Log.d("같나","old: "+ oldpost.getGood()+" oldid: "+oldpost.getDocid()+" new: "+ newpost.getGood()+" newid: "+newpost.getDocid());

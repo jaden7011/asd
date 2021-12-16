@@ -3,6 +3,7 @@ package com.example.coin_gogogo.activity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,6 +29,12 @@ public class PostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_post);
+
+        Bundle bundle = getIntent().getExtras();
+        postInfo = bundle.getParcelable("postInfo");
+        binding.setPostInfo(postInfo);
+
+        Log.d("post","date: "+postInfo.getDateFormate_for_layout());
 
         setToolbar();
     }

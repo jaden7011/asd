@@ -29,6 +29,7 @@ import java.util.Date;
 import static com.example.coin_gogogo.utility.Named.CHART_VIEWTYPE;
 import static com.example.coin_gogogo.utility.Named.HOUR;
 import static com.example.coin_gogogo.utility.Named.MIN;
+import static com.example.coin_gogogo.utility.Named.POSTHODER_TO_POSTACTIVITY;
 import static com.example.coin_gogogo.utility.Named.POSTING_VIEWTYPE;
 import static com.example.coin_gogogo.utility.Named.SEC;
 
@@ -109,7 +110,8 @@ public class Post_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 public void onClick(View v) {
                     //todo 종토방 및 차트 등등
                     Intent intent = new Intent(activity, PostActivity.class);
-                    activity.startActivity(intent);
+                    intent.putExtra("postInfo", (PostInfo) posts.get(post_holder.getBindingAdapterPosition()));
+                    activity.startActivityForResult(intent, POSTHODER_TO_POSTACTIVITY);
                 }
             });
             return post_holder;
