@@ -7,15 +7,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
-import com.android.volley.RequestQueue;
 import com.example.coin_gogogo.R;
 import com.example.coin_gogogo.Retrofit.Repository;
 import com.example.coin_gogogo.adapter.Coin_Adapter;
 import com.example.coin_gogogo.data.Coin_Info;
-import com.example.coin_gogogo.data.Coin_Map;
 import com.example.coin_gogogo.data.Ticker;
 import com.example.coin_gogogo.data.Ticker_Response;
-import com.example.coin_gogogo.data.Transaction;
 import com.example.coin_gogogo.data.Transaction_List_Response;
 import com.example.coin_gogogo.databinding.ActivityMainBinding;
 import com.example.coin_gogogo.utility.RxAndroidUtils;
@@ -26,9 +23,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -40,29 +35,10 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    private RequestQueue requestQueue;
     private ArrayList<Coin_Info> coins = new ArrayList<>();
-    private final Coin_Map coin_map = new Coin_Map();
-    private final Map<String,String> Coin_Map = coin_map.getCoin_names();
-    private Map<String,Coin_Info> coin_Info_map = coin_map.getCoins_map();
     private Coin_Adapter coin_adpater;
-    private boolean isRunning=true;
     private Disposable ET_Observable_Disposable;
-
     private HashMap<String,Coin_Info> coin_infos = new HashMap<>();
-    Set<String> set = new HashSet<>();
-    ArrayList<String> list = new ArrayList<>();
-    ArrayList<String> list2 = new ArrayList<>();
-    Observable<String> observable1;
-    Observable<String> observable2;
-
-    public interface Listener_Complete_Get_Transaction {
-        void onComplete(Transaction transaction);
-    }
-
-    public interface Listener_Complete_Get_Ticker {
-        void onComplete(Ticker ticker);
-    }
 
     @Override
     protected void onDestroy() {
@@ -79,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         Utility utility = new Utility(this,binding.CoinRecyclerView,coin_adpater);
         utility.RecyclerInit("VERTICAL");
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////// rxjava debounce로 자동검색 -> 버튼이 필요 x
         Observable<String> editTextObservable =
                 RxAndroidUtils.getInstance().getEditTextObservable(binding.searchET);
 
@@ -140,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        //todo 적당히 몇 개만 찾아서 띄우고 대화방으로 넘어가는 걸로 -> 검색기능은 repeate이 없으면 쉬움 -? repeate이 있다면 중간에 transaction에서 필터링 해줘야함
+        //todo 몇 개만 찾아서 띄우고 대화방으로 -> 검색기능은 repeate이 없으면 쉬움 -? repeate이 있다면 중간에 transaction에서 필터링 해줘야함
 
     }
 

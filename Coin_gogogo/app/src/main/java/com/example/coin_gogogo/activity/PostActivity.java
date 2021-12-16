@@ -101,7 +101,6 @@ public class PostActivity extends AppCompatActivity {
                 binding.postLoadingview.loaderLyaout.setVisibility(View.GONE);
             }
         });
-
     }
 
     private void Reset(){

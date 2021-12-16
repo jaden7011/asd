@@ -19,7 +19,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.android.volley.RequestQueue;
 import com.example.coin_gogogo.R;
 import com.example.coin_gogogo.Retrofit.Repository;
 import com.example.coin_gogogo.adapter.Post_Adapter;
@@ -47,11 +46,10 @@ public class BoardActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private ActionBar actionBar;
     private String coin;
-    private RequestQueue requestQueue;
+//    private RequestQueue requestQueue;
     private Utility utility;
     private Post_Adapter post_adapter;
     private MutableLiveData_candles liveData_candles;
-
 
     @Override
     protected void onResume() {
