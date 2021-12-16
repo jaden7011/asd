@@ -63,7 +63,7 @@ public class BoardActivity extends AppCompatActivity {
     protected void onRestart() {
         super.onRestart();
         Log.d("onRestart","onRestart");
-//        Get_Post();
+        Get_Post();
     }
 
     @Override
@@ -230,7 +230,6 @@ public class BoardActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == WRITE_RESULT) { //글쓰기 리턴값
             Log.d("From WriteActivity","requestCode: "+requestCode);
-            Get_Post();
             //todo 새로고침
         }
 

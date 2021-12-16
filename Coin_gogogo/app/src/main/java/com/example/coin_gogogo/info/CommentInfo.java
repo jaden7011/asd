@@ -8,27 +8,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CommentInfo implements Parcelable {
-    private String key;
+
     private String contents;
     private String publisher;
     private Date createdAt;
-    private String id;
     private int good;
     private HashMap<String, Integer> good_user;
     private String DateFormate_for_layout;
     private String How_Long;
     private String password;
+    private String key;
 
     public CommentInfo(){}
 
-    public CommentInfo(String contents, String publisher,String password, Date createdAt, String id, int good, HashMap<String, Integer> good_user, String key) {
+    public CommentInfo(String contents, String publisher,String password, Date createdAt, int good, HashMap<String, Integer> good_user, String key) {
         this.contents = contents;
         this.publisher = publisher;
         this.createdAt = createdAt;
-        this.id = id;
         this.good = good;
-        this.key = key;
         this.good_user = good_user; //생성자 파라미터에는 없지만 처음 생성할 때는 비어있는게 정상이니 그대로 생성.
+        this.password = password;
+        this.key = key;
     }
 
     public CommentInfo(CommentInfo p) {
@@ -36,12 +36,11 @@ public class CommentInfo implements Parcelable {
         this.contents = p.getContents();
         this.publisher = p.getPublisher();
         this.createdAt = p.getCreatedAt();
-        this.id = p.getId();
         this.good = p.getGood();
         this.DateFormate_for_layout = p.getDateFormate_for_layout();
         this.good_user = new HashMap<String,Integer>(p.getGood_user());
-        this.key = p.getKey();
         this.password=p.password;
+        this.key = p.key;
     }
 
     protected CommentInfo(Parcel in) {
@@ -49,11 +48,10 @@ public class CommentInfo implements Parcelable {
         contents = in.readString();
         publisher = in.readString();
         createdAt = new Date(in.readLong());
-        id = in.readString();
         good = in.readInt();
-        key = in.readString();
         DateFormate_for_layout = in.readString();
         How_Long = in.readString();
+        key = in.readString();
 
         int size = in.readInt();
         if(size != 0) {
@@ -72,11 +70,10 @@ public class CommentInfo implements Parcelable {
         dest.writeString(contents);
         dest.writeString(publisher);
         dest.writeLong(createdAt.getTime());
-        dest.writeString(id);
         dest.writeInt(good);
-        dest.writeString(key);
         dest.writeString(DateFormate_for_layout);
         dest.writeString(How_Long);
+        dest.writeString(key);
 
         dest.writeInt(good_user.size());
         for(Map.Entry<String, Integer> entry : good_user.entrySet()) {
@@ -128,23 +125,11 @@ public class CommentInfo implements Parcelable {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
     public int getGood() {
         return good;
     }
     public void setGood(int good) {
         this.good = good;
-    }
-    public String getKey() {
-        return key;
-    }
-    public void setKey(String key) {
-        this.key = key;
     }
     public String getDateFormate_for_layout() {
         return DateFormate_for_layout;
@@ -165,4 +150,11 @@ public class CommentInfo implements Parcelable {
         this.good_user = good_user;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 }
