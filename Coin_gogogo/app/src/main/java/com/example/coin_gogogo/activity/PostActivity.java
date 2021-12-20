@@ -1,13 +1,13 @@
 package com.example.coin_gogogo.activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -21,13 +21,8 @@ import com.example.coin_gogogo.R;
 import com.example.coin_gogogo.adapter.Comment_Adapter;
 import com.example.coin_gogogo.data.MutableLiveData_PostInfo;
 import com.example.coin_gogogo.databinding.ActivityPostBinding;
-import com.example.coin_gogogo.info.CommentInfo;
 import com.example.coin_gogogo.info.PostInfo;
-import com.example.coin_gogogo.model.Firebase_Model;
 import com.example.coin_gogogo.utility.Utility;
-
-import java.util.Date;
-import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
 
@@ -37,6 +32,7 @@ public class PostActivity extends AppCompatActivity {
     private PostInfo postInfo;
     private MutableLiveData_PostInfo liveData_postInfo;
     private Comment_Adapter adapter;
+    private Activity activity = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +55,7 @@ public class PostActivity extends AppCompatActivity {
         binding.AddCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Comment();
+               liveData_postInfo.Comment(activity,binding,postInfo);
             }
         });
 
@@ -71,51 +67,6 @@ public class PostActivity extends AppCompatActivity {
         adapter = new Comment_Adapter(this,postInfo);
         Utility utility = new Utility(this,binding.commentRecycler,adapter);
         utility.RecyclerInit("VERTICAL");
-    }
-
-    private void Comment(){
-        binding.postLoadingview.loaderLyaout.setVisibility(View.VISIBLE);
-        Date date = new Date();
-
-        CommentInfo commentInfo = new CommentInfo(
-                binding.AddCommentT.getText().toString(),
-                binding.publisherCommentET.getText().toString(),
-                binding.passCommentET.getText().toString(),
-                date,
-                0,
-                new HashMap<>(),
-                date+"/"+binding.passCommentET.getText().toString());
-
-        Firebase_Model.getInstance().Update_Comments_With_Transaction(postInfo.getCoin(), postInfo.getDocid(), commentInfo, new Firebase_Model.Listener_GetPost() {
-            @Override
-            public void onComplete(PostInfo postInfo) {
-                liveData_postInfo.get().setValue(postInfo);
-                binding.AddCommentT.setText("");
-                binding.publisherCommentET.setText("");
-                binding.passCommentET.setText("");
-                hideKeyPad ();
-                binding.postLoadingview.loaderLyaout.setVisibility(View.GONE);
-            }
-            @Override
-            public void onFail() {
-                binding.postLoadingview.loaderLyaout.setVisibility(View.GONE);
-            }
-        });
-    }
-
-    private void Reset(){
-        binding.postLoadingview.loaderLyaout.setVisibility(View.VISIBLE);
-        Firebase_Model.getInstance().Get_Post(postInfo.getCoin(), postInfo.getDocid(), new Firebase_Model.Listener_GetPost() {
-            @Override
-            public void onComplete(PostInfo postInfo) {
-                liveData_postInfo.get().setValue(postInfo);
-                binding.postLoadingview.loaderLyaout.setVisibility(View.GONE);
-            }
-            @Override
-            public void onFail() {
-                binding.postLoadingview.loaderLyaout.setVisibility(View.GONE);
-            }
-        });
     }
 
     public void setToolbar () {
@@ -146,7 +97,7 @@ public class PostActivity extends AppCompatActivity {
 //                    break;
             case R.id.autonew:
                 item.setEnabled(false);
-                Reset();
+                liveData_postInfo.Reset(binding,postInfo);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -163,8 +114,4 @@ public class PostActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void hideKeyPad () {
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(binding.AddCommentT.getWindowToken(), 0);
-    }
 }

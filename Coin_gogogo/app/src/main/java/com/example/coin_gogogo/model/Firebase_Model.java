@@ -135,6 +135,11 @@ public class Firebase_Model {
 
     public void Upload_Post_Store(final PostInfo postInfo, Listener_UpLoadPost listener_upLoadPost) {
 
+        final DocumentReference documentReference
+                = Store.collection(postInfo.getCoin()).document();
+
+        postInfo.setDocid(documentReference.getId());
+
         Store.collection(postInfo.getCoin())
                 .document(postInfo.getDocid())
                 .set(postInfo.getPostInfo())
