@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/toolbar_main_reset"
+        android:title="새로고침"
+        android:icon="@drawable/ic_autorenew"
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/toolbar_main_search"
+        android:title="글찾기"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:id="@+id/toolbar_main_write_post_btn"
+        android:title="글쓰기버튼"
+        android:icon="@drawable/ic_write_btn"
+        app:showAsAction="always">
+    </item>
+</menu>
