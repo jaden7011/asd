@@ -19,7 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.coin_gogogo.R;
 import com.example.coin_gogogo.adapter.Comment_Adapter;
-import com.example.coin_gogogo.data.MutableLiveData_PostInfo;
+import com.example.coin_gogogo.model.MutableLiveData_PostInfo;
 import com.example.coin_gogogo.databinding.ActivityPostBinding;
 import com.example.coin_gogogo.info.PostInfo;
 import com.example.coin_gogogo.utility.Utility;

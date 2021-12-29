@@ -1,15 +1,15 @@
-package com.example.coin_gogogo.data;
+package com.example.coin_gogogo.model;
 
 import android.app.Activity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.coin_gogogo.databinding.ActivityPostBinding;
 import com.example.coin_gogogo.info.CommentInfo;
 import com.example.coin_gogogo.info.PostInfo;
-import com.example.coin_gogogo.model.Firebase_Model;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -18,11 +18,11 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class MutableLiveData_PostInfo extends ViewModel {
 
-    androidx.lifecycle.MutableLiveData<PostInfo> post;
+    MutableLiveData<PostInfo> post;
 
-    public androidx.lifecycle.MutableLiveData<PostInfo> get(){
+    public MutableLiveData<PostInfo> get(){
         if(post == null){
-            post = new androidx.lifecycle.MutableLiveData<>();
+            post = new MutableLiveData<>();
         }
         return post;
     }

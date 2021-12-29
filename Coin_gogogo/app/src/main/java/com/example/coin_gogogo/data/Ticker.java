@@ -13,12 +13,33 @@ public class Ticker {
     @SerializedName("fluctate_rate_24H")
     public String fluctate_rate_24H; //최근 24시간 변동률
 
+    public String name;
+    public String sub_name;
+
     public Ticker(){}
 
-    public Ticker(String prev_closing_price, String acc_trade_value_24H, String fluctate_rate_24H) {
+    public Ticker(String name,String sub_name, String prev_closing_price, String acc_trade_value_24H, String fluctate_rate_24H) {
+        this.name = name;
+        this.sub_name = sub_name;
         this.prev_closing_price = prev_closing_price;
         this.acc_trade_value_24H = acc_trade_value_24H;
         this.fluctate_rate_24H = fluctate_rate_24H;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSub_name() {
+        return sub_name;
+    }
+
+    public void setSub_name(String sub_name) {
+        this.sub_name = sub_name;
     }
 
     public String getAcc_trade_value_24H() {

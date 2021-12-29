@@ -1,11 +1,13 @@
 package com.example.coin_gogogo.data;
 
+import com.example.coin_gogogo.info.Coin_Info;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Coin_Map {
     private final Map<String,String> Coin_names = new HashMap<>();
-    private final Map<String,Coin_Info> Coins_map = new HashMap<>();
+    private final Map<String, Coin_Info> Coins_map = new HashMap<>();
 
     public Coin_Map() {
         this.Coin_names.put("BTC","비트코인");

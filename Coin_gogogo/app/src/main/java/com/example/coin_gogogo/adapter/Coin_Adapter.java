@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coin_gogogo.R;
 import com.example.coin_gogogo.activity.BoardActivity;
-import com.example.coin_gogogo.data.Coin_Info;
+import com.example.coin_gogogo.data.Ticker;
 import com.example.coin_gogogo.utility.Coin_DiffUtil;
 
 import java.util.ArrayList;
@@ -27,14 +27,14 @@ import static com.example.coin_gogogo.utility.Named.POSTHODER_TO_POSTACTIVITY;
 public class Coin_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private final Activity activity;
-    private ArrayList<Coin_Info> coins;
+    private ArrayList<Ticker> coins;
     private LinearLayoutManager mLinearLayoutManager;
 
     public void setLinearLayoutManager(LinearLayoutManager linearLayoutManager){
         this.mLinearLayoutManager=linearLayoutManager;
     }
 
-    public void CoinDiffUtil(ArrayList<Coin_Info> newCoins) {
+    public void CoinDiffUtil(ArrayList<Ticker> newCoins) {
         Log.d("DIFF","old size: "+this.coins.size()+ "\nnew size: "+newCoins.size());
         final Coin_DiffUtil diffCallback = new Coin_DiffUtil(this.coins, newCoins);
         final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
@@ -56,7 +56,7 @@ public class Coin_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 //        });
     }
 
-    public Coin_Adapter(Activity activity,ArrayList<Coin_Info> coins) {
+    public Coin_Adapter(Activity activity,ArrayList<Ticker> coins) {
         this.activity = activity;
         this.coins = coins;
     }
@@ -104,45 +104,38 @@ public class Coin_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Coin_Holder coin_holder = (Coin_Holder)holder;
 
-        Coin_Info coin = coins.get(position);
-        String total = String.format("%d",(int)(Double.parseDouble(coin.Total)/1000000)) + "백만";
+        Ticker coin = coins.get(position);
+        String total = String.format("%d",(int)(Double.parseDouble(coin.acc_trade_value_24H)/1000000)) + "백만";
 
-        if(Double.parseDouble(coin.Price) > Double.parseDouble(coin.Pre_Price)){ //양봉
-            coin_holder.Price.setTextColor(Color.BLUE);
-
-            coin_holder.Name.setText(coin.Name);
-            coin_holder.Name_sub.setText(coin.Name_sub);
-            coin_holder.Price.setText(coin.Price);
-            coin_holder.Total.setText(total);
-        }
-        else if(Double.parseDouble(coin.Price) < Double.parseDouble(coin.Pre_Price)){ //음봉
+        if(Double.parseDouble(coin.fluctate_rate_24H) > 0.0){ //양봉
             coin_holder.Price.setTextColor(Color.RED);
 
-            coin_holder.Name.setText(coin.Name);
-            coin_holder.Name_sub.setText(coin.Name_sub);
-            coin_holder.Price.setText(coin.Price);
+            coin_holder.Name.setText(coin.name);
+            coin_holder.Name_sub.setText(coin.sub_name);
+            coin_holder.Price.setText(coin.prev_closing_price);
             coin_holder.Total.setText(total);
+            coin_holder.Rate.setTextColor(Color.RED);
+            coin_holder.Rate.setText(coin.fluctate_rate_24H+"%");
+        }
+        else if(Double.parseDouble(coin.fluctate_rate_24H) < 0.0){ //음봉
+            coin_holder.Price.setTextColor(Color.BLUE);
+
+            coin_holder.Name.setText(coin.name);
+            coin_holder.Name_sub.setText(coin.sub_name);
+            coin_holder.Price.setText(coin.prev_closing_price);
+            coin_holder.Total.setText(total);
+            coin_holder.Rate.setTextColor(Color.BLUE);
+            coin_holder.Rate.setText(coin.fluctate_rate_24H+"%");
 
         }else{ //동률
             coin_holder.Price.setTextColor(Color.BLACK);
 
-            coin_holder.Name.setText(coin.Name);
-            coin_holder.Name_sub.setText(coin.Name_sub);
-            coin_holder.Price.setText(coin.Price);
+            coin_holder.Name.setText(coin.name);
+            coin_holder.Name_sub.setText(coin.sub_name);
+            coin_holder.Price.setText(coin.prev_closing_price);
             coin_holder.Total.setText(total);
-        }
-
-        if (Double.parseDouble(coin.Rate) > 0){
-            coin_holder.Rate.setTextColor(Color.RED);
-            coin_holder.Rate.setText(coin.Rate+"%");
-        }
-        else if(Double.parseDouble(coin.Rate) < 0){
-            coin_holder.Rate.setTextColor(Color.BLUE);
-            coin_holder.Rate.setText(coin.Rate+"%");
-        }
-        else{
             coin_holder.Rate.setTextColor(Color.BLACK);
-            coin_holder.Rate.setText(coin.Rate+"%");
+            coin_holder.Rate.setText(coin.fluctate_rate_24H+"%");
         }
     }
 

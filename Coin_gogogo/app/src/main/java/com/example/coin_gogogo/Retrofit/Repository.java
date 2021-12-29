@@ -4,6 +4,7 @@ import com.example.coin_gogogo.data.Candle_List;
 import com.example.coin_gogogo.data.Ticker_Response;
 import com.example.coin_gogogo.data.Transaction_List_Response;
 
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 public class Repository {
@@ -19,6 +20,21 @@ public class Repository {
             instance = new Repository();
         return instance;
     }
+
+    public Observable<Ticker_Response> get_Ticker_obs(String paht){
+        return RetrofitFactory
+                .createRetrofit("https://api.bithumb.com/")
+                .create(ExampleService.class)
+                .TICKER_OBS(paht);
+    }
+
+    public Observable<Transaction_List_Response> get_Transaction_obs(String path, int count){
+        return RetrofitFactory
+                .createRetrofit("https://api.bithumb.com/")
+                .create(ExampleService.class)
+                .TRANSACTION_LIST_OBS(path,count);
+    }
+
 
     public Single<Ticker_Response> get_Ticker(String paht){
         return RetrofitFactory

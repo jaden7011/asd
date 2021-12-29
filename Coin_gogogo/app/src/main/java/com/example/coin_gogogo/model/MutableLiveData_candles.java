@@ -1,6 +1,8 @@
-package com.example.coin_gogogo.data;
+package com.example.coin_gogogo.model;
 
 import androidx.lifecycle.ViewModel;
+
+import com.example.coin_gogogo.data.Candle;
 
 import java.util.ArrayList;
 

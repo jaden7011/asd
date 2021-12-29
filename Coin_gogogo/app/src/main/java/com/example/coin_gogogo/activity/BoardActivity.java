@@ -24,7 +24,7 @@ import com.example.coin_gogogo.Retrofit.Repository;
 import com.example.coin_gogogo.adapter.Post_Adapter;
 import com.example.coin_gogogo.data.Candle;
 import com.example.coin_gogogo.data.Candle_List;
-import com.example.coin_gogogo.data.MutableLiveData_candles;
+import com.example.coin_gogogo.model.MutableLiveData_candles;
 import com.example.coin_gogogo.databinding.ActivityBoardBinding;
 import com.example.coin_gogogo.info.PostInfo;
 import com.example.coin_gogogo.model.Firebase_Model;

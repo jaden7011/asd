@@ -1,4 +1,4 @@
-package com.example.coin_gogogo.data;
+package com.example.coin_gogogo.info;
 
 public class Coin_Info {
     public String Name;
@@ -8,11 +8,10 @@ public class Coin_Info {
     public String Rate;
     public String Total;
 
-    public Coin_Info(String name,String name_sub, String price, String pre_Price, String rate, String total) {
+    public Coin_Info(String name,String name_sub, String price, String rate, String total) {
         Name = name;
         Name_sub = name_sub;
         Price = price;
-        Pre_Price = pre_Price;
         Rate = rate;
         Total = total;
     }
