@@ -1,5 +1,6 @@
 package com.example.coin_gogogo.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -100,12 +101,13 @@ public class Coin_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         return coin_holder;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Coin_Holder coin_holder = (Coin_Holder)holder;
 
         Ticker coin = coins.get(position);
-        String total = String.format("%d",(int)(Double.parseDouble(coin.acc_trade_value_24H)/1000000)) + "백만";
+        @SuppressLint("DefaultLocale") String total = String.format("%d",(int)(Double.parseDouble(coin.acc_trade_value_24H)/1000000)) + "백만";
 
         if(Double.parseDouble(coin.fluctate_rate_24H) > 0.0){ //양봉
             coin_holder.Price.setTextColor(Color.RED);
