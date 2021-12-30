@@ -6,18 +6,18 @@ import io.reactivex.rxjava3.core.Single
 
 object Repository {
 
-    fun get_CandleList_Single(path:String) : Single<Candle_List>?{
+    fun get_CandleList_Single(path:String) : Single<Candle_List>{
         return RetrofitFactory
             .createRetrofit("https://api.bithumb.com/")
-            ?.create(Service::class.java)
-            ?.CANDLE_LIST_SINGLE(path)
+            .create(Service::class.java)
+            .CANDLE_LIST_SINGLE(path)
     }
 
-    fun get_Ticker(path: String): Single<Ticker_Response>?{
+    fun get_Ticker(path: String): Single<Ticker_Response>{
         return RetrofitFactory
             .createRetrofit("https://api.bithumb.com/")
-            ?.create(Service::class.java)
-            ?.TICKER_SINGLE(path)
+            .create(Service::class.java)
+            .TICKER_SINGLE(path)
     }
 
 }

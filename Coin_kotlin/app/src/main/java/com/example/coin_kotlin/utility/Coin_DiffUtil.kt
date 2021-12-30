@@ -4,18 +4,10 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.coin_kotlin.data.Ticker
 import java.util.*
 
-class Coin_DiffUtil: DiffUtil.Callback() {
-
-    private lateinit var oldcoins: ArrayList<Ticker>
-    private lateinit var newcoins: ArrayList<Ticker>
-
-    fun Coin_DiffUtil(
-        oldcoins: ArrayList<Ticker>,
-        newcoins: ArrayList<Ticker>
-    ) {
-        this.oldcoins = oldcoins
-        this.newcoins = newcoins
-    }
+class Coin_DiffUtil(
+    val oldcoins: ArrayList<Ticker>,
+    val newcoins: ArrayList<Ticker>
+): DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
         return oldcoins.size

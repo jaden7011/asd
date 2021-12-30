@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 class RetrofitFactory {
 
     companion object {
-        fun createRetrofit(baseUrl: String?): Retrofit? {
+        fun createRetrofit(baseUrl: String): Retrofit {
             val httpClient = OkHttpClient.Builder()
                 .callTimeout(1, TimeUnit.MINUTES)
                 .connectTimeout(10, TimeUnit.SECONDS)

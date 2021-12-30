@@ -2,6 +2,8 @@ package com.example.coin_kotlin.utility
 
 import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
+import com.example.coin_kotlin.info.CommentInfo
+import com.example.coin_kotlin.info.PostInfo
 import com.example.coin_kotlin.utility.Named.HOUR
 import com.example.coin_kotlin.utility.Named.MIN
 import com.example.coin_kotlin.utility.Named.SEC
@@ -9,11 +11,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CommentInfo_DiffUtil(OldPost: PostInfo, NewPost: PostInfo) : DiffUtil.Callback() {
-    private val OldComments: ArrayList<CommentInfo>
-    private val NewComments: ArrayList<CommentInfo>
-    private val OldPost: PostInfo
-    private val NewPost: PostInfo
+class CommentInfo_DiffUtil(
+    val OldPost: PostInfo,
+    val NewPost: PostInfo
+) : DiffUtil.Callback() {
+
+    private val OldComments = OldPost.comments
+    private val NewComments = NewPost.comments
 
     override fun getOldListSize(): Int {
         return OldComments.size
@@ -29,7 +33,7 @@ class CommentInfo_DiffUtil(OldPost: PostInfo, NewPost: PostInfo) : DiffUtil.Call
     ): Boolean {
         val oldpost: CommentInfo = OldComments[oldItemPosition]
         val newpost: CommentInfo = NewComments[newItemPosition]
-        return oldpost.getKey().equals(newpost.getKey())
+        return oldpost.key.equals(newpost.key)
     }
 
     override fun areContentsTheSame(
@@ -38,9 +42,10 @@ class CommentInfo_DiffUtil(OldPost: PostInfo, NewPost: PostInfo) : DiffUtil.Call
     ): Boolean { //item이 같아도 수정된다면 내용이 다르다는 것을 인식시켜줘야 내용이 바뀜
         val oldpost: CommentInfo = OldComments[oldItemPosition]
         val newpost: CommentInfo = NewComments[newItemPosition]
-        return (oldpost.getContents().equals(newpost.getContents()) && oldpost.getPublisher()
-            .equals(newpost.getPublisher())
-                && oldpost.getGood() === newpost.getGood())
+
+        return (oldpost.contents.equals(newpost.contents) && oldpost.publisher
+            .equals(newpost.publisher)
+                && oldpost.good === newpost.good)
     }
 
     override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
@@ -71,14 +76,4 @@ class CommentInfo_DiffUtil(OldPost: PostInfo, NewPost: PostInfo) : DiffUtil.Call
         }
     }
 
-    init {
-        this.OldPost = OldPost
-        this.NewPost = NewPost
-        OldComments = this.OldPost.getComments()
-        NewComments = this.NewPost.getComments()
-        Log.d(
-            "같z나zxc",
-            "old: " + OldPost.hashCode().toString() + " new: " + NewPost.hashCode()
-        )
-    }
 }
