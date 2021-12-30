@@ -6,13 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.databinding.ActivityMainBinding
+import com.example.coin_kotlin.model.MutableLiveData_TickerMap
 import io.reactivex.rxjava3.disposables.Disposable
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding;
     private lateinit var ET_Observable_Disposable: Disposable;
-    private lateinit var liveData_tickerMap
+    private lateinit var liveData_tickerMap:MutableLiveData_TickerMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
