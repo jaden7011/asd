@@ -63,21 +63,22 @@ class MainActivity : AppCompatActivity() {
                         thread_all?.run{
                             this.isRunning = false
                             this.interrupt()
-                            Log.d("search","all"+this.isInterrupted)
+                            Log.d("search","find-all thread is interrupted?: "+this.isInterrupted)
 
-//                            thread_search = NetworkThread(s).apply {
-//                                Log.d("search","search thread is empty")
-//                                this.start()
-//                            }
+                            thread_search = NetworkThread(s).apply {
+                                this.start()
+                            }
                         }
 
-//                        thread_search = NetworkThread(s).apply {
-//                            this.start()
-//                        }
+                        if(thread_all == null){
+                            thread_search = NetworkThread(s).apply {
+                                this.start()
+                            }
+                        }
 
                     }
                     else if(s.isEmpty()){
-                        Log.d("search","empty")
+                        Log.d("search","no search")
                         liveData_tickerMap.disposable?.run {
                             this.dispose()
                         }
@@ -85,16 +86,18 @@ class MainActivity : AppCompatActivity() {
                         thread_search?.run{
                             this.isRunning = false
                             this.interrupt()
-                            Log.d("search","all"+this.isInterrupted)
+                            Log.d("search","search thread is interrupted?: "+this.isInterrupted)
 
                             thread_all = NetworkThread(s).apply {
                                 this.start()
                             }
                         }
 
-                        thread_all = NetworkThread(s).apply {
-                            Log.d("search","search thread is not empty")
-                            this.start()
+                        if(thread_search == null){
+                            thread_all = NetworkThread(s).apply {
+                                Log.d("search","search thread is empty")
+                                this.start()
+                            }
                         }
                     }
                     else{
