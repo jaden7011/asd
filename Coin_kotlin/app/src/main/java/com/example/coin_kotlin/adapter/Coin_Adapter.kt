@@ -1,5 +1,6 @@
 package com.example.coin_kotlin.adapter
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.Color
 import android.util.Log
@@ -18,7 +19,7 @@ import com.example.coin_kotlin.utility.Coin_DiffUtil
 class Coin_Adapter (
     val activity: Activity,
     val coins: ArrayList<Ticker>
-): RecyclerView.Adapter<Coin_Adapter.Coin_ViewHolder>() {
+): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun CoinDiffUtil(newCoins:ArrayList<Ticker>){
         Log.d("DIFF", "old size: ${coins.size} new size: ${newCoins.size}".trimIndent())
@@ -32,7 +33,7 @@ class Coin_Adapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
-            : Coin_ViewHolder {
+            : RecyclerView.ViewHolder {
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.coin_items,parent,false)
@@ -49,8 +50,8 @@ class Coin_Adapter (
         return coins.size
     }
 
-    override fun onBindViewHolder(holder: Coin_ViewHolder, position: Int) {
-        holder.bind(coins[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as Coin_ViewHolder).bind(coins[position])
     }
 
     inner class Coin_ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
@@ -61,21 +62,22 @@ class Coin_Adapter (
         private val Price:TextView = itemView.findViewById(R.id.Currency_price_T)
         private val Total:TextView = itemView.findViewById(R.id.total_T)
 
+        @SuppressLint("SetTextI18n")
         fun bind(item: Ticker){
 
             Name.text = item.name
             Name_sub.text = item.sub_name
             Rate.text = item.fluctate_rate_24H
             Price.text = item.prev_closing_price
-            Total.text = item.acc_trade_value_24H
+            Total.text = String.format("%d",(item.acc_trade_value_24H!!.toDouble()/1000000).toInt()) + "백만"
 
             if(item.fluctate_rate_24H?.toDouble()!! > 0.0){
                 Rate.setTextColor(ContextCompat.getColor(view.context,R.color.colorAccent))
                 Price.setTextColor(ContextCompat.getColor(view.context,R.color.colorAccent))
             }
             else if(item.fluctate_rate_24H?.toDouble()!! < 0.0){
-                Rate.setTextColor(ContextCompat.getColor(view.context,R.color.classicBlue))
-                Price.setTextColor(ContextCompat.getColor(view.context,R.color.classicBlue))
+                Rate.setTextColor(ContextCompat.getColor(view.context,R.color.midi_blue))
+                Price.setTextColor(ContextCompat.getColor(view.context,R.color.midi_blue))
             }
             else{
                 Rate.setTextColor(ContextCompat.getColor(view.context,R.color.black))

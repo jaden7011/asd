@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 class Utility(
     val activity:Activity,
     val recyclerView:RecyclerView,
-    val adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>
+    var adapter:RecyclerView.Adapter<RecyclerView.ViewHolder>
 ){
-
-
     fun RecyclerInit(orientation:String){
 
-        var layoutManager: LinearLayoutManager = LinearLayoutManager(activity)
+        val layoutManager: LinearLayoutManager = LinearLayoutManager(activity)
 
         when(orientation){
             "VERTICAL" -> {

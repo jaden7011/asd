@@ -17,15 +17,17 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
-class MutableLiveData_TickerMap(
-    private val adapter: Coin_Adapter
-):ViewModel(){
+class MutableLiveData_TickerMap:ViewModel(){
 
-    lateinit var disposable: Disposable
-    lateinit var coins: MutableLiveData<Map<String, Ticker>>
+    var disposable: Disposable? = null
+
+    val coins: MutableLiveData<Map<String, Ticker>> by lazy {
+        MutableLiveData<Map<String, Ticker>>()
+    }
     val observable: Single<Ticker_Response> = Repository.get_Ticker("ALL")
 
     fun Get_API(search_str:String){
+
         disposable = observable
             .retryWhen{ e:Flowable<Throwable> ->
                 val counter = AtomicInteger()
@@ -43,7 +45,7 @@ class MutableLiveData_TickerMap(
             .subscribeOn(Schedulers.io())
             .subscribe(Consumer {
 
-                var map = HashMap<String,Ticker>()
+                val map = HashMap<String,Ticker>()
                 var cnt = 0
 
                 coins.value?.run {

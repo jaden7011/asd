@@ -69,37 +69,28 @@
             app:layout_constraintTop_toBottomOf="@id/linear"
             >
 
-            <LinearLayout
-                android:id="@+id/Name_LinearLayout"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/Name_T"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center|left"
-                android:orientation="vertical"
-                android:paddingLeft="8dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="15dp"
+                android:maxLines="1"
+                android:text="코인명"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/Currency_price_T"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/Name_T"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:maxLines="1"
-                    android:text="코인명"
-                    android:textSize="10sp" />
-
-            </LinearLayout>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/fluctate_rate_T"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:gravity="center"
                 android:text="24시 변동률"
-                android:textSize="8sp"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/total_T"
                 app:layout_constraintStart_toEndOf="@+id/Currency_price_T"
@@ -111,11 +102,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="10dp"
+                android:gravity="center"
                 android:text="현재가"
                 android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/fluctate_rate_T"
-                app:layout_constraintStart_toEndOf="@id/Name_LinearLayout"
+                app:layout_constraintStart_toEndOf="@id/Name_T"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -123,8 +115,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
+                android:gravity="center"
                 android:text="24시 거래량"
-                android:textSize="8sp"
+                android:textSize="10sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/fluctate_rate_T"

@@ -26,5 +26,7 @@
     <color name="sea_pink">#cc8080</color>
     <color name="conch_shell">#fb8c98</color>
     <color name="living_coral">#cc8080</color>
-    <color name="ultra_violet">#20165b</color>
+    <color name="darger_blue">#1E90FF</color>
+    <color name="midi_blue">#0000CD</color>
+    <color name="deep_blue">#00008B</color>
 </resources>
