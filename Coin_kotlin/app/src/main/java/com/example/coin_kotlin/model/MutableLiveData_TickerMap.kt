@@ -3,7 +3,6 @@ package com.example.coin_kotlin.model
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.coin_kotlin.adapter.Coin_Adapter
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.data.Ticker_Response
 import com.example.coin_kotlin.retrofit.Repository
@@ -52,19 +51,21 @@ class MutableLiveData_TickerMap:ViewModel(){
                     Log.d("accept", "coins.getValue().size(): " + this.size)
                 }
 
+                Log.d("accept", "data.size(): " + it.data?.size)
+
                 for(entry in it.data!!){
 
-                    if(cnt==30)
-                        break
-                    else
-                        cnt++
+//                    if(cnt==183)
+//                        break
+//                    else
+//                        cnt++
 
                     val name = entry.key!!
                     val obj = entry.value!!
 
-                    if(!name.equals("data")){
-                        if(search_str.length >= 2 && name!!.contains(search_str)
-                            || search_str.length == 0){
+                    if(name != "date"){ //api 마지막에 껴있는 불필요한 정보
+                        if(search_str.length >= 2 && name.contains(search_str)
+                            || search_str.isEmpty()){
 
                             val gson = Gson()
                             val json = gson.toJson(obj)
@@ -72,7 +73,7 @@ class MutableLiveData_TickerMap:ViewModel(){
                             ticker.name = name
                             ticker.sub_name = name
 
-                            map.put(name,ticker)
+                            map[name] = ticker
                         }
                     }
                 }

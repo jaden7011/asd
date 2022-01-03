@@ -33,6 +33,15 @@ class MainActivity : AppCompatActivity() {
     private var thread_search:NetworkThread? = null
 
 
+    override fun onRestart() {
+        super.onRestart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Interrupt_threads()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)

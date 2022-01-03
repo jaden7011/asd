@@ -2,17 +2,20 @@ package com.example.coin_kotlin.adapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
+import com.example.coin_kotlin.activity.BoardActivity
 import com.example.coin_kotlin.data.NameMap
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.utility.Coin_DiffUtil
@@ -25,7 +28,7 @@ class Coin_Adapter (
     fun CoinDiffUtil(newCoins:ArrayList<Ticker>){
         Log.d("DIFF", "old size: ${coins.size} new size: ${newCoins.size}".trimIndent())
 
-        val diffCallback:Coin_DiffUtil = Coin_DiffUtil(this.coins,newCoins)
+        val diffCallback = Coin_DiffUtil(this.coins,newCoins)
         val diffResult:DiffUtil.DiffResult = DiffUtil.calculateDiff(diffCallback)
 
         coins.clear()
@@ -41,7 +44,14 @@ class Coin_Adapter (
 
         val holder = Coin_ViewHolder(view)
 
-//        holder.containerView.setOnClickListener {  }
+        view.setOnClickListener {
+            View.OnClickListener {
+                Log.d("holder","clicked: "+holder.Name.text.toString())
+                val intent = Intent(activity,BoardActivity::class.java)
+                intent.putExtra("name",holder.Name.text.toString())
+                activity.startActivity(intent)
+            }
+        }
 
         return holder
     }
@@ -57,11 +67,12 @@ class Coin_Adapter (
 
     inner class Coin_ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
 
-        private val Name:TextView = itemView.findViewById(R.id.Name_T)
-        private val Name_sub:TextView = itemView.findViewById(R.id.Name_sub_T)
-        private val Rate:TextView = itemView.findViewById(R.id.fluctate_rate_T)
-        private val Price:TextView = itemView.findViewById(R.id.Currency_price_T)
-        private val Total:TextView = itemView.findViewById(R.id.total_T)
+        val Name:TextView = itemView.findViewById(R.id.Name_T)
+        val Name_sub:TextView = itemView.findViewById(R.id.Name_sub_T)
+        val Rate:TextView = itemView.findViewById(R.id.fluctate_rate_T)
+        val Price:TextView = itemView.findViewById(R.id.Currency_price_T)
+        val Total:TextView = itemView.findViewById(R.id.total_T)
+        val layout:ConstraintLayout = itemView.findViewById(R.id.Layout)
 
         @SuppressLint("SetTextI18n")
         fun bind(item: Ticker){
