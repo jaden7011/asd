@@ -121,8 +121,8 @@ object NameMap {
             "BSV" to "비트코인에스브이",
             "BFC" to "바이프로스트",
             "BCD" to "비트코인 다이아몬드",
-            "ZIL" to
-                    "REP" to "어거","질리카",
+            "ZIL" to "질리카",
+            "REP" to "어거",
             "KNC" to "카이버 네트워크",
             "POLA" to "폴라리스 쉐어",
             "ORBS" to "오브스",
