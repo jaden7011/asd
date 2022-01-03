@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                         thread_all?.run{
                             this.isRunning = false
                             this.interrupt()
-                            Log.d("search","find-all thread is interrupted?: "+this.isInterrupted)
+//                            Log.d("search","find-all thread is interrupted?: "+this.isInterrupted)
 
                             thread_search = NetworkThread(s).apply {
                                 this.start()
@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         if(thread_all == null){
+                            Log.d("search","find-all thread is null")
                             thread_search = NetworkThread(s).apply {
                                 this.start()
                             }
@@ -86,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                         thread_search?.run{
                             this.isRunning = false
                             this.interrupt()
-                            Log.d("search","search thread is interrupted?: "+this.isInterrupted)
+//                            Log.d("search","search thread is interrupted?: "+this.isInterrupted)
 
                             thread_all = NetworkThread(s).apply {
                                 this.start()
@@ -94,8 +95,8 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         if(thread_search == null){
+                            Log.d("search","search thread is null")
                             thread_all = NetworkThread(s).apply {
-                                Log.d("search","search thread is empty")
                                 this.start()
                             }
                         }
@@ -131,15 +132,6 @@ class MainActivity : AppCompatActivity() {
 
         val list:ArrayList<Ticker> = ArrayList(map.values)
         list.sortByDescending { it.acc_trade_value_24H!!.toDouble() }
-
-//        list.sortedWith(Comparator { o1:Ticker, o2:Ticker ->
-//            if (o1.acc_trade_value_24H?.toDouble()!! <= o2.acc_trade_value_24H?.toDouble()!!){
-//                return@Comparator 1
-//            }
-//            else{
-//                return@Comparator -1
-//            }
-//        })
 
         return list
     }

@@ -71,11 +71,11 @@ class Coin_Adapter (
             Price.text = item.prev_closing_price
             Total.text = String.format("%d",(item.acc_trade_value_24H!!.toDouble()/1000000).toInt()) + "백만"
 
-            if(item.fluctate_rate_24H?.toDouble()!! > 0.0){
+            if(item.fluctate_rate_24H!!.toDouble() > 0.0){
                 Rate.setTextColor(ContextCompat.getColor(view.context,R.color.colorAccent))
                 Price.setTextColor(ContextCompat.getColor(view.context,R.color.colorAccent))
             }
-            else if(item.fluctate_rate_24H?.toDouble()!! < 0.0){
+            else if(item.fluctate_rate_24H.toDouble() < 0.0){
                 Rate.setTextColor(ContextCompat.getColor(view.context,R.color.midi_blue))
                 Price.setTextColor(ContextCompat.getColor(view.context,R.color.midi_blue))
             }
