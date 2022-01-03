@@ -56,23 +56,15 @@ class MainActivity : AppCompatActivity() {
 
                     if(s.length >= 2){
                         Log.d("search","search something")
+                        Interrupt_threads()
+
                         liveData_tickerMap.disposable?.run {
                             this.dispose()
                         }
 
-                        thread_all?.run{
-                            this.isRunning = false
-                            this.interrupt()
-//                            Log.d("search","find-all thread is interrupted?: "+this.isInterrupted)
-
-                            thread_search = NetworkThread(s).apply {
-                                this.start()
-                            }
-                        }
-
                         if(thread_all == null){
-                            Log.d("search","find-all thread is null")
                             thread_search = NetworkThread(s).apply {
+                                Log.d("search","thread_all thread is starting")
                                 this.start()
                             }
                         }
@@ -80,23 +72,15 @@ class MainActivity : AppCompatActivity() {
                     }
                     else if(s.isEmpty()){
                         Log.d("search","no search")
+                        Interrupt_threads()
+
                         liveData_tickerMap.disposable?.run {
                             this.dispose()
                         }
 
-                        thread_search?.run{
-                            this.isRunning = false
-                            this.interrupt()
-//                            Log.d("search","search thread is interrupted?: "+this.isInterrupted)
-
-                            thread_all = NetworkThread(s).apply {
-                                this.start()
-                            }
-                        }
-
                         if(thread_search == null){
-                            Log.d("search","search thread is null")
                             thread_all = NetworkThread(s).apply {
+                                Log.d("search","search thread is starting")
                                 this.start()
                             }
                         }
@@ -126,6 +110,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     private fun Sort(map: Map<String,Ticker>):ArrayList<Ticker>{
@@ -134,6 +119,29 @@ class MainActivity : AppCompatActivity() {
         list.sortByDescending { it.acc_trade_value_24H!!.toDouble() }
 
         return list
+    }
+
+    private fun Interrupt_threads(){
+
+        thread_all = thread_all?.run{
+            this.isRunning = false
+            if(!this.isInterrupted)
+                this.interrupt()
+
+            null
+        }
+
+        thread_search = thread_search?.run{
+            this.isRunning = false
+            if(!this.isInterrupted)
+                this.interrupt()
+
+            null
+        }
+
+        Log.d("search","thread_all thread is null? : " + thread_all?.run { "false" })
+        Log.d("search","thread_search thread is null? : " + thread_search?.run { "false" })
+
     }
 
 }
