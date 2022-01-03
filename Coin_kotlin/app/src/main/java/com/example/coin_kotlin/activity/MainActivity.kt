@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
     private fun Sort(map: Map<String,Ticker>):ArrayList<Ticker>{
 
         val list:ArrayList<Ticker> = ArrayList(map.values)
-        list.sortByDescending { it.acc_trade_value_24H }
+        list.sortByDescending { it.acc_trade_value_24H!!.toDouble() }
 
 //        list.sortedWith(Comparator { o1:Ticker, o2:Ticker ->
 //            if (o1.acc_trade_value_24H?.toDouble()!! <= o2.acc_trade_value_24H?.toDouble()!!){
