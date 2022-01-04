@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 
 data class Ticker_Response(
     @SerializedName("data") @Expose
-    val data: Map<String?, Any?>?,
+    val data: Map<String?, Any?>,
 
     @SerializedName("status")
     val status: String?

@@ -38,7 +38,6 @@ class MutableLiveData_TickerMap:ViewModel(){
                             TimeUnit.SECONDS
                         )
                     }
-
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -47,13 +46,13 @@ class MutableLiveData_TickerMap:ViewModel(){
                 val map = HashMap<String,Ticker>()
                 var cnt = 0
 
-                coins.value?.run {
-                    Log.d("accept", "coins.getValue().size(): " + this.size)
-                }
+//                coins.value?.run {
+//                    Log.d("accept", "coins.getValue().size(): " + this.size)
+//                }
+                Log.d("accept", "search_str: $search_str")
+                Log.d("accept", "data.size: "+it.data.size)
 
-                Log.d("accept", "data.size(): " + it.data?.size)
-
-                for(entry in it.data!!){
+                for(entry in it.data){
 
 //                    if(cnt==183)
 //                        break
@@ -64,7 +63,7 @@ class MutableLiveData_TickerMap:ViewModel(){
                     val obj = entry.value!!
 
                     if(name != "date"){ //api 마지막에 껴있는 불필요한 정보
-                        if(search_str.length >= 2 && name.contains(search_str)
+                        if( (search_str.length >= 2 && name.contains(search_str,ignoreCase = true))
                             || search_str.isEmpty()){
 
                             val gson = Gson()
@@ -77,6 +76,7 @@ class MutableLiveData_TickerMap:ViewModel(){
                         }
                     }
                 }
+                Log.d("accept", "data.size(): " + map.size)
                 coins.value = map
             })
     }

@@ -35,10 +35,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
+        Log.e("onRestart","onRestart : "+ binding.searchET.text.toString())
+        Set_threads(binding.searchET.text.toString())
     }
 
     override fun onStop() {
         super.onStop()
+        Log.e("onStop","onStop")
         Interrupt_threads()
     }
 
@@ -61,45 +64,8 @@ class MainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(Consumer {
-                val s = it.toUpperCase(Locale.ROOT)
-
-                    if(s.length >= 2){
-                        Log.d("search","search something")
-                        Interrupt_threads()
-
-                        liveData_tickerMap.disposable?.run {
-                            this.dispose()
-                        }
-
-                        if(thread_all == null){
-                            thread_search = NetworkThread(s).apply {
-                                Log.d("search","thread_all thread is starting")
-                                this.start()
-                            }
-                        }
-
-                    }
-                    else if(s.isEmpty()){
-                        Log.d("search","no search")
-                        Interrupt_threads()
-
-                        liveData_tickerMap.disposable?.run {
-                            this.dispose()
-                        }
-
-                        if(thread_search == null){
-                            thread_all = NetworkThread(s).apply {
-                                Log.d("search","search thread is starting")
-                                this.start()
-                            }
-                        }
-                    }
-                    else{
-                        Toast.makeText(this,"\"2글자 이상 입력해주세요.\"",Toast.LENGTH_SHORT).show()
-                    }
+                    Set_threads(it)
                 })
-
-
     }
 
     inner class NetworkThread(
@@ -147,10 +113,45 @@ class MainActivity : AppCompatActivity() {
 
             null
         }
-
         Log.d("search","thread_all thread is null? : " + thread_all?.run { "false" })
         Log.d("search","thread_search thread is null? : " + thread_search?.run { "false" })
+    }
 
+    private fun Set_threads(Search:String){
+        if(Search.length >= 2){
+            Log.d("search","search something")
+            Interrupt_threads()
+
+            liveData_tickerMap.disposable?.run {
+                this.dispose()
+            }
+
+            if(thread_all == null){
+                thread_search = NetworkThread(Search).apply {
+                    Log.d("search", "thread_search thread is starting: $Search")
+                    this.start()
+                }
+            }
+
+        }
+        else if(Search.isEmpty()){
+            Log.d("search","no search")
+            Interrupt_threads()
+
+            liveData_tickerMap.disposable?.run {
+                this.dispose()
+            }
+
+            if(thread_search == null){
+                thread_all = NetworkThread(Search).apply {
+                    Log.d("search","thread_all thread is starting")
+                    this.start()
+                }
+            }
+        }
+        else{
+            Toast.makeText(this,"\"2글자 이상 입력해주세요.\"",Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
