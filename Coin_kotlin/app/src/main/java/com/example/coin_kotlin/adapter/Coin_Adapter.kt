@@ -16,13 +16,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.BoardActivity
+import com.example.coin_kotlin.activity.MainActivity
 import com.example.coin_kotlin.data.NameMap
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.utility.Coin_DiffUtil
 
 class Coin_Adapter (
     val activity: Activity,
-    val coins: ArrayList<Ticker>
+    val coins: ArrayList<Ticker>,
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun CoinDiffUtil(newCoins:ArrayList<Ticker>){
@@ -44,15 +45,12 @@ class Coin_Adapter (
 
         val holder = Coin_ViewHolder(view)
 
-        view.setOnClickListener {
-            View.OnClickListener {
-                Log.d("holder","clicked: "+holder.Name.text.toString())
+        holder.View_Layout.setOnClickListener {
+                Log.e("holder","clicked: "+holder.Name.text.toString())
                 val intent = Intent(activity,BoardActivity::class.java)
-                intent.putExtra("name",holder.Name.text.toString())
+                        .apply { putExtra("name",holder.Name.text.toString()) }
                 activity.startActivity(intent)
-            }
         }
-
         return holder
     }
 
@@ -72,7 +70,7 @@ class Coin_Adapter (
         val Rate:TextView = itemView.findViewById(R.id.fluctate_rate_T)
         val Price:TextView = itemView.findViewById(R.id.Currency_price_T)
         val Total:TextView = itemView.findViewById(R.id.total_T)
-        val layout:ConstraintLayout = itemView.findViewById(R.id.Layout)
+        val View_Layout:ConstraintLayout = itemView.findViewById(R.id.Layout)
 
         @SuppressLint("SetTextI18n")
         fun bind(item: Ticker){

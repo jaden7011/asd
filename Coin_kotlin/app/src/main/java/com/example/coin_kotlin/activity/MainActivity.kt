@@ -1,5 +1,7 @@
 package com.example.coin_kotlin.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: Coin_Adapter
     private var thread_all:NetworkThread? = null
     private var thread_search:NetworkThread? = null
+    val activity:Activity = this
 
 
     override fun onRestart() {
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         adapter = Coin_Adapter(this,ArrayList<Ticker>())
+
         val utility = Utility(this,binding.CoinRecyclerView,adapter)
         utility.RecyclerInit("VERTICAL")
 
@@ -79,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 try {
                     Log.d("NetworkThread", "running")
                     liveData_tickerMap.Get_API(search_ET)
-                    sleep(5000)
+                    sleep(3000)
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
