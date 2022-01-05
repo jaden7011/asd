@@ -28,7 +28,7 @@ class MutableLiveData_TickerMap:ViewModel(){
     fun Get_API(search_str:String){
 
         disposable = observable
-            .retryWhen{ e:Flowable<Throwable> ->
+            .retryWhen{ e:Flowable<Throwable> -> //에러시에 1초단위로 100번까지 재시도
                 val counter = AtomicInteger()
                 return@retryWhen e
                     .takeWhile{e->counter.getAndIncrement() != 100}
@@ -62,7 +62,7 @@ class MutableLiveData_TickerMap:ViewModel(){
                     val name = entry.key!!
                     val obj = entry.value!!
 
-                    if(name != "date"){ //api 마지막에 껴있는 불필요한 정보
+                    if(name != "date"){ //api 마지막에 껴있는 불필요한 정보 date 제외
                         if( (search_str.length >= 2 && name.contains(search_str,ignoreCase = true))
                             || search_str.isEmpty()){
 
@@ -80,7 +80,4 @@ class MutableLiveData_TickerMap:ViewModel(){
                 coins.value = map
             })
     }
-
-
-
 }

@@ -33,16 +33,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: Coin_Adapter
     private var thread_all:NetworkThread? = null
     private var thread_search:NetworkThread? = null
-    val activity:Activity = this
 
-
-    override fun onRestart() {
+    override fun onRestart() { //다시 돌아왔을 경우 마지막에 사용하던 Thread를 다시 시작
         super.onRestart()
         Log.e("onRestart","onRestart : "+ binding.searchET.text.toString())
         Set_threads(binding.searchET.text.toString())
     }
 
-    override fun onStop() {
+    override fun onStop() { //화면 밖으로 나갈 경우 모든 Thread 종료
         super.onStop()
         Log.e("onStop","onStop")
         Interrupt_threads()
@@ -54,15 +52,15 @@ class MainActivity : AppCompatActivity() {
 
         adapter = Coin_Adapter(this,ArrayList<Ticker>())
 
-        val utility = Utility(this,binding.CoinRecyclerView,adapter)
+        val utility = Utility(this,binding.CoinRecyclerView,adapter) //리사이클러뷰 적용하는 것
         utility.RecyclerInit("VERTICAL")
 
-        liveData_tickerMap = ViewModelProvider(this).get(MutableLiveData_TickerMap::class.java)
+        liveData_tickerMap = ViewModelProvider(this).get(MutableLiveData_TickerMap::class.java) //VM의 LiveData를 set하면서 Adapter를 Notify할 것입니다.
         liveData_tickerMap.coins.observe(this, Observer {
             adapter.CoinDiffUtil(Sort(it))
         })
 
-        ET_Observable_Disposable =
+        ET_Observable_Disposable = //RxAndroidUtil에서 검색창의 정보가 바뀔 때마다 자동으로 api를 가져올 것입니다.
             RxAndroidUtils.getEditTextObservable(binding.searchET)
                 .debounce(700,TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
@@ -72,7 +70,7 @@ class MainActivity : AppCompatActivity() {
                 })
     }
 
-    inner class NetworkThread(
+    inner class NetworkThread( //Thread에 sleep을 주어서 딜레이를 주고 그 외엔 계속 돌립니다.
         private val search_ET: String
     ):Thread() {
 
@@ -92,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun Sort(map: Map<String,Ticker>):ArrayList<Ticker>{
+    private fun Sort(map: Map<String,Ticker>):ArrayList<Ticker>{ // 가져온 data를 거래금액 순으로 정렬해줍니다.
 
         val list:ArrayList<Ticker> = ArrayList(map.values)
         list.sortByDescending { it.acc_trade_value_24H!!.toDouble() }
@@ -100,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         return list
     }
 
-    private fun Interrupt_threads(){
+    private fun Interrupt_threads(){ //Thread 중단
 
         thread_all = thread_all?.run{
             this.isRunning = false
@@ -121,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("search","thread_search thread is null? : " + thread_search?.run { "false" })
     }
 
-    private fun Set_threads(Search:String){
+    private fun Set_threads(Search:String){ //Thread 시작
         if(Search.length >= 2){
             Log.d("search","search something")
             Interrupt_threads()

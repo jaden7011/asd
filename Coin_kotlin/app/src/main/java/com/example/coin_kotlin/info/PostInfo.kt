@@ -11,6 +11,7 @@ data class PostInfo(
     val coin:String,
     val title:String,
     val publisher:String,
+    val content:String,
     val docid:String,
     val createdAt:Date,
     val good:Int,

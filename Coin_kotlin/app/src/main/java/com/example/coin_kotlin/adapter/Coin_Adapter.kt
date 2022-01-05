@@ -23,7 +23,7 @@ import com.example.coin_kotlin.utility.Coin_DiffUtil
 
 class Coin_Adapter (
     val activity: Activity,
-    val coins: ArrayList<Ticker>,
+    val coins: ArrayList<Ticker>
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun CoinDiffUtil(newCoins:ArrayList<Ticker>){
