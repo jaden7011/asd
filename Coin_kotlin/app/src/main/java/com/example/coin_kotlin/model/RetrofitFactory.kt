@@ -1,4 +1,4 @@
-package com.example.coin_kotlin.retrofit
+package com.example.coin_kotlin.model
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

@@ -1,7 +1,5 @@
 package com.example.coin_kotlin.activity
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -11,17 +9,15 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.adapter.Coin_Adapter
-import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.databinding.ActivityMainBinding
-import com.example.coin_kotlin.model.MutableLiveData_TickerMap
+import com.example.coin_kotlin.viewmodel.MutableLiveData_TickerMap
 import com.example.coin_kotlin.utility.RxAndroidUtils
 import com.example.coin_kotlin.utility.Utility
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
@@ -44,6 +40,14 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         Log.e("onStop","onStop")
         Interrupt_threads()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e("onDestroy","onDestroy")
+        thread_search = null
+        thread_all = null
+        ET_Observable_Disposable.dispose() //single이고, VM에 있어서 굳이 필요한가 싶기도 함
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

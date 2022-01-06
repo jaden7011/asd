@@ -1,11 +1,11 @@
-package com.example.coin_kotlin.model
+package com.example.coin_kotlin.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.data.Ticker_Response
-import com.example.coin_kotlin.retrofit.Repository
+import com.example.coin_kotlin.model.Repository
 import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable

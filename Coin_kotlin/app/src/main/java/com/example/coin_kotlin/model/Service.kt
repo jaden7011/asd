@@ -1,4 +1,4 @@
-package com.example.coin_kotlin.retrofit
+package com.example.coin_kotlin.model
 
 import com.example.coin_kotlin.data.Candle_List
 import com.example.coin_kotlin.data.Ticker_Response
