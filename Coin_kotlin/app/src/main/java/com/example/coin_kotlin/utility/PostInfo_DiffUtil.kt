@@ -9,8 +9,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class PostInfo_DiffUtil(
-    val oldPosts: ArrayList<PostInfo>,
-    val newPosts: ArrayList<PostInfo>
+    val oldPosts: ArrayList<PostInfo?>,
+    val newPosts: ArrayList<PostInfo?>
 ) :
     DiffUtil.Callback() {
 
@@ -26,8 +26,8 @@ class PostInfo_DiffUtil(
         oldItemPosition: Int,
         newItemPosition: Int
     ): Boolean {
-        val oldpost: PostInfo = oldPosts[oldItemPosition]
-        val newpost: PostInfo = newPosts[newItemPosition]
+        val oldpost: PostInfo? = oldPosts[oldItemPosition]
+        val newpost: PostInfo? = newPosts[newItemPosition]
 
         return if (oldpost == null || newpost == null) { //리사이클러뷰의 다운스크롤을 위해 넣은 로딩홀더를 다른 아이템취급하기 위함임
             //            Log.d("무슨일ㄹㅇ리이ㅣ", "old: " + oldItemPosition);
@@ -40,8 +40,8 @@ class PostInfo_DiffUtil(
         oldItemPosition: Int,
         newItemPosition: Int
     ): Boolean { //item이 같아도 수정된다면 내용이 다르다는 것을 인식시켜줘야 내용이 바뀜
-        val oldpost: PostInfo = oldPosts[oldItemPosition]
-        val newpost: PostInfo = newPosts[newItemPosition]
+        val oldpost: PostInfo? = oldPosts[oldItemPosition]
+        val newpost: PostInfo? = newPosts[newItemPosition]
         if (oldpost == null || newpost == null) { //리사이클러뷰의 다운스크롤을 위해 넣은 로딩홀더를 다른 아이템취급하기 위함임
 //            Log.d("무슨일ㄹㅇ리이ㅣ", "old: " + oldItemPosition);
 //            Log.d("무슨일ㄹㅇ리이ㅣ", "new: " + newItemPosition);

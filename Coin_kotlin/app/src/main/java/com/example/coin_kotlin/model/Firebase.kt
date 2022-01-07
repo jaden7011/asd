@@ -9,10 +9,8 @@ import kotlin.collections.ArrayList
 
 object Firebase{
 
-    val db = FirebaseFirestore.getInstance()
-
     interface Posts_Listener {
-        fun Completed(a:ArrayList<PostInfo>?)
+        fun Completed(a:ArrayList<PostInfo?>)
     }
 
     interface Post_Listener {
@@ -25,7 +23,7 @@ object Firebase{
 
     fun Get_Post(coin:String,dockey:String,listener:Post_Listener){
 
-        db.collection(coin)
+        FirebaseFirestore.getInstance().collection(coin)
                 .document(dockey)
                 .get().addOnSuccessListener {
                     listener.Completed(it.toObject(PostInfo::class.java))
@@ -33,9 +31,10 @@ object Firebase{
     }
 
     fun Get_Posts(coin:String,listener: Posts_Listener){
-        val newPosts = ArrayList<PostInfo>()
 
-        db.collection(coin)
+        val newPosts = ArrayList<PostInfo?>()
+
+        FirebaseFirestore.getInstance().collection(coin)
                 .orderBy("createdAt",Query.Direction.DESCENDING).whereLessThan("createdAt",Date())
                 .get()
                 .addOnCompleteListener {
@@ -52,10 +51,10 @@ object Firebase{
 
     fun Upload(postInfo: PostInfo,listener: Upload_Listener){
 
-        val doc = db.collection(postInfo.coin).document()
+        val doc = FirebaseFirestore.getInstance().collection(postInfo.coin).document()
         postInfo.docid = doc.id
 
-        db.collection(postInfo.coin)
+        FirebaseFirestore.getInstance().collection(postInfo.coin)
                 .document(postInfo.docid)
                 .set(postInfo)
                 .addOnCompleteListener {

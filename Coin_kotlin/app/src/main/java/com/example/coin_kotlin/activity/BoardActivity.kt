@@ -1,14 +1,16 @@
 package com.example.coin_kotlin.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
-import com.example.coin_kotlin.adapter.Post_Adapter
 import com.example.coin_kotlin.databinding.ActivityBoardBinding
 import com.example.coin_kotlin.viewmodel.LiveData_Posts
 
@@ -19,17 +21,18 @@ class BoardActivity : AppCompatActivity() {
         val bundle = intent.extras
         bundle?.getString("name")
     }
-    private val toolbar: Toolbar = findViewById(R.id.toolbar_board)
+    private lateinit var toolbar: Toolbar
     private lateinit var livedataPostinfo: LiveData_Posts
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_board)
+        toolbar = findViewById(R.id.toolbar_board)
         Toolbar()
         livedataPostinfo = ViewModelProvider(this,LiveData_Posts.Factory(this)).get(LiveData_Posts::class.java)
+        livedataPostinfo.Get_Candle_Posts(coin_name!!)
         livedataPostinfo.posts.observe(this, Observer {
-            livedataPostinfo.adapter
-            //todo
+            livedataPostinfo.adapter.PostDiffUtil(it)
         })
 
     }
@@ -42,4 +45,29 @@ class BoardActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         toolbar.setTitle(coin_name)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.toolbar_main_write_post_btn -> {
+                val intent = Intent(this,WriteActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.toolbar_main_search -> {
+//                if(myAccount != null)
+//                    Activity(SearchActivity.class,myAccount.getLocation());
+            }
+
+            R.id.toolbar_main_reset -> {
+
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }

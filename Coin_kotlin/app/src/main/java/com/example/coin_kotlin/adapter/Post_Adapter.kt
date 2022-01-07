@@ -7,16 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.data.Candle
+import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.info.PostInfo
+import com.example.coin_kotlin.utility.Coin_DiffUtil
 import com.example.coin_kotlin.utility.MPchart
 import com.example.coin_kotlin.utility.Named.CHART_VIEWTYPE
 import com.example.coin_kotlin.utility.Named.HOUR
 import com.example.coin_kotlin.utility.Named.MIN
 import com.example.coin_kotlin.utility.Named.POSTING_VIEWTYPE
 import com.example.coin_kotlin.utility.Named.SEC
+import com.example.coin_kotlin.utility.PostInfo_DiffUtil
 import com.github.mikephil.charting.charts.CandleStickChart
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,6 +30,17 @@ class Post_Adapter(
         val posts:ArrayList<PostInfo?>,
         val candles:ArrayList<Candle>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    fun PostDiffUtil(newposts:ArrayList<PostInfo?>){
+        Log.d("DIFF", "old size: ${posts.size} new size: ${newposts.size}".trimIndent())
+
+        val diffCallback = PostInfo_DiffUtil(this.posts,newposts)
+        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(diffCallback)
+
+        posts.clear()
+        posts.addAll(newposts)
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if(viewType == CHART_VIEWTYPE){

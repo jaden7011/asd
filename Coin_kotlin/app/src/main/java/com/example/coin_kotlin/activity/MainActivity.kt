@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
         Set_threads(binding.searchET.text.toString())
     }
 
-    override fun onStop() { //화면 밖으로 나갈 경우 모든 Thread 종료
-        super.onStop()
+    override fun onPause() { //화면 밖으로 나갈 경우 모든 Thread 종료
+        super.onPause()
         Log.e("onStop","onStop")
         Interrupt_threads()
     }

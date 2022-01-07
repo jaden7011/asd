@@ -1,15 +1,14 @@
 package com.example.coin_kotlin.viewmodel
 
 import android.app.Activity
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.BoardActivity
-import com.example.coin_kotlin.activity.MainActivity
 import com.example.coin_kotlin.adapter.Post_Adapter
 import com.example.coin_kotlin.data.Candle
-import com.example.coin_kotlin.data.Candle_List
 import com.example.coin_kotlin.info.PostInfo
 import com.example.coin_kotlin.model.Firebase
 import com.example.coin_kotlin.model.Repository
@@ -28,12 +27,15 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
         }
     }
 
-    val posts: MutableLiveData<ArrayList<PostInfo>?> by lazy {
-        MutableLiveData<ArrayList<PostInfo>?>()
+    val posts: MutableLiveData<ArrayList<PostInfo?>> by lazy {
+        MutableLiveData<ArrayList<PostInfo?>>()
     }
 
     fun onCreate(candles:ArrayList<Candle>){
-        val adapter = Post_Adapter(ArrayList(),candles)
+        ArrayList<PostInfo?>().apply {
+            this.add(null)
+            adapter = Post_Adapter(this,candles)
+        }
         val utility = Utility(activity,(activity as BoardActivity).findViewById(R.id.Board_Recycler),adapter)
         utility.RecyclerInit("VERTICAL")
     }
@@ -44,6 +46,7 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(Consumer {
+                    Log.d("onSuccess", "onSuccess[size]: " + it.data.size)
                     val candles = ArrayList<Candle>()
 
                     for(x in it.data){
@@ -57,7 +60,8 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
                         ))
                     }
                     Firebase.Get_Posts(coin, object : Firebase.Posts_Listener {
-                        override fun Completed(a: ArrayList<PostInfo>?) {
+                        override fun Completed(a: ArrayList<PostInfo?>) {
+                            Log.d("Posts","Posts size: "+a.size)
                             onCreate(candles)
                             posts.value = a
                             //todo adapter init때문에 activity에서 할지 여기서 할지 고민중
