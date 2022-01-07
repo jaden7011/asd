@@ -3,7 +3,6 @@ package com.example.coin_kotlin.model
 import com.example.coin_kotlin.info.PostInfo
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -12,13 +11,19 @@ object Firebase{
 
     val db = FirebaseFirestore.getInstance()
 
-    interface F_listener {
-        fun Completed()
+    interface Posts_Listener {
         fun Completed(a:ArrayList<PostInfo>?)
+    }
+
+    interface Post_Listener {
         fun Completed(a:PostInfo?)
     }
 
-    fun Get_Post(coin:String,dockey:String,listener:F_listener){
+    interface Upload_Listener {
+        fun Completed(t: Any?)
+    }
+
+    fun Get_Post(coin:String,dockey:String,listener:Post_Listener){
 
         db.collection(coin)
                 .document(dockey)
@@ -27,8 +32,7 @@ object Firebase{
                 }
     }
 
-    fun Get_Posts(coin:String,listener:F_listener){
-
+    fun Get_Posts(coin:String,listener: Posts_Listener){
         val newPosts = ArrayList<PostInfo>()
 
         db.collection(coin)
@@ -46,7 +50,7 @@ object Firebase{
                 }
     }
 
-    fun Upload(postInfo: PostInfo,listener: F_listener){
+    fun Upload(postInfo: PostInfo,listener: Upload_Listener){
 
         val doc = db.collection(postInfo.coin).document()
         postInfo.docid = doc.id
@@ -55,7 +59,7 @@ object Firebase{
                 .document(postInfo.docid)
                 .set(postInfo)
                 .addOnCompleteListener {
-                    listener.Completed()
+                    listener.Completed(null)
                 }
     }
 

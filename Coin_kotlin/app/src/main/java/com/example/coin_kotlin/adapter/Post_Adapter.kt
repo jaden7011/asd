@@ -23,7 +23,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class Post_Adapter(
-        val activity:Activity,
         val posts:ArrayList<PostInfo?>,
         val candles:ArrayList<Candle>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
