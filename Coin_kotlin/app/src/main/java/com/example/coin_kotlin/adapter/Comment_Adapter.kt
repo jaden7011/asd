@@ -38,7 +38,6 @@ class Comment_Adapter(
         val nicknameT:TextView = itemView.findViewById(R.id.nickname_commentT)
         val goodnum:TextView = itemView.findViewById(R.id.goodNum_commentT)
         val option_btn:ImageButton = itemView.findViewById(R.id.opt_comment)
-        val commentbody_good:ImageButton = itemView.findViewById(R.id.good_btn_Frame)
         val goodNum_Layout:LinearLayout = itemView.findViewById(R.id.comment_GoodLayout)
 
         fun bind(item:CommentInfo){

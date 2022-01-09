@@ -89,7 +89,7 @@ class Post_Adapter(
         val content:TextView = itemView.findViewById(R.id.contentT)
         val dateT:TextView = itemView.findViewById(R.id.dateT)
         val goodNum:TextView = itemView.findViewById(R.id.goodNum_postItem)
-        val commentNum:TextView = itemView.findViewById(R.id.goodNum_postItem)
+        val commentNum:TextView = itemView.findViewById(R.id.commentNum_postItem)
         val imageView:ImageView = itemView.findViewById(R.id.postImage)
         val nicknameT:TextView = itemView.findViewById(R.id.nicknameT)
 

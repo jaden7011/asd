@@ -1,9 +1,12 @@
 package com.example.coin_kotlin.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
@@ -32,6 +35,7 @@ class PostActivity : AppCompatActivity() {
         livedataComment.onCreate()
         livedataComment.comments.observe(this, Observer {
             livedataComment.adapter.CommentInfo_DiffUtil(it)
+            clear()
         })
 
         binding.AddCommentBtn.setOnClickListener {
@@ -81,6 +85,15 @@ class PostActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    fun clear(){
+        binding.AddCommentT.text.clear()
+        binding.passCommentET.text.clear()
+        binding.publisherCommentET.text.clear()
+
+        (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+            .hideSoftInputFromWindow(binding.AddCommentT.windowToken,0)
     }
 
 }

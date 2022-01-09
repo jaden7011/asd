@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
                 try {
                     Log.d("NetworkThread", "running")
                     liveData_tickerMap.Get_API(search_ET)
-                    sleep(3000)
+                    sleep(2000)
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
