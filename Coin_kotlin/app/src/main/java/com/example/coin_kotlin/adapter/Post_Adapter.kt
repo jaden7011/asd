@@ -1,6 +1,7 @@
 package com.example.coin_kotlin.adapter
 
 import android.app.Activity
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
+import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.info.PostInfo
@@ -27,8 +29,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class Post_Adapter(
-        val posts:ArrayList<PostInfo?>,
-        val candles:ArrayList<Candle>
+    val activity: Activity,
+    val posts:ArrayList<PostInfo?>,
+    val candles:ArrayList<Candle>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun PostDiffUtil(newposts:ArrayList<PostInfo?>){
@@ -45,18 +48,20 @@ class Post_Adapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if(viewType == CHART_VIEWTYPE){
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.mpchart_items,parent,false)
+                .inflate(R.layout.mpchart_items,parent,false)
 
             return Chart_Holder(view)
         }
         else{
             val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_post,parent,false)
+                .inflate(R.layout.item_post,parent,false)
 
             val holder = Post_Holder(view)
 
             view.setOnClickListener {
-                Log.e("clicked","cccccccccc")
+                activity.startActivity(Intent(activity,PostActivity::class.java).apply {
+                    this.putExtra("post",posts[holder.absoluteAdapterPosition])
+                })
             }
 
             return holder

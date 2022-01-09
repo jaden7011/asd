@@ -34,7 +34,7 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
     fun onCreate(candles:ArrayList<Candle>){
         ArrayList<PostInfo?>().apply {
             this.add(null)
-            adapter = Post_Adapter(this,candles)
+            adapter = Post_Adapter(activity,this,candles)
         }
         val utility = Utility(activity,(activity as BoardActivity).findViewById(R.id.Board_Recycler),adapter)
         utility.RecyclerInit("VERTICAL")
