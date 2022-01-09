@@ -23,6 +23,7 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
+    private var backKeyPressedTime: Long = 0
     private lateinit var binding : ActivityMainBinding
     private lateinit var ET_Observable_Disposable: Disposable
     private lateinit var liveData_tickerMap:MutableLiveData_TickerMap
@@ -158,6 +159,25 @@ class MainActivity : AppCompatActivity() {
         else{
             Toast.makeText(this,"\"2글자 이상 입력해주세요.\"",Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onBackPressed() {
+        // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
+
+        // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
+        if (System.currentTimeMillis() > backKeyPressedTime + 1500) {
+            backKeyPressedTime = System.currentTimeMillis()
+            Toast("\'뒤로\' 버튼을 한번 더 누르시면 종료됩니다.")
+            return
+        }
+        if (System.currentTimeMillis() <= backKeyPressedTime + 1500) {
+            //아래 3줄은 프로세스 종료
+            finish()
+        }
+    }
+
+    fun Toast(str: String) {
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 
 }

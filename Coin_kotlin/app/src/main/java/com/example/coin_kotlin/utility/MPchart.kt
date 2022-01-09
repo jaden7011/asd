@@ -23,7 +23,6 @@ class MPchart(val candleStickChart: CandleStickChart) {
         priceChart.description.text = "일봉차트"
         priceChart.description.textColor = R.color.classicBlue
 
-
         //x축
         val xAxis = priceChart.xAxis
         //세로선 표시여부
@@ -88,18 +87,16 @@ class MPchart(val candleStickChart: CandleStickChart) {
         candleDataSet.neutralColor = Color.rgb(6, 18, 34)
         candleDataSet.setDrawValues(true)
 
-
         // 터치시 노란 선 제거
         val candleData = CandleData(candleDataSet)
         priceChart.data = candleData
         priceChart.invalidate()
 
         val LIMIT_NUM = 75
-
         priceChart.setVisibleXRange(10f, LIMIT_NUM.toFloat()) //한 화면에 보이는 갯수
-
-//        //가장 최근의 데이터로 스크롤해줌.
+        //가장 최근의 데이터로 스크롤해줌.
         priceChart.moveViewToX(priceChart.data.entryCount - (LIMIT_NUM + 1).toFloat())
+
     }
 
 }

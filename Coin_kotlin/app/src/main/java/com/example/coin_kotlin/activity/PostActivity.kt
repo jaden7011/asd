@@ -13,8 +13,7 @@ class PostActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityPostBinding
     private val post: PostInfo by lazy {
-        val bundle = intent.extras
-        bundle?.getParcelable<PostInfo>("post")!!
+        intent.extras?.getParcelable<PostInfo>("post")!!
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +24,11 @@ class PostActivity : AppCompatActivity() {
         binding.postInfo = post
         Toolbar()
 
+        binding.AddCommentBtn.setOnClickListener {
+            if(binding.AddCommentT.text.isNotEmpty()){
+
+            }
+        }
     }
 
     fun Toolbar(){
@@ -46,9 +50,14 @@ class PostActivity : AppCompatActivity() {
             R.id.delete -> {
                 //todo delete
             }
+
             R.id.autonew -> {
                 item.setEnabled(false)
 
+            }
+
+            R.id.back_btn -> {
+                onBackPressed()
             }
         }
         return super.onOptionsItemSelected(item)

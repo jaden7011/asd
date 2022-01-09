@@ -16,8 +16,7 @@ class WriteActivity : AppCompatActivity() {
 
     private var backKeyPressedTime: Long = 0
     private val coin_name: String by lazy {
-        val bundle = intent.extras
-        bundle?.getString("coin_name")!!
+        intent.extras?.getString("coin_name")!!
     }
     private lateinit var binding: ActivityWriteBinding
 

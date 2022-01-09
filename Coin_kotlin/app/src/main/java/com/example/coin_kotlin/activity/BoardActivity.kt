@@ -2,6 +2,7 @@ package com.example.coin_kotlin.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
@@ -18,14 +19,13 @@ class BoardActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityBoardBinding
     private val coin_name:String by lazy {
-        val bundle = intent.extras
-        bundle?.getString("coin_name")!!
+        intent.extras?.getString("coin_name")!!
     }
     private lateinit var toolbar: Toolbar
     private lateinit var livedataPostinfo: LiveData_Posts
 
-    override fun onResume() {
-        super.onResume()
+    override fun onRestart() {
+        super.onRestart()
         livedataPostinfo.Get_Candle_Posts(coin_name)
     }
 
@@ -37,6 +37,9 @@ class BoardActivity : AppCompatActivity() {
         livedataPostinfo = ViewModelProvider(this,LiveData_Posts.Factory(this)).get(LiveData_Posts::class.java)
         livedataPostinfo.Get_Candle_Posts(coin_name)
         livedataPostinfo.posts.observe(this, Observer {
+            if(it.size == 1) { // 차트인 null값만 들어있는 경우
+                Log.e("adssad","asdazzzzzd")
+            }
             livedataPostinfo.adapter.PostDiffUtil(it)
         })
 
@@ -71,6 +74,10 @@ class BoardActivity : AppCompatActivity() {
 
             R.id.toolbar_main_reset -> {
                 livedataPostinfo.Get_Candle_Posts(coin_name)
+            }
+
+            R.id.back_btn -> {
+                onBackPressed()
             }
         }
         return super.onOptionsItemSelected(item)

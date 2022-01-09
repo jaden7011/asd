@@ -68,7 +68,6 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
                                 this.addAll(a)
                             }
                             posts.value = arr
-                            //todo adapter init때문에 activity에서 할지 여기서 할지 고민중
                         }
                     })
                 })
