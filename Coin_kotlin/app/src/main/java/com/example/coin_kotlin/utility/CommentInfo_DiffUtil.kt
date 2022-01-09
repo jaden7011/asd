@@ -45,7 +45,7 @@ class CommentInfo_DiffUtil(
 
         return (oldpost.contents.equals(newpost.contents) && oldpost.publisher
             .equals(newpost.publisher)
-                && oldpost.good === newpost.good)
+                && oldpost.good == newpost.good)
     }
 
     override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
