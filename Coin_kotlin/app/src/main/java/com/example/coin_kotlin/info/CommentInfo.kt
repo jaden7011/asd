@@ -12,8 +12,8 @@ data class CommentInfo(
         val createdAt:Date,
         val good:Int,
         val good_user:HashMap<String,Int>,
-        val DateFormate_for_layout:String,
-        val How_Long:String,
+        val dateFormate_for_layout:String,
+        val how_Long:String,
         val password:String,
         val key:String
 ):Parcelable

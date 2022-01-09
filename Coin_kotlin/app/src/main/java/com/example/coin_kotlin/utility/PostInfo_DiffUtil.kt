@@ -49,17 +49,17 @@ class PostInfo_DiffUtil(
         }
 
 //        Log.d("같나","old: "+ oldpost.getGood()+" oldid: "+oldpost.getDocid()+" new: "+ newpost.getGood()+" newid: "+newpost.getDocid());
-        return if (oldpost.How_Long != null && newpost.How_Long == null) { //새로 받아온 배열이 기존의 시간과 차이가 있을 때 표기(방금전,3분전)를 다르게 하기 위해서
+        return if (oldpost.how_Long != null && newpost.how_Long == null) { //새로 받아온 배열이 기존의 시간과 차이가 있을 때 표기(방금전,3분전)를 다르게 하기 위해서
             val date = Date()
-            newpost.How_Long = (
+            newpost.how_Long = (
                 formatTimeString(
-                    newpost.createdAt,
+                    newpost.createdAt!!,
                     date
                 )
             )
             oldpost.docid
-                .equals(newpost.docid) && oldpost.good == newpost.good && oldpost.comment == newpost.comment && oldpost.How_Long
-                .equals(newpost.How_Long)
+                .equals(newpost.docid) && oldpost.good == newpost.good && oldpost.comment == newpost.comment && oldpost.how_Long
+                .equals(newpost.how_Long)
         } else oldpost.docid
             .equals(newpost.docid) && oldpost.good == newpost.good && oldpost.comment == newpost.comment
     }

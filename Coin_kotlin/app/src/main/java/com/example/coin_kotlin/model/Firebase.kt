@@ -41,7 +41,7 @@ object Firebase{
                     if (it.isSuccessful){
                         for(doc in it.result!!){
                             val postInfo = doc.toObject(PostInfo::class.java)
-                            postInfo.DateFormate_for_layout = SimpleDateFormat("yyyy/MM/dd hh:mm", Locale.getDefault()).format(postInfo.createdAt)
+                            postInfo.dateFormate_for_layout = SimpleDateFormat("yyyy/MM/dd hh:mm", Locale.getDefault()).format(postInfo.createdAt)
                             newPosts.add(postInfo)
                         }
                         listener.Completed(newPosts)

@@ -63,7 +63,11 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
                         override fun Completed(a: ArrayList<PostInfo?>) {
                             Log.d("Posts","Posts size: "+a.size)
                             onCreate(candles)
-                            posts.value = a
+                            val arr = ArrayList<PostInfo?>().apply {
+                                this.add(null)
+                                this.addAll(a)
+                            }
+                            posts.value = arr
                             //todo adapter init때문에 activity에서 할지 여기서 할지 고민중
                         }
                     })

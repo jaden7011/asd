@@ -17,12 +17,17 @@ import com.example.coin_kotlin.viewmodel.LiveData_Posts
 class BoardActivity : AppCompatActivity() {
 
     private lateinit var binding:ActivityBoardBinding
-    private val coin_name:String? by lazy {
+    private val coin_name:String by lazy {
         val bundle = intent.extras
-        bundle?.getString("name")
+        bundle?.getString("coin_name")!!
     }
     private lateinit var toolbar: Toolbar
     private lateinit var livedataPostinfo: LiveData_Posts
+
+    override fun onResume() {
+        super.onResume()
+        livedataPostinfo.Get_Candle_Posts(coin_name)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +35,7 @@ class BoardActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar_board)
         Toolbar()
         livedataPostinfo = ViewModelProvider(this,LiveData_Posts.Factory(this)).get(LiveData_Posts::class.java)
-        livedataPostinfo.Get_Candle_Posts(coin_name!!)
+        livedataPostinfo.Get_Candle_Posts(coin_name)
         livedataPostinfo.posts.observe(this, Observer {
             livedataPostinfo.adapter.PostDiffUtil(it)
         })
@@ -55,6 +60,7 @@ class BoardActivity : AppCompatActivity() {
         when(item.itemId){
             R.id.toolbar_main_write_post_btn -> {
                 val intent = Intent(this,WriteActivity::class.java)
+                intent.putExtra("coin_name",coin_name)
                 startActivity(intent)
             }
 
@@ -64,7 +70,7 @@ class BoardActivity : AppCompatActivity() {
             }
 
             R.id.toolbar_main_reset -> {
-
+                livedataPostinfo.Get_Candle_Posts(coin_name)
             }
         }
         return super.onOptionsItemSelected(item)

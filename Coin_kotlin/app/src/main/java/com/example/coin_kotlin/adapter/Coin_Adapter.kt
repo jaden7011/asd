@@ -48,7 +48,7 @@ class Coin_Adapter (
         holder.View_Layout.setOnClickListener {
                 Log.e("holder","clicked: "+holder.Name.text.toString())
                 val intent = Intent(activity,BoardActivity::class.java)
-                        .apply { putExtra("name",holder.Name_sub.text.toString()) }
+                        .apply { putExtra("coin_name",holder.Name_sub.text.toString()) }
                 activity.startActivity(intent)
         }
         return holder

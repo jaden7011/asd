@@ -91,7 +91,7 @@ class Post_Adapter(
         fun bind(item:PostInfo){
             title.text = item.title
             content.text = item.content
-            dateT.text = Time_to_String(item.createdAt)
+            dateT.text = Time_to_String(item.createdAt!!)
             goodNum.text = item.good.toString()
             commentNum.text = item.comments.size.toString()
             nicknameT.text = item.publisher
