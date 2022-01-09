@@ -1,6 +1,7 @@
 package com.example.coin_kotlin.viewmodel
 
 import android.app.Activity
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +13,7 @@ import com.example.coin_kotlin.info.PostInfo
 import com.example.coin_kotlin.model.Firebase
 import com.example.coin_kotlin.utility.Utility
 
-class LiveDate_Comments (
+class LiveData_Comments (
     val activity: Activity,
     val post:PostInfo
 ): ViewModel(){
@@ -21,12 +22,12 @@ class LiveDate_Comments (
 
     class Factory(val activity: Activity,val post:PostInfo) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return LiveDate_Comments(activity,post) as T
+            return LiveData_Comments(activity,post) as T
         }
     }
 
-    val comments: MutableLiveData<ArrayList<CommentInfo>> by lazy {
-        MutableLiveData<ArrayList<CommentInfo>>()
+    val comments: MutableLiveData<PostInfo> by lazy {
+        MutableLiveData<PostInfo>()
     }
 
     fun onCreate(){
@@ -39,15 +40,26 @@ class LiveDate_Comments (
 
     fun Get_Post(){
 
+        (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.VISIBLE
+
         Firebase.Get_Post(post.coin,post.docid,object : Firebase.Post_Listener{
             override fun Completed(a: PostInfo?) {
-                TODO("Not yet implemented")
+                comments.value = a
+                (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.GONE
             }
-
         })
     }
 
     fun Comment(comment:CommentInfo){
+
+        (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.VISIBLE
+
+        Firebase.Comment(post.coin,post.docid,comment,object : Firebase.Post_Listener{
+            override fun Completed(a: PostInfo?) {
+                comments.value = a
+                (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.GONE
+            }
+        })
     }
 
 }

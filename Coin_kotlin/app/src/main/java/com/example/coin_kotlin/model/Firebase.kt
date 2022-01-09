@@ -1,5 +1,6 @@
 package com.example.coin_kotlin.model
 
+import com.example.coin_kotlin.info.CommentInfo
 import com.example.coin_kotlin.info.PostInfo
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -60,6 +61,33 @@ object Firebase{
                 .addOnCompleteListener {
                     listener.Completed(null)
                 }
+    }
+
+    fun Comment(coin_name:String,docid:String,commentInfo: CommentInfo,listener:Post_Listener){
+
+        val drf = FirebaseFirestore.getInstance().collection(coin_name).document(docid)
+
+        FirebaseFirestore.getInstance().runTransaction {
+            val snapshot = it.get(drf)
+
+            //read
+            val postInfo =  snapshot.toObject(PostInfo::class.java)!!
+            val comments = postInfo.comments
+            val commentnum = postInfo.comment
+
+            //write
+            comments.add(commentInfo)
+            it.update(drf,"comment",commentnum+1)
+            it.update(drf,"comments",comments)
+
+            //end
+            postInfo.comment = commentnum+1
+            postInfo.comments = comments
+
+            return@runTransaction postInfo
+        }.addOnSuccessListener {
+            listener.Completed(it)
+        }
     }
 
 }

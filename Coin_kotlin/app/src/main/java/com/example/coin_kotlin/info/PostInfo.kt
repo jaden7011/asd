@@ -18,9 +18,9 @@ data class PostInfo(
         @PropertyName("docid")  var docid:String,
         @PropertyName("createdAt")  val createdAt:Date?,
         @PropertyName("good")  val good:Int,
-        @PropertyName("comment")  val comment:Int,
+        @PropertyName("comment")  var comment:Int,
         @PropertyName("good_user") val good_user:HashMap<String,Int>,
-        @PropertyName("comments") val comments:ArrayList<CommentInfo>,
+        @PropertyName("comments") var comments:ArrayList<CommentInfo>,
         @PropertyName("dateFormate_for_layout") var dateFormate_for_layout:String?,
         @PropertyName("how_Long") var how_Long:String?,
         @PropertyName("password")  val password:String
