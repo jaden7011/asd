@@ -3,6 +3,7 @@ package com.example.coin_kotlin.utility
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Resources
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
@@ -22,6 +23,7 @@ import com.github.mikephil.charting.data.CandleDataSet
 import com.github.mikephil.charting.data.CandleEntry
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -61,11 +63,14 @@ class MPchart(val candleStickChart: CandleStickChart) {
             textColor = setcolor(R.color.night_white)
             position = XAxis.XAxisPosition.BOTTOM
             setDrawGridLines(true)
-            valueFormatter = object : ValueFormatter(){
-                override fun getCandleLabel(candleEntry: CandleEntry?): String {
-                    return super.getCandleLabel(candleEntry)
+            val ss = object : ValueFormatter(){
+                override fun getCandleLabel(candleEntry: CandleEntry): String {
+                    val date = candleEntry.data.toString()
+                    Log.e("priceData", "createdat: $date")
+                    return date
                 }
             }
+            valueFormatter = ss
         }
 
         //오른쪽 y축
@@ -88,6 +93,7 @@ class MPchart(val candleStickChart: CandleStickChart) {
 
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun Set_priceData(candles:ArrayList<Candle>){
         val priceChart = candleStickChart
         Log.d("Set_priceData", "candles: " + candles.size)
@@ -95,13 +101,22 @@ class MPchart(val candleStickChart: CandleStickChart) {
         val candleEntries: MutableList<CandleEntry> = ArrayList()
 
         for (x in candles.indices) {
+
+            val date : () -> String = {
+                SimpleDateFormat("yy/MM/dd")
+                    .format(Date(candles[x].createdAt!!.toLong()))
+            }
+
+//            Log.e("priceData","createdat: "+ date())
+
             candleEntries.add(
                 CandleEntry(
-                    Date(candles[x].createdAt!!.toLong()).time.toFloat(),
+                    x.toFloat(),
                     candles[x].high!!.toFloat(),
                     candles[x].low!!.toFloat(),
                     candles[x].open!!.toFloat(),
-                    candles[x].close!!.toFloat()
+                    candles[x].close!!.toFloat(),
+                    date()
                 )
             )
         }
