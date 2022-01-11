@@ -18,4 +18,9 @@
         <item name="android:tint">@color/black</item>
     </style>
 
+    <style name="nightmode" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:tint">@color/black</item>
+    </style>
+
+
 </resources>

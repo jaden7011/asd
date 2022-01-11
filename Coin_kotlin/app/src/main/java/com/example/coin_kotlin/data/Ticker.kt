@@ -3,8 +3,8 @@ package com.example.coin_kotlin.data
 import com.google.gson.annotations.SerializedName
 
 data class Ticker(
-    @SerializedName("prev_closing_price")
-    val prev_closing_price //전일 종가
+    @SerializedName("closing_price")
+    val closing_price //현재가
     : String?,
 
     @SerializedName("acc_trade_value_24H")

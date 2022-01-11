@@ -3,12 +3,10 @@ package com.example.coin_kotlin.adapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -16,7 +14,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.BoardActivity
-import com.example.coin_kotlin.activity.MainActivity
 import com.example.coin_kotlin.data.NameMap
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.utility.Coin_DiffUtil
@@ -78,7 +75,7 @@ class Coin_Adapter (
             Name.text = NameMap.Name_map.getOrDefault(item.name!!,item.name!!)
             Name_sub.text = item.sub_name
             Rate.text = item.fluctate_rate_24H + "%"
-            Price.text = item.prev_closing_price
+            Price.text = item.closing_price
             Total.text = String.format("%d",(item.acc_trade_value_24H!!.toDouble()/1000000).toInt()) + "백만"
 
             if(item.fluctate_rate_24H!!.toDouble() > 0.0){

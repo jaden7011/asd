@@ -72,6 +72,9 @@ class MutableLiveData_TickerMap:ViewModel(){
                             ticker.name = name
                             ticker.sub_name = name
 
+//                            if(name.equals("ETH"))
+//                                Log.e("coin","val :" + ticker.closing_price)
+
                             map[name] = ticker
                         }
                     }

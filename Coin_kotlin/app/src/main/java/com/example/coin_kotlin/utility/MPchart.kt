@@ -1,67 +1,103 @@
 package com.example.coin_kotlin.utility
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
+import androidx.annotation.ColorRes
+import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.convertTo
+import androidx.core.graphics.toColor
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.data.Candle
 import com.github.mikephil.charting.charts.CandleStickChart
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.CandleData
 import com.github.mikephil.charting.data.CandleDataSet
 import com.github.mikephil.charting.data.CandleEntry
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MPchart(val candleStickChart: CandleStickChart) {
 
     fun Init_Chart(){
         val priceChart = candleStickChart
+        val setcolor: (id:Int) -> Int = {
+            ContextCompat.getColor(priceChart.context,it)
+        }
 
-        priceChart.description.isEnabled = true
-        priceChart.setMaxVisibleValueCount(30)
-        priceChart.setPinchZoom(true)
-        priceChart.setDrawGridBackground(true)
-        priceChart.description.text = "일봉차트"
-        priceChart.description.textColor = R.color.classicBlue
+        priceChart.run {
+            setMaxVisibleValueCount(30)
+            setPinchZoom(true)
 
-        //x축
-        val xAxis = priceChart.xAxis
-        //세로선 표시여부
-        xAxis.setDrawGridLines(true)
-        xAxis.axisLineColor = Color.BLACK
-        xAxis.gridColor = Color.rgb(50, 59, 76)
-        xAxis.isEnabled = true
+            //차트명
+            description.run {
+                isEnabled = true
+                text = "일봉차트"
+                xOffset = 10f
+                yOffset = 5f
+                textColor = setcolor(R.color.night_white)
+            }
 
-        //왼쪽 y축
-        val Left_Axis = priceChart.axisLeft
-        Left_Axis.isEnabled = false
+            isAutoScaleMinMaxEnabled = true
+            legend.isEnabled = false
+
+            //차트 배경 색상
+//            setDrawGridBackground(true)
+//            setGridBackgroundColor(R.color.night)
+//            setBackgroundColor(R.color.night)
+        }
+
+        //x축 세로선 표시여부
+        priceChart.xAxis.run {
+            isEnabled = true
+            textColor = setcolor(R.color.night_white)
+            position = XAxis.XAxisPosition.BOTTOM
+            setDrawGridLines(true)
+            valueFormatter = object : ValueFormatter(){
+                override fun getCandleLabel(candleEntry: CandleEntry?): String {
+                    return super.getCandleLabel(candleEntry)
+                }
+            }
+        }
 
         //오른쪽 y축
-        val Right_Axis = priceChart.axisRight
-        Right_Axis.setLabelCount(5, false)
-        Right_Axis.textColor = Color.BLACK
+        priceChart.axisRight.run {
+            isEnabled = true
+            textColor = setcolor(R.color.night_white)
+            setLabelCount(5, false)
+            setDrawGridLines(true) //가로선 표시여부
 
-        //가로선 표시여부
-        Right_Axis.setDrawGridLines(true)
-        // 차트의 오른쪽 테두리 라인 설정
-        Right_Axis.setDrawAxisLine(true)
-        Right_Axis.axisLineColor = Color.BLACK
-        Right_Axis.gridColor = Color.rgb(50, 59, 79)
+            // 차트의 오른쪽 테두리 라인 설정
+            setDrawAxisLine(true)
+//            axisLineColor = setcolor(R.color.night_white)
+//            gridColor = setcolor(R.color.gray)
+        }
 
-        priceChart.isAutoScaleMinMaxEnabled = true
-        priceChart.legend.isEnabled = false
+        //왼쪽 y축
+        priceChart.axisLeft.run {
+            isEnabled = false
+        }
+
     }
 
     fun Set_priceData(candles:ArrayList<Candle>){
         val priceChart = candleStickChart
         Log.d("Set_priceData", "candles: " + candles.size)
 
-        val candleEntries: MutableList<CandleEntry> =
-            java.util.ArrayList()
+        val candleEntries: MutableList<CandleEntry> = ArrayList()
 
         for (x in candles.indices) {
             candleEntries.add(
                 CandleEntry(
-                    x.toFloat(),
+                    Date(candles[x].createdAt!!.toLong()).time.toFloat(),
                     candles[x].high!!.toFloat(),
                     candles[x].low!!.toFloat(),
                     candles[x].open!!.toFloat(),
@@ -72,31 +108,38 @@ class MPchart(val candleStickChart: CandleStickChart) {
 
         val candleDataSet = CandleDataSet(candleEntries, "일봉차트")
 
-        candleDataSet.axisDependency = YAxis.AxisDependency.RIGHT
+        candleDataSet.run {
+            axisDependency = YAxis.AxisDependency.RIGHT
+            //심지
+//            shadowColor = Color.LTGRAY
+            //심지가 캔들과 색이 똑같게
+            shadowColorSameAsCandle = true
+            shadowWidth = 0.85f
 
-        //심지
-        candleDataSet.shadowColor = Color.LTGRAY
-        candleDataSet.shadowWidth = 0.85f
-        //음봉
-        candleDataSet.decreasingColor = Color.BLUE
-        candleDataSet.increasingPaintStyle = Paint.Style.FILL
-        //양봉
-        candleDataSet.increasingColor = Color.RED
-        candleDataSet.increasingPaintStyle = Paint.Style.FILL
+            //음봉
+            decreasingColor = Color.BLUE
+            increasingPaintStyle = Paint.Style.FILL
 
-        candleDataSet.neutralColor = Color.rgb(6, 18, 34)
-        candleDataSet.setDrawValues(true)
+            //양봉
+            increasingColor = Color.RED
+            increasingPaintStyle = Paint.Style.FILL
 
-        // 터치시 노란 선 제거
+//            neutralColor = Color.rgb(6, 18, 34)
+        }
+
         val candleData = CandleData(candleDataSet)
-        priceChart.data = candleData
-        priceChart.invalidate()
 
-        val LIMIT_NUM = 75
-        priceChart.setVisibleXRange(10f, LIMIT_NUM.toFloat()) //한 화면에 보이는 갯수
-        //가장 최근의 데이터로 스크롤해줌.
-        priceChart.moveViewToX(priceChart.data.entryCount - (LIMIT_NUM + 1).toFloat())
+        priceChart.run {
+            data = candleData
+            invalidate()
 
+            val LIMIT_NUM = 75
+            setVisibleXRange(10f, LIMIT_NUM.toFloat()) //한 화면에 보이는 갯수
+            //가장 최근의 데이터로 스크롤해줌.
+            moveViewToX(priceChart.data.entryCount.toFloat())
+
+//            setBorderColor(Color.BLACK)
+        }
     }
 
 }

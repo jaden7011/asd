@@ -29,4 +29,7 @@
     <color name="darger_blue">#1E90FF</color>
     <color name="midi_blue">#0000CD</color>
     <color name="deep_blue">#00008B</color>
+    <color name="night">#1A2436</color>
+    <color name="night_white">#95A7B1</color>
+
 </resources>
