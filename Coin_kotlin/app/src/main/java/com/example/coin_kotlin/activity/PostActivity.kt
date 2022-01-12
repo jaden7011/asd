@@ -3,7 +3,6 @@ package com.example.coin_kotlin.activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -35,7 +34,7 @@ class PostActivity : AppCompatActivity() {
         livedataComment.onCreate()
         livedataComment.comments.observe(this, Observer {
             livedataComment.adapter.CommentInfo_DiffUtil(it)
-            clear()
+            textclear()
         })
 
         binding.AddCommentBtn.setOnClickListener {
@@ -87,7 +86,7 @@ class PostActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun clear(){
+    fun textclear(){
         binding.AddCommentT.text.clear()
         binding.passCommentET.text.clear()
         binding.publisherCommentET.text.clear()

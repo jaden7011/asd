@@ -109,7 +109,7 @@ class Post_Adapter(
 
         fun bind(item:ArrayList<Candle>){
             MPchart(chart).run {
-                this.Init_Chart()
+//                this.Init_Chart()
                 this.Set_priceData(item)
             }
         }
