@@ -16,14 +16,17 @@
 
     <style name="ToolBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:background">@color/night</item>
-        <item name="android:textColor">@color/night_white</item>
+<!--        <item name="android:textColor">@color/night_white</item>-->
+        <item name="android:tint">@color/night_white</item>
+        <item name="android:itemTextAppearance">@style/MyActionBar.MenuTextStyle</item>
     </style>
 
-    <style name="nightmode" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:tint">@color/black</item>
-        <item name="android:background">@color/night</item>
+    <style name="MyActionBar.MenuTextStyle"
+        parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title">
         <item name="android:textColor">@color/night_white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:itemBackground">@color/colorAccent</item>
     </style>
-
 
 </resources>

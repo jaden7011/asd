@@ -56,10 +56,13 @@ class PostActivity : AppCompatActivity() {
 
     fun Toolbar(){
         setSupportActionBar(findViewById(R.id.toolbar_post))
-        val actionbar  = supportActionBar!!
-        actionbar.setDisplayShowCustomEnabled(true)
-        actionbar.setDisplayShowTitleEnabled(false)
-        actionbar.setDisplayHomeAsUpEnabled(true)
+        val actionbar  = supportActionBar
+        actionbar?.run {
+            setDisplayShowCustomEnabled(true)
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(false)
+            setHomeButtonEnabled(false)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

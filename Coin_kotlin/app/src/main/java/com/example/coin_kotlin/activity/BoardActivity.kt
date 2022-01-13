@@ -2,8 +2,8 @@ package com.example.coin_kotlin.activity
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
@@ -18,8 +18,8 @@ import com.example.coin_kotlin.viewmodel.LiveData_Posts
 
 class BoardActivity : AppCompatActivity() {
 
-    public lateinit var binding:ActivityBoardBinding
-    private val coin_name:String by lazy {
+    lateinit var binding:ActivityBoardBinding
+    val coin_name:String by lazy {
         intent.extras?.getString("coin_name")!!
     }
     private lateinit var toolbar: Toolbar
@@ -46,7 +46,7 @@ class BoardActivity : AppCompatActivity() {
 
     }
 
-    fun Toolbar(){
+    fun Toolbar() {
         setSupportActionBar(toolbar)
         val actionBar: ActionBar? = supportActionBar
         actionBar?.run {
@@ -54,7 +54,7 @@ class BoardActivity : AppCompatActivity() {
             setDisplayShowTitleEnabled(false)
             setDisplayHomeAsUpEnabled(false)
             setHomeButtonEnabled(false)
-//            setLogo(R.drawable.btc_background)
+//            setLogo(bitmapDrawable)
         }
 
         toolbar.setTitle(coin_name)
@@ -76,8 +76,6 @@ class BoardActivity : AppCompatActivity() {
             }
 
             R.id.toolbar_main_search -> {
-//                if(myAccount != null)
-//                    Activity(SearchActivity.class,myAccount.getLocation());
             }
 
             R.id.toolbar_main_reset -> {

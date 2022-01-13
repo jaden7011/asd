@@ -1,6 +1,7 @@
 package com.example.coin_kotlin.viewmodel
 
-import android.app.Activity
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -9,8 +10,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.BoardActivity
-import com.example.coin_kotlin.activity.MainActivity
-import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.adapter.Post_Adapter
 import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.info.PostInfo
@@ -22,12 +21,16 @@ import com.example.coin_kotlin.utility.Utility
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class LiveData_Posts(val activity: Activity):ViewModel() {
+class LiveData_Posts(val activity: BoardActivity):ViewModel() {
 
     lateinit var adapter: Post_Adapter
 
-    class Factory(val activity: Activity) : ViewModelProvider.Factory {
+    class Factory(val activity: BoardActivity) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return LiveData_Posts(activity) as T
         }
@@ -44,6 +47,21 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
         }
         val utility = Utility(activity,(activity as BoardActivity).findViewById(R.id.Board_Recycler),adapter)
         utility.RecyclerInit("VERTICAL")
+
+//        Repository.get_CoinImage(activity.coin_name)
+//                .enqueue(object : Callback<ResponseBody> {
+//                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                    }
+//
+//                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//                        val res = response.body()?.byteStream()
+//                        Log.e("asd", res.toString())
+//                        Handler(Looper.getMainLooper()).postDelayed({
+//                            val bitmap = BitmapFactory.decodeStream(res)
+//                            activity.Toolbar(BitmapDrawable(activity.applicationContext.resources,bitmap))
+//                        },0)
+//                    }
+//                })
     }
 
     fun Get_Candle_Posts(coin:String){

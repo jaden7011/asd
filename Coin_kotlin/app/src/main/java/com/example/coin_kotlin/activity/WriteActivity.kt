@@ -55,8 +55,6 @@ class WriteActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
-
-        // 마지막으로 뒤로가기 버튼을 눌렀던 시간 저장
         if (System.currentTimeMillis() > backKeyPressedTime + 1500) {
             backKeyPressedTime = System.currentTimeMillis()
             Toast("\'뒤로\' 버튼을 한번 더 누르시면 \'글쓰기\'가 종료됩니다.")

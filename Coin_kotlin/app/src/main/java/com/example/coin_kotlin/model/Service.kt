@@ -5,9 +5,12 @@ import com.example.coin_kotlin.data.Ticker_Response
 import com.example.coin_kotlin.data.Transaction_List_Response
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import retrofit2.http.Streaming
 
 interface Service {
 
@@ -39,4 +42,11 @@ interface Service {
     fun CANDLE_LIST_SINGLE(
         @Path("path") path: String
     ): Single<Candle_List>
+
+    @GET("api/icon/{coin_name}")
+    @Streaming
+    fun downloadImage(
+            @Path("coin_name") coin_name:String
+    ): Call<ResponseBody>
+
 }
