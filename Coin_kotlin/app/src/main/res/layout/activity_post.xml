@@ -30,10 +30,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="글 내용"
-                android:textColor="@color/black"
+                android:textColor="@color/night_white"
                 android:textSize="20dp"
-                android:textStyle="bold">
-            </TextView>
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="175dp"
+                tools:layout_editor_absoluteY="14dp"></TextView>
 
         </androidx.appcompat.widget.Toolbar>
 

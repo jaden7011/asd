@@ -11,6 +11,7 @@ import com.example.coin_kotlin.R
 import com.example.coin_kotlin.adapter.Coin_Adapter
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.databinding.ActivityMainBinding
+import com.example.coin_kotlin.utility.NetworkStatus
 import com.example.coin_kotlin.viewmodel.MutableLiveData_TickerMap
 import com.example.coin_kotlin.utility.RxAndroidUtils
 import com.example.coin_kotlin.utility.Utility
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         val utility = Utility(this,binding.CoinRecyclerView,adapter) //리사이클러뷰 적용하는 것
         utility.RecyclerInit("VERTICAL")
 
-        liveData_tickerMap = ViewModelProvider(this).get(MutableLiveData_TickerMap::class.java) //VM의 LiveData를 set하면서 Adapter를 Notify할 것입니다.
+        liveData_tickerMap = ViewModelProvider(this,MutableLiveData_TickerMap.Factory(this)).get(MutableLiveData_TickerMap::class.java) //VM의 LiveData를 set하면서 Adapter를 Notify할 것입니다.
         liveData_tickerMap.coins.observe(this, Observer {
             adapter.CoinDiffUtil(Sort(it))
         })
@@ -103,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         return list
     }
 
-    private fun Interrupt_threads(){ //Thread 중단
+    fun Interrupt_threads(){ //Thread 중단
 
         thread_all = thread_all?.run{
             this.isRunning = false
@@ -124,41 +125,40 @@ class MainActivity : AppCompatActivity() {
         Log.d("search","thread_search thread is null? : " + thread_search?.run { "false" })
     }
 
-    private fun Set_threads(Search:String){ //Thread 시작
-        if(Search.length >= 2){
-            Log.d("search","search something")
-            Interrupt_threads()
+    private fun Set_threads(Search:String) { //Thread 시작
 
-            liveData_tickerMap.disposable?.run {
-                this.dispose()
-            }
+            if (Search.length >= 2) {
+                Log.d("search", "search something")
+                Interrupt_threads()
 
-            if(thread_all == null){
-                thread_search = NetworkThread(Search).apply {
-                    Log.d("search", "thread_search thread is starting: $Search")
-                    this.start()
+                liveData_tickerMap.disposable?.run {
+                    this.dispose()
                 }
-            }
 
-        }
-        else if(Search.isEmpty()){
-            Log.d("search","no search")
-            Interrupt_threads()
-
-            liveData_tickerMap.disposable?.run {
-                this.dispose()
-            }
-
-            if(thread_search == null){
-                thread_all = NetworkThread(Search).apply {
-                    Log.d("search","thread_all thread is starting")
-                    this.start()
+                if (thread_all == null) {
+                    thread_search = NetworkThread(Search).apply {
+                        Log.d("search", "thread_search thread is starting: $Search")
+                        this.start()
+                    }
                 }
+
+            } else if (Search.isEmpty()) {
+                Log.d("search", "no search")
+                Interrupt_threads()
+
+                liveData_tickerMap.disposable?.run {
+                    this.dispose()
+                }
+
+                if (thread_search == null) {
+                    thread_all = NetworkThread(Search).apply {
+                        Log.d("search", "thread_all thread is starting")
+                        this.start()
+                    }
+                }
+            } else {
+                Toast.makeText(this, "\"2글자 이상 입력해주세요.\"", Toast.LENGTH_SHORT).show()
             }
-        }
-        else{
-            Toast.makeText(this,"\"2글자 이상 입력해주세요.\"",Toast.LENGTH_SHORT).show()
-        }
     }
 
     override fun onBackPressed() {

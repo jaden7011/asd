@@ -1,11 +1,17 @@
 package com.example.coin_kotlin.viewmodel
 
+import android.app.Activity
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.coin_kotlin.activity.MainActivity
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.data.Ticker_Response
 import com.example.coin_kotlin.model.Repository
+import com.example.coin_kotlin.utility.NetworkStatus
 import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Flowable
@@ -16,7 +22,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
-class MutableLiveData_TickerMap:ViewModel(){
+class MutableLiveData_TickerMap(val activity: MainActivity):ViewModel(){
+
+    class Factory(val activity: MainActivity) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return MutableLiveData_TickerMap(activity) as T
+        }
+    }
 
     var disposable: Disposable? = null
 
@@ -26,6 +38,19 @@ class MutableLiveData_TickerMap:ViewModel(){
     val observable: Single<Ticker_Response> = Repository.get_Ticker("ALL")
 
     fun Get_API(search_str:String){
+
+        if (!NetworkStatus.isConnected(activity)){
+            Log.e("main_network","network is disconnected")
+            (activity as MainActivity).run {
+                Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
+                    override fun run() {
+                        Toast("인터넷 연결이 되어있지 않습니다.")
+                    }
+                },0)
+                Interrupt_threads()
+            }
+            return
+        }
 
         disposable = observable
             .retryWhen{ e:Flowable<Throwable> -> //에러시에 1초단위로 100번까지 재시도
