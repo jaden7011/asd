@@ -111,6 +111,8 @@ class Post_Adapter(
             MPchart(chart).run {
 //                this.Init_Chart()
                 this.Set_priceData(item)
+                chart.moveViewToX(item.size.toFloat())
+                Log.e("zxczxc","zxczxc"+item.size.toFloat())
             }
         }
     }

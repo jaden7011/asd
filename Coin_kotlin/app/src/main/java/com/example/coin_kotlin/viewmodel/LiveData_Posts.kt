@@ -12,6 +12,7 @@ import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.info.PostInfo
 import com.example.coin_kotlin.model.Firebase
 import com.example.coin_kotlin.model.Repository
+import com.example.coin_kotlin.utility.MPchart
 import com.example.coin_kotlin.utility.Utility
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.functions.Consumer
@@ -59,12 +60,18 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
                                 x[5]
                         ))
                     }
+
+                    MPchart((activity as BoardActivity).binding.priceChart).run {
+                        this.Set_priceData(candles)
+                        this.candleStickChart.moveViewToX(candles.size.toFloat())
+                    }
+
                     Firebase.Get_Posts(coin, object : Firebase.Posts_Listener {
                         override fun Completed(a: ArrayList<PostInfo?>) {
                             Log.d("Posts","Posts size: "+a.size)
                             onCreate(candles)
                             val arr = ArrayList<PostInfo?>().apply {
-                                this.add(null)
+//                                this.add(null)
                                 this.addAll(a)
                             }
                             posts.value = arr

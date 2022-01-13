@@ -1,6 +1,7 @@
 package com.example.coin_kotlin.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -17,7 +18,7 @@ import com.example.coin_kotlin.viewmodel.LiveData_Posts
 
 class BoardActivity : AppCompatActivity() {
 
-    private lateinit var binding:ActivityBoardBinding
+    public lateinit var binding:ActivityBoardBinding
     private val coin_name:String by lazy {
         intent.extras?.getString("coin_name")!!
     }
@@ -37,9 +38,9 @@ class BoardActivity : AppCompatActivity() {
         livedataPostinfo = ViewModelProvider(this,LiveData_Posts.Factory(this)).get(LiveData_Posts::class.java)
         livedataPostinfo.Get_Candle_Posts(coin_name)
         livedataPostinfo.posts.observe(this, Observer {
-            if(it.size == 1) { // 차트인 null값만 들어있는 경우
-                Log.e("adssad","asdazzzzzd")
-            }
+//            if(it.size == 1) { // 차트인 null값만 들어있는 경우
+//                Log.e("adssad","asdazzzzzd")
+//            }
             livedataPostinfo.adapter.PostDiffUtil(it)
         })
 
@@ -48,10 +49,17 @@ class BoardActivity : AppCompatActivity() {
     fun Toolbar(){
         setSupportActionBar(toolbar)
         val actionBar: ActionBar? = supportActionBar
-        actionBar?.setDisplayShowCustomEnabled(true)
-        actionBar?.setDisplayShowTitleEnabled(false)
-        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.run {
+            setDisplayShowCustomEnabled(true)
+            setDisplayShowTitleEnabled(false)
+            setDisplayHomeAsUpEnabled(false)
+            setHomeButtonEnabled(false)
+//            setLogo(R.drawable.btc_background)
+        }
+
         toolbar.setTitle(coin_name)
+        toolbar.titleMarginStart = 3
+        toolbar.setTitleTextColor(Color.WHITE)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

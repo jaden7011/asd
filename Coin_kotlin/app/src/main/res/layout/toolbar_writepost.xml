@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/night">
 
         <ImageView
             android:id="@+id/back_btn"
@@ -34,7 +35,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="글 쓰기"
-            android:textColor="@color/black"
+            android:textColor="@color/night_white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
