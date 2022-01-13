@@ -91,4 +91,8 @@ class BoardActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    fun Toast(str: String) {
+        android.widget.Toast.makeText(this, str, android.widget.Toast.LENGTH_SHORT).show();
+    }
+
 }

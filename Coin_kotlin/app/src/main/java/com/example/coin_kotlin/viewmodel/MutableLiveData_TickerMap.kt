@@ -42,11 +42,7 @@ class MutableLiveData_TickerMap(val activity: MainActivity):ViewModel(){
         if (!NetworkStatus.isConnected(activity)){
             Log.e("main_network","network is disconnected")
             (activity as MainActivity).run {
-                Handler(Looper.getMainLooper()).postDelayed(object : Runnable {
-                    override fun run() {
-                        Toast("인터넷 연결이 되어있지 않습니다.")
-                    }
-                },0)
+                Handler(Looper.getMainLooper()).postDelayed({ Toast("인터넷 연결이 되어있지 않습니다.") },0)
                 Interrupt_threads()
             }
             return

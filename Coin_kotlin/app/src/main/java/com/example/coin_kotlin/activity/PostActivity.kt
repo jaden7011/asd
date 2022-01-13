@@ -95,4 +95,8 @@ class PostActivity : AppCompatActivity() {
             .hideSoftInputFromWindow(binding.AddCommentT.windowToken,0)
     }
 
+    fun Toast(str: String) {
+        android.widget.Toast.makeText(this, str, android.widget.Toast.LENGTH_SHORT).show();
+    }
+
 }

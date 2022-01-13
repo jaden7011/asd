@@ -1,6 +1,9 @@
 package com.example.coin_kotlin.viewmodel
 
 import android.app.Activity
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +14,7 @@ import com.example.coin_kotlin.adapter.Comment_Adapter
 import com.example.coin_kotlin.info.CommentInfo
 import com.example.coin_kotlin.info.PostInfo
 import com.example.coin_kotlin.model.Firebase
+import com.example.coin_kotlin.utility.NetworkStatus
 import com.example.coin_kotlin.utility.Utility
 
 class LiveData_Comments (
@@ -39,6 +43,14 @@ class LiveData_Comments (
     }
 
     fun Get_Post(){
+
+        if (!NetworkStatus.isConnected(activity)){
+            Log.e("main_network","network is disconnected")
+            (activity as PostActivity).run {
+                Handler(Looper.getMainLooper()).postDelayed({ Toast("인터넷 연결이 되어있지 않습니다.") },0)
+            }
+            return
+        }
 
         (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.VISIBLE
 
