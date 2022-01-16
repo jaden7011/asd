@@ -3,6 +3,9 @@ package com.example.coin_kotlin.adapter
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Paint
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -56,6 +59,21 @@ class Coin_Adapter (
         return coins.size
     }
 
+//todo payload를 주고 거기에서 직접 view에 접근하여 holder의 animator 또는 직접 컨트롤
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+
+       if(payloads.isNotEmpty()){
+           Log.e("onbindviewholder","payload_price: "+ (payloads[0]))
+           (holder as Coin_ViewHolder).run{
+               bind(coins[position])
+               underline()
+           }
+       }else{
+           (holder as Coin_ViewHolder).bind(coins[position])
+       }
+    }
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as Coin_ViewHolder).bind(coins[position])
     }
@@ -68,6 +86,18 @@ class Coin_Adapter (
         val Price:TextView = itemView.findViewById(R.id.Currency_price_T)
         val Total:TextView = itemView.findViewById(R.id.total_T)
         val View_Layout:ConstraintLayout = itemView.findViewById(R.id.Layout)
+
+        fun underline(){
+            // todo privce or rate check needed
+            if(Price.text.isNotEmpty()){
+                Price.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                Rate.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                Handler(Looper.getMainLooper()).postDelayed({
+                    Price.paintFlags = 0
+                    Rate.paintFlags = 0
+                },100)
+            }
+        }
 
         @SuppressLint("SetTextI18n")
         fun bind(item: Ticker){
