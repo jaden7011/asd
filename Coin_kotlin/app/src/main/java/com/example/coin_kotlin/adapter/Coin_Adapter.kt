@@ -20,6 +20,8 @@ import com.example.coin_kotlin.activity.BoardActivity
 import com.example.coin_kotlin.data.NameMap
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.utility.Coin_DiffUtil
+import com.example.coin_kotlin.utility.Named.PRICE_CHANGED_PAYLOAD
+import com.example.coin_kotlin.utility.Named.RATE_CHANGED_PAYLOAD
 
 class Coin_Adapter (
     val activity: Activity,
@@ -67,7 +69,7 @@ class Coin_Adapter (
            Log.e("onbindviewholder","payload_price: "+ (payloads[0]))
            (holder as Coin_ViewHolder).run{
                bind(coins[position])
-               underline()
+               underline(payloads[0] as Int)
            }
        }else{
            (holder as Coin_ViewHolder).bind(coins[position])
@@ -87,16 +89,24 @@ class Coin_Adapter (
         val Total:TextView = itemView.findViewById(R.id.total_T)
         val View_Layout:ConstraintLayout = itemView.findViewById(R.id.Layout)
 
-        fun underline(){
-            // todo privce or rate check needed
-            if(Price.text.isNotEmpty()){
-                Price.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-                Rate.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-                Handler(Looper.getMainLooper()).postDelayed({
-                    Price.paintFlags = 0
-                    Rate.paintFlags = 0
-                },100)
+        fun underline(payload:Int){
+
+            if(payload == PRICE_CHANGED_PAYLOAD){
+                if(Price.text.isNotEmpty()){
+                    Price.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        Price.paintFlags = 0
+                    },100)
+                }
+            }else if(payload == RATE_CHANGED_PAYLOAD){
+                if(Rate.text.isNotEmpty()){
+                    Rate.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        Rate.paintFlags = 0
+                    },100)
+                }
             }
+
         }
 
         @SuppressLint("SetTextI18n")

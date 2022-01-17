@@ -11,6 +11,9 @@ object Named {
     const val POSTING_VIEWTYPE = 1920
     const val CHART_VIEWTYPE = 1921
 
+    const val PRICE_CHANGED_PAYLOAD = 200
+    const val RATE_CHANGED_PAYLOAD = 201
+
     const val BOARD_FRAGMENT = 1201
     const val NOTIFICATION_FRAGMENT = 1202
     const val LETTER_FRAGMENT = 1203

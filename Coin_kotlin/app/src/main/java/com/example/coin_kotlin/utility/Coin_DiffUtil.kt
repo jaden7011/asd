@@ -1,7 +1,10 @@
 package com.example.coin_kotlin.utility
 
+import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import com.example.coin_kotlin.data.Ticker
+import com.example.coin_kotlin.utility.Named.PRICE_CHANGED_PAYLOAD
+import com.example.coin_kotlin.utility.Named.RATE_CHANGED_PAYLOAD
 import java.util.*
 
 class Coin_DiffUtil(
@@ -24,11 +27,9 @@ class Coin_DiffUtil(
         val oldcoin: Ticker = oldcoins[oldItemPosition]
         val newcoin: Ticker = newcoins[newItemPosition]
 
-//        if(oldcoin == null || newcoin ==null) { //리사이클러뷰의 다운스크롤을 위해 넣은 로딩홀더를 다른 아이템취급하기 위함임
-////            Log.d("무슨일ㄹㅇ리이ㅣ", "old: " + oldItemPosition);
-////            Log.d("무슨일ㄹㅇ리이ㅣ", "new: " + newItemPosition);
-//            return false;
-//        }
+        if(!oldcoin.name.equals(newcoin.name))
+            Log.e("areItemsTheSame","name: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.name+ " , " +newcoin.name)
+
         return oldcoin.name.equals(newcoin.name)
     }
 
@@ -39,13 +40,41 @@ class Coin_DiffUtil(
         val oldcoin: Ticker = oldcoins[oldItemPosition]
         val newcoin: Ticker = newcoins[newItemPosition]
 
-        return oldcoin.closing_price.equals(newcoin.closing_price)
-                && oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H)
-                && oldcoin.acc_trade_value_24H.equals(newcoin.acc_trade_value_24H)
+//        Log.e("areContentsTheSame","tqtq: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.closing_price+ " , " +newcoin.closing_price)
+
+//        if( !oldcoin.closing_price.equals(newcoin.closing_price)
+//                && oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H))
+//            Log.e("areContentsTheSame","tqtq: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.closing_price+ " , " +newcoin.closing_price)
+
+//        return oldcoin.closing_price.equals(newcoin.closing_price)
+//                && oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H)
+//                && oldcoin.acc_trade_value_24H.equals(newcoin.acc_trade_value_24H)
+
+        return false
     }
 
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        //Implement method if you're going to use ItemAnimator
-        return newcoins[newItemPosition].closing_price
+
+        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+
+            //todo 설명이랑 다르게 itemsame이건 뭐건 멋대로 들어오고 안에서 처리해줘야함 -> 이름은 같고 내용이 다른경우를 찾아야하는데 항상 contents와 item이 true로 들어옴 ,,
+
+        val oldcoin: Ticker = oldcoins[oldItemPosition]
+        val newcoin: Ticker = newcoins[newItemPosition]
+
+            Log.e("getChangePayload","name: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.closing_price+ " , " +newcoin.closing_price)
+
+//            if( !oldcoin.closing_price.equals(newcoin.closing_price)
+//                    && oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H))
+//                Log.e("getChangePayload","tqtq: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.closing_price+ " , " +newcoin.closing_price)
+
+        if(!(oldcoin.closing_price==(newcoin.closing_price))) {
+//            Log.e("coindiffuti","price_bool: "+oldcoin.closing_price + " , " + newcoin.closing_price)
+            return PRICE_CHANGED_PAYLOAD
+        }
+        else if(!(oldcoin.fluctate_rate_24H==(newcoin.fluctate_rate_24H))) {
+//            Log.e("coindiffuti","price_bool: "+oldcoin.fluctate_rate_24H + " , " + newcoin.fluctate_rate_24H+ " , " +oldcoin.name+ " , " +newcoin.name)
+            return RATE_CHANGED_PAYLOAD
+        }
+        else return null
     }
 }
