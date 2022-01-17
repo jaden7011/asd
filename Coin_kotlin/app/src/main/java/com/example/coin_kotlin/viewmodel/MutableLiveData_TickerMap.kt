@@ -32,8 +32,8 @@ class MutableLiveData_TickerMap(val activity: MainActivity):ViewModel(){
 
     var disposable: Disposable? = null
 
-    val coins: MutableLiveData<Map<String, Ticker>> by lazy {
-        MutableLiveData<Map<String, Ticker>>()
+    val coins: MutableLiveData< ArrayList<Ticker>> by lazy {
+        MutableLiveData< ArrayList<Ticker>>()
     }
     val observable: Single<Ticker_Response> = Repository.get_Ticker("ALL")
 
@@ -64,7 +64,8 @@ class MutableLiveData_TickerMap(val activity: MainActivity):ViewModel(){
             .subscribeOn(Schedulers.io())
             .subscribe(Consumer {
 
-                val map = HashMap<String,Ticker>()
+//                val map = HashMap<String,Ticker>()
+                val arr = ArrayList<Ticker>()
                 var cnt = 0
 
 //                coins.value?.run {
@@ -96,12 +97,13 @@ class MutableLiveData_TickerMap(val activity: MainActivity):ViewModel(){
 //                            if(name.equals("ETH"))
 //                                Log.e("coin","val :" + ticker.closing_price)
 
-                            map[name] = ticker
+//                            map[name] = ticker
+                            arr.add(ticker)
                         }
                     }
                 }
-                Log.d("accept", "data.size(): " + map.size)
-                coins.value = map
+//                Log.d("accept", "data.size(): " + map.size)
+                coins.value = arr
             })
     }
 }

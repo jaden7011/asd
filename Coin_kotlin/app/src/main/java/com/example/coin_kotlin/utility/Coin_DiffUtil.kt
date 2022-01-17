@@ -24,57 +24,66 @@ class Coin_DiffUtil(
         oldItemPosition: Int,
         newItemPosition: Int
     ): Boolean {
-        val oldcoin: Ticker = oldcoins[oldItemPosition]
-        val newcoin: Ticker = newcoins[newItemPosition]
+        val oldcoin = oldcoins[oldItemPosition]
+        val newcoin = newcoins[newItemPosition]
 
-        if(!oldcoin.name.equals(newcoin.name))
-            Log.e("areItemsTheSame","name: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.name+ " , " +newcoin.name)
+//        if(!oldcoin.name.equals(newcoin.name))
+//            Log.e("areItemsTheSame","name: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.name+ " , " +newcoin.name)
 
         return oldcoin.name.equals(newcoin.name)
+//        return true
     }
 
     override fun areContentsTheSame(
         oldItemPosition: Int,
         newItemPosition: Int
     ): Boolean { //item이 같아도 수정된다면 내용이 다르다는 것을 인식시켜줘야 내용이 바뀜
-        val oldcoin: Ticker = oldcoins[oldItemPosition]
-        val newcoin: Ticker = newcoins[newItemPosition]
+        val oldcoin = oldcoins[oldItemPosition]
+        val newcoin = newcoins[newItemPosition]
 
 //        Log.e("areContentsTheSame","tqtq: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.closing_price+ " , " +newcoin.closing_price)
 
-//        if( !oldcoin.closing_price.equals(newcoin.closing_price)
-//                && oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H))
-//            Log.e("areContentsTheSame","tqtq: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.closing_price+ " , " +newcoin.closing_price)
+//        if(oldcoin.name.equals(newcoin.name))
+//            if(!oldcoin.closing_price.equals(newcoin.closing_price))
+//                if(oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H)) {
+////                    Log.e("areContentsTheSame", "price: " + newcoin.name.equals(oldcoin.name) + " , " + oldcoin.closing_price + " , " + newcoin.closing_price)
+////                    this.getChangePayload(oldItemPosition,newItemPosition)
+//                }
 
-//        return oldcoin.closing_price.equals(newcoin.closing_price)
-//                && oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H)
-//                && oldcoin.acc_trade_value_24H.equals(newcoin.acc_trade_value_24H)
+        return oldcoin.closing_price.equals(newcoin.closing_price)
+                && oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H)
+                && oldcoin.acc_trade_value_24H.equals(newcoin.acc_trade_value_24H)
 
-        return false
+//        return false
     }
 
-
-        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-
-            //todo 설명이랑 다르게 itemsame이건 뭐건 멋대로 들어오고 안에서 처리해줘야함 -> 이름은 같고 내용이 다른경우를 찾아야하는데 항상 contents와 item이 true로 들어옴 ,,
-
-        val oldcoin: Ticker = oldcoins[oldItemPosition]
-        val newcoin: Ticker = newcoins[newItemPosition]
-
-            Log.e("getChangePayload","name: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.closing_price+ " , " +newcoin.closing_price)
-
-//            if( !oldcoin.closing_price.equals(newcoin.closing_price)
-//                    && oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H))
-//                Log.e("getChangePayload","tqtq: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.closing_price+ " , " +newcoin.closing_price)
-
-        if(!(oldcoin.closing_price==(newcoin.closing_price))) {
-//            Log.e("coindiffuti","price_bool: "+oldcoin.closing_price + " , " + newcoin.closing_price)
-            return PRICE_CHANGED_PAYLOAD
-        }
-        else if(!(oldcoin.fluctate_rate_24H==(newcoin.fluctate_rate_24H))) {
-//            Log.e("coindiffuti","price_bool: "+oldcoin.fluctate_rate_24H + " , " + newcoin.fluctate_rate_24H+ " , " +oldcoin.name+ " , " +newcoin.name)
-            return RATE_CHANGED_PAYLOAD
-        }
-        else return null
-    }
+//    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+//
+//        val oldcoin = oldcoins[oldItemPosition]
+//        val newcoin = newcoins[newItemPosition]
+//
+//        Log.e("getChangePayload","name: "+ newcoin.name.equals(oldcoin.name)+
+//                " , price: " +oldcoin.closing_price.equals(newcoin.closing_price)+
+//                " , rate: " +oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H))
+//
+//        Log.e("getChangePayload","price: "+ newcoin.name.equals(oldcoin.name)+ " , " +oldcoin.closing_price+ " , " +newcoin.closing_price)
+////
+//        if(oldcoin.name.equals(newcoin.name))
+//            if(!oldcoin.closing_price.equals(newcoin.closing_price)){
+//                if(oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H))
+//                    Log.e("getChangePayload","price: "+oldcoin.closing_price+ " , " +newcoin.closing_price)
+//            }
+//
+//        return if(oldcoin.name.equals(newcoin.name)) {
+//            if (!oldcoin.closing_price.equals(newcoin.closing_price)) {
+//                Log.e("getChangePayload", "price_bool: " + oldcoin.closing_price + " , " + newcoin.closing_price)
+//                PRICE_CHANGED_PAYLOAD
+//            } else if (!oldcoin.fluctate_rate_24H.equals(newcoin.fluctate_rate_24H)) {
+//                Log.e("getChangePayload", "price_bool: " + oldcoin.fluctate_rate_24H + " , " + newcoin.fluctate_rate_24H + " , " + oldcoin.name + " , " + newcoin.name)
+//                RATE_CHANGED_PAYLOAD
+//            }
+//            else null
+//        }
+//        else null
+//    }
 }

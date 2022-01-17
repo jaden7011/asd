@@ -63,21 +63,34 @@ class Coin_Adapter (
 
 //todo payload를 주고 거기에서 직접 view에 접근하여 holder의 animator 또는 직접 컨트롤
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
-
-       if(payloads.isNotEmpty()){
-           Log.e("onbindviewholder","payload_price: "+ (payloads[0]))
-           (holder as Coin_ViewHolder).run{
-               bind(coins[position])
-               underline(payloads[0] as Int)
-           }
-       }else{
-           (holder as Coin_ViewHolder).bind(coins[position])
-       }
-    }
+//    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>) {
+//
+//       if(!payloads.isNullOrEmpty()){
+//           Log.e("onbindviewholder","payload_price: "+ (payloads[0]))
+//           (holder as Coin_ViewHolder).run{
+//               bind(coins[position])
+//               underline(payloads[0] as Int)
+//           }
+//       }else{
+//           (holder as Coin_ViewHolder).bind(coins[position])
+//       }
+//    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as Coin_ViewHolder).bind(coins[position])
+        (holder as Coin_ViewHolder).run {
+            val price = this.Price.text.toString()
+            val rate = this.Rate.text.toString()
+            val coin = coins[position]
+            bind(coin)
+
+            if (price.isNotEmpty() && rate.isNotEmpty()){
+                Log.e("onBindViewHolder","price: "+coin.closing_price.equals(price) + ", rate: " + coin.fluctate_rate_24H.equals(rate))
+                if(!coin.closing_price.equals(price))
+                    underline(PRICE_CHANGED_PAYLOAD)
+                if(!coin.fluctate_rate_24H.equals(rate))
+                    underline(RATE_CHANGED_PAYLOAD)
+            }
+        }
     }
 
     inner class Coin_ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
@@ -96,14 +109,14 @@ class Coin_Adapter (
                     Price.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     Handler(Looper.getMainLooper()).postDelayed({
                         Price.paintFlags = 0
-                    },100)
+                    },300)
                 }
             }else if(payload == RATE_CHANGED_PAYLOAD){
                 if(Rate.text.isNotEmpty()){
                     Rate.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                     Handler(Looper.getMainLooper()).postDelayed({
                         Rate.paintFlags = 0
-                    },100)
+                    },300)
                 }
             }
 

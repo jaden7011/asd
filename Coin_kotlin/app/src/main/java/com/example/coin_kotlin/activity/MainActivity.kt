@@ -96,9 +96,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun Sort(map: Map<String,Ticker>):ArrayList<Ticker>{ // 가져온 data를 거래금액 순으로 정렬해줍니다.
+    private fun Sort(map: ArrayList<Ticker>):ArrayList<Ticker>{ // 가져온 data를 거래금액 순으로 정렬해줍니다.
 
-        val list:ArrayList<Ticker> = ArrayList(map.values)
+        val list:ArrayList<Ticker> = ArrayList(map)
         list.sortByDescending { it.acc_trade_value_24H!!.toDouble() }
 
         return list
