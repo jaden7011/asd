@@ -136,8 +136,8 @@ class Coin_Adapter (
                 Price.setTextColor(ContextCompat.getColor(view.context,R.color.colorAccent))
             }
             else if(item.fluctate_rate_24H.toDouble() < 0.0){
-                Rate.setTextColor(ContextCompat.getColor(view.context,R.color.midi_blue))
-                Price.setTextColor(ContextCompat.getColor(view.context,R.color.midi_blue))
+                Rate.setTextColor(ContextCompat.getColor(view.context,R.color.purple_200))
+                Price.setTextColor(ContextCompat.getColor(view.context,R.color.purple_200))
             }
             else{
                 Rate.setTextColor(ContextCompat.getColor(view.context,R.color.black))

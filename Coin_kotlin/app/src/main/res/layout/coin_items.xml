@@ -5,7 +5,7 @@
     android:id="@+id/Layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/outline_under">
+    android:background="@drawable/outline_under_night">
 
     <LinearLayout
         android:id="@+id/Name_LinearLayout"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:gravity="center|left"
         android:orientation="vertical"
-        android:paddingLeft="11dp"
+        android:paddingLeft="11.5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Currency_price_T"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +23,13 @@
             android:id="@+id/Name_T"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="15dp"
             android:layout_weight="1"
-            android:maxLines="1"
-            android:text="비트코인"
-            android:textSize="13sp" />
+            android:maxLines="2"
+            android:text="이더리움 클래식"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/Name_sub_T"
@@ -38,7 +39,8 @@
             android:layout_weight="1"
             android:gravity="top|center_vertical"
             android:text="BTC"
-            android:textSize="9sp" />
+            android:textColor="@color/night_white"
+            android:textSize="10sp" />
 
     </LinearLayout>
 
@@ -48,7 +50,8 @@
         android:layout_height="wrap_content"
         android:paddingStart="10dp"
         android:text="0.40%"
-        android:textSize="15sp"
+        android:textColor="@color/night_white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/total_T"
         app:layout_constraintStart_toEndOf="@+id/Currency_price_T"
@@ -60,7 +63,8 @@
         android:layout_height="wrap_content"
         android:paddingStart="2dp"
         android:text="74,692,000"
-        android:textSize="15sp"
+        android:textColor="@color/night_white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/fluctate_rate_T"
         app:layout_constraintStart_toEndOf="@id/Name_LinearLayout"
@@ -73,7 +77,8 @@
         android:layout_marginEnd="5dp"
         android:gravity="center"
         android:text="332,333백만"
-        android:textSize="13sp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fluctate_rate_T"
