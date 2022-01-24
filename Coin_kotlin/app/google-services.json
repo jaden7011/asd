@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "900857055162",
+    "project_id": "coinner-cbf34",
+    "storage_bucket": "coinner-cbf34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900857055162:android:2df4e49a74994f8aebbf83",
+        "android_client_info": {
+          "package_name": "com.example.coin_kotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900857055162-5110niio0f1b612kc0bgrlt34tdpg7c4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXT3TkVDMi21j2zPvDEpuVeq9x3MYMFTk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900857055162-5110niio0f1b612kc0bgrlt34tdpg7c4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
