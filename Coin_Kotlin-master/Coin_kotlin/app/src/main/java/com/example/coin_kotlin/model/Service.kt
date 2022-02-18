@@ -128,5 +128,13 @@ interface Service {
             @Field("nickname") nickname: String
     ): Call<Comment>
 
+    @FormUrlEncoded
+    @POST("/love")
+    fun love(
+        @Field("loveid") loveid: String,
+        @Field("id") id: String,
+        @Field("ispost") ispost: Int
+    ): Call<Post>
+
 
 }

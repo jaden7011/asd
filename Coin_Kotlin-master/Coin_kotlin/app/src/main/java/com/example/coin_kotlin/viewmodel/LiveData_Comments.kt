@@ -44,15 +44,7 @@ class LiveData_Comments (
     }
 
     fun getPost(postid:String){
-
-        if (!NetworkStatus.isConnected(activity)){
-            Log.e("main_network","network is disconnected")
-            (activity as PostActivity).run {
-                Handler(Looper.getMainLooper()).postDelayed({ Toast("인터넷 연결이 되어있지 않습니다.") },0)
-            }
-            return
-        }
-
+        checkNetWork()
         loadingvisible(true)
 
         //todo 새로고침 했을 때 게시판 최신정보를 가져옴 + 댓글도 가져와야함
@@ -71,13 +63,6 @@ class LiveData_Comments (
                 loadingvisible(false)
             }
         })
-
-//        Firebase.Get_Post(post.coin,post.docid,object : Firebase.Post_Listener{
-//            override fun Completed(a: PostInfo?) {
-//                comments.value = a
-//                (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.GONE
-//            }
-//        })
     }
 
     fun addComment(
@@ -86,8 +71,7 @@ class LiveData_Comments (
             content: String,
             nickname: String
     ){
-
-        //todo 로직진행속도가 빠르면 loadview가 너무 빨리 꺼져서 깜박이는 것처럼 보이는게 거슬림 -> 없애도 ㄱㅊ을 듯?
+        checkNetWork()
         loadingvisible(true)
         //todo 댓글을 썼을 때 -> db에 집어넣고 새로운 댓글리스트를 가져와야하는 것이 한 묶음
         Repository.writeComment(postid, commentid, content, nickname).enqueue(object : Callback<Comment>{
@@ -104,23 +88,16 @@ class LiveData_Comments (
                 activity.textclear()
                 loadingvisible(false)
             }
-
         })
-//        Firebase.Comment(post.coin,post.docid,comment,object : Firebase.Post_Listener{
-//            override fun Completed(a: PostInfo?) {
-//                comments.value = a
-//                (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.GONE
-//            }
-//        })
     }
 
     fun getComment(postid:String){
+        checkNetWork()
         Repository.getCommentList(postid).enqueue(object : Callback<CommentList>{
             override fun onResponse(call: Call<CommentList>, response: Response<CommentList>) {
                 if(response.isSuccessful && response.body() != null){
                     for(comment in response.body()!!.commentlist)
                         comment.dateFormate_for_layout = Time_to_String(comment.createdat)
-
                         comments.value = response.body()!!.commentlist
                 }
             }
@@ -130,11 +107,43 @@ class LiveData_Comments (
         })
     }
 
+    fun love(loveid:String,id:String,ispost:Int){
+        checkNetWork()
+        Repository.love(loveid, id, ispost).enqueue(object : Callback<Post>{
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                if(response.isSuccessful && response.body() != null){
+                    val msg = response.body()?.msg
+                    if(!msg.isNullOrEmpty()){
+                        Toast(msg)
+                        getPost(loveid)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                Log.e("love onfailure","err: "+t.message)
+            }
+        })
+    }
+
     fun loadingvisible(visibiltity:Boolean){
         if(visibiltity)
             (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.VISIBLE
         else
             (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.GONE
+    }
+
+    fun checkNetWork(){
+        if (!NetworkStatus.isConnected(activity)){
+            Log.e("main_network","network is disconnected")
+            (activity as PostActivity).run {
+                Handler(Looper.getMainLooper()).postDelayed({ Toast("인터넷 연결이 되어있지 않습니다.") },0)
+            }
+            return
+        }
+    }
+
+    fun Toast(str: String) {
+        android.widget.Toast.makeText(activity, str, android.widget.Toast.LENGTH_SHORT).show();
     }
 
 }

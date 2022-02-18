@@ -26,16 +26,19 @@ app.post('/user/join', function (req, res) {
     var sql = 'INSERT INTO user (id, nickname, mail) VALUES (?, ?, ?)';
     var params = [id, nickname, mail];
 
-    connection.query(sql, params, function (err, result) {
-        if (err)
-            console.log(err);
-        else {
-            res.json({
-                result: true,
-                msg: '회원가입에 성공했습니다.'
-            })
-        }
-    });
+    query(sql,params)
+    .then(result => {
+        res.json({
+            result: true,
+            msg: '회원가입에 성공했습니다.',
+            id: id,
+            nickname: nickname,
+            mail:mail
+        })
+    })
+    .catch(err => {
+        res.json(err)
+    })
 });
 
 app.post('/user/info', function (req, res) {
@@ -233,10 +236,69 @@ app.post('/comment/write', function(req, res) {
         })
     })
     .catch(err => {
-
+        res.json(err)
     })
     
 });
+
+app.post('/love', function(req,res) { //love에 중복이 있ㄷ면 진행안하고 없없으으면 love insert -> c or p update
+    var loveid = req.body.loveid
+    var id = req.body.id
+    var ispost = req.body.ispost
+    var check_sql =  "SELECT EXISTS(SELECT * FROM love WHERE loveid = ? AND id = ? AND ispost = ? ) as exist";
+    var params = [loveid, id, ispost]
+
+    query(check_sql,params)
+    .then(result => {
+        if(result[0].exist == 1){
+            res.json({
+                msg: "이미 좋아요를 눌렀습니다."
+            })
+            return
+        }else{
+            uplove(loveid,id,ispost,res)
+        }
+    })
+})
+
+function uplove(loveid,id,ispost,res){
+
+    var insert_sql = 'INSERT INTO love (loveid, id, ispost) VALUES (?, ?, ?)'
+    var post_sql = 'SELECT love FROM post WHERE postid = ?'
+    var comment_sql = 'SELECT love FROM comment WHERE commentid = ?'
+    var updatePost_sql = 'UPDATE post SET love = ? WHERE postid = ?'
+    var updateComment_sql = 'UPDATE comment SET love = ? WHERE commentid = ?'
+
+    var insert_params = [loveid, id, ispost]
+
+    query(insert_sql,insert_params)
+    .then(result => { //love에 데이터 집어넣고,
+        console.log(result)
+        console.log(ispost)
+
+        if(ispost){ //만약 post라면,,
+            return query(post_sql,loveid)
+        }else{//만약 comment라면,,
+            return query(comment_sql,loveid)
+        }
+    })
+    .then(result => { //해당 (게시물/댓글) 의 love갯수 뽑아내서 +1해주고
+        var lovecnt = result[0].love + 1
+        var update_params = [lovecnt,loveid]
+        
+        if(ispost){
+            return query(updatePost_sql,update_params)
+        }else{  
+            return query(updateComment_sql,update_params)
+        }
+    })
+    .then(result => {
+        res.json({msg:"좋아요!"})
+    })
+    .catch(err => {
+        // res.json(err)
+    })
+}
 
 function query(sql, args){
     return new Promise((resolve,reject) => {

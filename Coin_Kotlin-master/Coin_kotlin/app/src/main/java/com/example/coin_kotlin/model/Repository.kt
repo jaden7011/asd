@@ -10,6 +10,7 @@ import retrofit2.Call
 object Repository {
 
     val ec2_URL = "http://ec2-15-165-159-175.ap-northeast-2.compute.amazonaws.com:3000"
+//    val ec2_URL = "http://localhost:3000"
 
     fun get_CandleList_Single(path:String) : Single<Candle_List>{
         return RetrofitFactory
@@ -125,6 +126,17 @@ object Repository {
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
             .writeComment(postid, commentid, content, nickname)
+    }
+
+    fun love(
+        loveid:String,
+        id:String,
+        ispost:Int
+    ): Call<Post> {
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .love(loveid, id, ispost)
     }
 
 }

@@ -28,11 +28,11 @@ import java.util.*
 
 class PostActivity : AppCompatActivity() {
 
-    lateinit var binding:ActivityPostBinding
+    lateinit var binding: ActivityPostBinding
     private val post: Post by lazy {
         intent.extras?.getParcelable<Post>("post")!!
     }
-    private lateinit var livedataComment:LiveData_Comments
+    private lateinit var livedataComment: LiveData_Comments
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,41 +46,39 @@ class PostActivity : AppCompatActivity() {
             val nickname = FirebaseAuth.getInstance().currentUser?.displayName
             val commentid = post.postid + Date().time
 
-            if(content.isNotEmpty() && nickname!!.isNotEmpty()){
-                livedataComment.addComment(post.postid,commentid,content,nickname)
-//                livedataComment.addComment(CommentInfo(
-//                    binding.AddCommentT.text.toString(),
-//                    binding.publisherCommentET.text.toString(),
-//                    Date(),
-//                    0,
-//                    HashMap<String,Int>(),
-//                    null,
-//                    null,
-//                    binding.passCommentET.text.toString(),
-//                    Date().toString() + binding.passCommentET.text.toString()
-//                ))
+            if (content.isNotEmpty() && nickname!!.isNotEmpty()) {
+                livedataComment.addComment(post.postid, commentid, content, nickname)
+            }
+        }
+
+        binding.goodBtnFrame.setOnClickListener {
+            if (!FirebaseAuth.getInstance().uid.isNullOrEmpty())
+                livedataComment.love(post.postid, FirebaseAuth.getInstance().uid!!, 1)
+            else{
+                Toast("로그인 후에 이용가능합니다..")
             }
         }
     }
 
-    fun setView(activity: PostActivity){
+    fun setView(activity: PostActivity) {
         val user = FirebaseAuth.getInstance().currentUser
 
-        if(user == null) {
+        if (user == null) {
             binding.AddCommentBtn.isEnabled = false
-            binding.AddCommentT.run{
+            binding.AddCommentT.run {
                 isEnabled = false
                 setText(" 로그인이 필요합니다.")
-                background = ContextCompat.getDrawable(activity,R.drawable.corner_dark)
-                setTextColor(ContextCompat.getColor(activity,R.color.white))
+                background = ContextCompat.getDrawable(activity, R.drawable.corner_dark)
+                setTextColor(ContextCompat.getColor(activity, R.color.white))
             }
         }
 
         Toolbar()
         binding.post = post
 
-        livedataComment = ViewModelProvider(this,LiveData_Comments.Factory(this))[LiveData_Comments::class.java]
-        livedataComment.run{
+        livedataComment =
+            ViewModelProvider(this, LiveData_Comments.Factory(this))[LiveData_Comments::class.java]
+        livedataComment.run {
             onCreate()
             getComment(post.postid)
             livedataComment.comments.observe(activity, Observer {
@@ -90,9 +88,9 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
-    fun Toolbar(){
+    fun Toolbar() {
         setSupportActionBar(findViewById(R.id.toolbar_post))
-        val actionbar  = supportActionBar
+        val actionbar = supportActionBar
         actionbar?.run {
             setDisplayShowCustomEnabled(true)
             setDisplayShowTitleEnabled(false)
@@ -102,23 +100,24 @@ class PostActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.mypost_menu,menu)
+        menuInflater.inflate(R.menu.mypost_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when(item.itemId){
+        when (item.itemId) {
             R.id.delete -> {
-                Repository.deletePost(post.postid).enqueue(object : Callback<Post>{
+                Repository.deletePost(post.postid).enqueue(object : Callback<Post> {
                     override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                        if(response.body() != null)
+                        if (response.body() != null)
                             Toast(response.body()!!.msg)
                         setResult(DELETE)
                         finish()
                     }
+
                     override fun onFailure(call: Call<Post>, t: Throwable) {
-                        Log.e("delete post","err: " + t.message)
+                        Log.e("delete post", "err: " + t.message)
                     }
 
                 })
@@ -131,23 +130,23 @@ class PostActivity : AppCompatActivity() {
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     item.isEnabled = true
-                },1000)
+                }, 1000)
 
             }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    fun textclear(){
+    fun textclear() {
         binding.AddCommentT.text.clear()
 
         (this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-            .hideSoftInputFromWindow(binding.AddCommentT.windowToken,0)
+            .hideSoftInputFromWindow(binding.AddCommentT.windowToken, 0)
     }
 
     override fun onBackPressed() {
         setResult(CHANGED, Intent().run {
-            putExtra("postid",post.postid)
+            putExtra("postid", post.postid)
         })
         finish()
     }

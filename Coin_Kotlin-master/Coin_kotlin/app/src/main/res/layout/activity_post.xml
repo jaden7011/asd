@@ -34,7 +34,7 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 tools:layout_editor_absoluteX="175dp"
-                tools:layout_editor_absoluteY="14dp"></TextView>
+                tools:layout_editor_absoluteY="14dp"/>
 
         </androidx.appcompat.widget.Toolbar>
 
@@ -115,8 +115,7 @@
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="2dp"
-                                android:onClick="good_up_btn"
+                                android:layout_marginEnd="2dp"
                                 android:orientation="horizontal">
 
                                 <ImageView
