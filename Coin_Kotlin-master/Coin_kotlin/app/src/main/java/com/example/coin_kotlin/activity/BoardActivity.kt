@@ -105,10 +105,14 @@ class BoardActivity : AppCompatActivity() {
             }
 
             R.id.toolbar_board_search -> {
+                startActivity(Intent(this,SearchActivity::class.java).run {
+                    putExtra("coin_name",coin_name)
+                })
             }
 
             R.id.toolbar_board_reset -> {
                 livedataPostinfo.Get_Candle_Posts(coin_name)
+                Toast("새로고침")
             }
 
             R.id.back_btn -> {

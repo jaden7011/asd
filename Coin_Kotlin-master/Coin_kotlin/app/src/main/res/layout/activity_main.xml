@@ -173,7 +173,7 @@
             android:background="@color/night"
             app:itemTextColor="@color/night_white"
             app:headerLayout="@layout/drawer_header"
-            app:menu="@menu/navi_menu" />
+            />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

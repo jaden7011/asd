@@ -144,23 +144,23 @@ app.post('/post', function (req, res) {
 
 app.post('/post/search', function (req, res) {
     var coin = req.body.coin
-    var keyword = req.body.keyword;
+    var keyword = "%" + req.body.keyword + "%"
 
-    var sql = 'SELECT * FROM post WHERE coin = ? AND (content LIKE %?% OR title LIKE %?% OR nickname LIKE %?%) ORDER BY createdat DESC';
+    var sql = 'SELECT * FROM post WHERE coin = ? AND (content LIKE ? OR title LIKE ? OR nickname LIKE ?) ORDER BY createdat DESC';
     var params = [coin, keyword, keyword, keyword, keyword];
 
-    connection.query(sql, params, function (err, result) {
-        if (err){
-            console.log(err);
-        }else if(result.length === 0){
+    query(sql,params)
+    .then(result => {
+        if(result.length === 0)
             res.json({
                 msg:"찾는 게시물이 없습니다."
             })
-        }
-        else {
-          res.json({result})
-        }
-    });
+        else
+            res.json({result})
+    })
+    .catch(err => {
+        res.json(err)
+    })
 });
 
 app.post('/post/mypost', function (req, res) {
@@ -183,12 +183,16 @@ app.post('/post/delete', function (req, res) {
     var postid = req.body.postid;
     var postsql = 'DELETE FROM post WHERE postid = ?';
     var commentsql = 'DELETE FROM comment WHERE postid = ?';
+    var love_sql = 'DELETE FROM love WHERE loveid = ?'
 
-    query(postsql,postid)
+    query(postsql,postid) //post제거
         .then(result => {
             return query(commentsql,postid)
     })
-    .then(result => {
+    .then(result => { //comment 제거
+        return query(love_sql,postid)
+    })
+    .then(result => {//love 제거
         res.json({
             msg:"제거되었습니다."
         })

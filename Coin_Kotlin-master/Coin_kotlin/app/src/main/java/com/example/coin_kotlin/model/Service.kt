@@ -90,9 +90,7 @@ interface Service {
     @POST("/post/search")
     fun searchPostList(
             @Field("coin") coin: String,
-            @Field("content") content: String,
-            @Field("title") title: String,
-            @Field("nickname") nickname: String
+            @Field("keyword") keyword: String,
     ): Call<PostList>
 
     @FormUrlEncoded

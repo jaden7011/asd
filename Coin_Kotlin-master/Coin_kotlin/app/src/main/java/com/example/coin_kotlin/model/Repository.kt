@@ -80,14 +80,12 @@ object Repository {
 
     fun searchPostList(
             coin: String,
-            content: String,
-            title: String,
-            nickname: String
+            keyword: String,
     ): Call<PostList> {
         return RetrofitFactory
                 .createRetrofit(ec2_URL)
                 .create(Service::class.java)
-                .searchPostList(coin, content, title, nickname)
+                .searchPostList(coin, keyword)
     }
 
     fun myPostList(id: String,

@@ -1,5 +1,6 @@
 package com.example.coin_kotlin.viewmodel
 
+import android.app.Activity
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -8,6 +9,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.BoardActivity
+import com.example.coin_kotlin.activity.PostActivity
+import com.example.coin_kotlin.activity.SearchActivity
 import com.example.coin_kotlin.adapter.Post_Adapter
 import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.info.Post
@@ -28,11 +31,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class LiveData_Posts(val activity: BoardActivity):ViewModel() {
+class LiveData_Posts(val activity: Activity):ViewModel() {
 
     lateinit var adapter: Post_Adapter
 
-    class Factory(val activity: BoardActivity) : ViewModelProvider.Factory {
+    class Factory(val activity: Activity) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return LiveData_Posts(activity) as T
         }
@@ -43,36 +46,26 @@ class LiveData_Posts(val activity: BoardActivity):ViewModel() {
     }
 
     fun onCreate(){
-        adapter = Post_Adapter(activity,ArrayList())
-        val utility = Utility(activity,(activity).findViewById(R.id.Board_Recycler),adapter)
-        utility.RecyclerInit("VERTICAL")
 
-//        Repository.get_CoinImage(activity.coin_name)
-//                .enqueue(object : Callback<ResponseBody> {
-//                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-//                    }
-//
-//                    override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-//                        val res = response.body()?.byteStream()
-//                        Log.e("asd", res.toString())
-//                        Handler(Looper.getMainLooper()).postDelayed({
-//                            val bitmap = BitmapFactory.decodeStream(res)
-//                            activity.Toolbar(BitmapDrawable(activity.applicationContext.resources,bitmap))
-//                        },0)
-//                    }
-//                })
+        when(activity){
+            is BoardActivity -> {
+                adapter = Post_Adapter(activity,ArrayList())
+                val utility = Utility(activity,(activity).findViewById(R.id.Board_Recycler),adapter)
+                utility.RecyclerInit("VERTICAL")
+            }
+
+            is SearchActivity -> {
+                adapter = Post_Adapter(activity,ArrayList())
+                val utility = Utility(activity,(activity).findViewById(R.id.searchRecyclerView),adapter)
+                utility.RecyclerInit("VERTICAL")
+            }
+        }
+
     }
 
     fun Get_Candle_Posts(coin:String){
 
-        if (!NetworkStatus.isConnected(activity)){
-            Log.e("main_network","network is disconnected")
-            (activity as BoardActivity).run {
-                Handler(Looper.getMainLooper()).postDelayed({ Toast("인터넷 연결이 되어있지 않습니다.") },0)
-            }
-            return
-        }
-
+        checkNetWork()
         onCreate()
 
         Repository.get_CandleList_Single(coin)
@@ -93,7 +86,7 @@ class LiveData_Posts(val activity: BoardActivity):ViewModel() {
                     ))
                 }
 
-                MPchart((activity).binding.priceChart).run {
+                MPchart((activity as BoardActivity).binding.priceChart).run {
                     this.Set_priceData(candles)
                     this.candleStickChart.moveViewToX(candles.size.toFloat())
                 }
@@ -116,5 +109,45 @@ class LiveData_Posts(val activity: BoardActivity):ViewModel() {
 
                 })
             })
+    }
+
+    fun searchPostList(
+        coin: String,
+        keyword: String
+    ){
+        Repository.searchPostList(coin,keyword).enqueue(object : Callback<PostList>{
+            override fun onResponse(call: Call<PostList>, response: Response<PostList>) {
+                if(response.isSuccessful && response.body() != null) {
+                    for(post in response.body()!!.postList){
+                        post.dateFormate_for_layout = Time_to_String(post.createdat)
+                    }
+                    posts.value = response.body()!!.postList
+                }
+                else{
+                    Log.e("getPostList onResponse","size: "+response.body()?.postList?.size)
+                }
+            }
+            override fun onFailure(call: Call<PostList>, t: Throwable) {
+                Log.e("getPostList onfail","err: "+t.message)
+            }
+        })
+    }
+
+    fun checkNetWork(){
+        if (!NetworkStatus.isConnected(activity)){
+            Log.e("main_network","network is disconnected")
+            when(activity){
+                is BoardActivity ->{
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        activity.Toast("인터넷 연결이 되어있지 않습니다.") },0)
+                }
+
+                is SearchActivity ->{
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        activity.Toast("인터넷 연결이 되어있지 않습니다.") },0)
+                }
+            }
+            return
+        }
     }
 }

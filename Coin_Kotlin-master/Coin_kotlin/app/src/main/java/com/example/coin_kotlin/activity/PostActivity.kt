@@ -28,6 +28,7 @@ import java.util.*
 
 class PostActivity : AppCompatActivity() {
 
+    val auth = FirebaseAuth.getInstance().currentUser
     lateinit var binding: ActivityPostBinding
     private val post: Post by lazy {
         intent.extras?.getParcelable<Post>("post")!!
@@ -52,9 +53,9 @@ class PostActivity : AppCompatActivity() {
         }
 
         binding.goodBtnFrame.setOnClickListener {
-            if (!FirebaseAuth.getInstance().uid.isNullOrEmpty())
+            if (!auth?.uid.isNullOrEmpty())
                 livedataComment.love(post.postid, FirebaseAuth.getInstance().uid!!, 1)
-            else{
+            else {
                 Toast("로그인 후에 이용가능합니다..")
             }
         }
@@ -67,9 +68,9 @@ class PostActivity : AppCompatActivity() {
             binding.AddCommentBtn.isEnabled = false
             binding.AddCommentT.run {
                 isEnabled = false
-                setText(" 로그인이 필요합니다.")
                 background = ContextCompat.getDrawable(activity, R.drawable.corner_dark)
-                setTextColor(ContextCompat.getColor(activity, R.color.white))
+                setHintTextColor(ContextCompat.getColor(activity, R.color.white))
+                setHint(" 로그인이 필요합니다.")
             }
         }
 
@@ -100,7 +101,11 @@ class PostActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.mypost_menu, menu)
+        if (auth != null)
+            menuInflater.inflate(R.menu.mypost_menu, menu)
+        else
+            menuInflater.inflate(R.menu.otherspost_menu, menu)
+
         return super.onCreateOptionsMenu(menu)
     }
 

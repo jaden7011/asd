@@ -29,11 +29,7 @@ class PostInfo_DiffUtil(
         val oldpost: Post = oldPosts[oldItemPosition]
         val newpost: Post = newPosts[newItemPosition]
 
-        return if (oldpost == null || newpost == null) { //리사이클러뷰의 다운스크롤을 위해 넣은 로딩홀더를 다른 아이템취급하기 위함임
-            //            Log.d("무슨일ㄹㅇ리이ㅣ", "old: " + oldItemPosition);
-            //            Log.d("무슨일ㄹㅇ리이ㅣ", "new: " + newItemPosition);
-            true
-        } else oldpost.postid.equals(newpost.postid)
+        return oldpost.postid == newpost.postid
     }
 
     override fun areContentsTheSame(
@@ -42,27 +38,11 @@ class PostInfo_DiffUtil(
     ): Boolean { //item이 같아도 수정된다면 내용이 다르다는 것을 인식시켜줘야 내용이 바뀜
         val oldpost: Post = oldPosts[oldItemPosition]
         val newpost: Post = newPosts[newItemPosition]
-        if (oldpost == null || newpost == null) { //리사이클러뷰의 다운스크롤을 위해 넣은 로딩홀더를 다른 아이템취급하기 위함임
-//            Log.d("무슨일ㄹㅇ리이ㅣ", "old: " + oldItemPosition);
-//            Log.d("무슨일ㄹㅇ리이ㅣ", "new: " + newItemPosition);
-            return true
-        }
 
-////        Log.d("같나","old: "+ oldpost.getGood()+" oldid: "+oldpost.getDocid()+" new: "+ newpost.getGood()+" newid: "+newpost.getDocid());
-//        return if (oldpost.how_Long != null && newpost.how_Long == null) { //새로 받아온 배열이 기존의 시간과 차이가 있을 때 표기(방금전,3분전)를 다르게 하기 위해서
-//            val date = Date()
-//            newpost.how_Long = (
-//                formatTimeString(
-//                    newpost.createdAt!!,
-//                    date
-//                )
-//            )
-//            oldpost.docid
-//                .equals(newpost.docid) && oldpost.good == newpost.good && oldpost.comment == newpost.comment && oldpost.how_Long
-//                .equals(newpost.how_Long)
-//        } else oldpost.docid
-//            .equals(newpost.docid) && oldpost.good == newpost.good && oldpost.comment == newpost.comment
-        return true
+        return oldpost.love.equals(newpost.love)
+                && oldpost.commentNum.equals(newpost.commentNum)
+                && oldpost.title.equals(newpost.title)
+                && oldpost.content.equals(newpost.content)
     }
 
     companion object {

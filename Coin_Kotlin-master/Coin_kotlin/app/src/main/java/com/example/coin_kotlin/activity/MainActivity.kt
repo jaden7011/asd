@@ -1,5 +1,6 @@
 package com.example.coin_kotlin.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Process
 import android.util.Log
@@ -109,10 +110,18 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {}
             override fun onDrawerOpened(drawerView: View) {
                 if(auth.currentUser != null){ //로그인 상태라면 navi-drawer의 header에 이름과 email을 적자
+                    binding.navigationView.run{
+                        menu.clear()
+                        inflateMenu(R.menu.navi_usermenu)
+                    }
                     val headerview = binding.navigationView.getHeaderView(0)
                     (headerview.findViewById<TextView>(R.id.name_T)).text = auth.currentUser?.displayName
                     (headerview.findViewById<TextView>(R.id.mail_T)).text = auth.currentUser?.email
                 }else{
+                    binding.navigationView.run{
+                        menu.clear()
+                        inflateMenu(R.menu.navi_guestmenu)
+                    }
                     val headerview = binding.navigationView.getHeaderView(0)
                     (headerview.findViewById<TextView>(R.id.name_T)).text = "로그인이 필요합니다."
                     (headerview.findViewById<TextView>(R.id.mail_T)).text = "로그인이 필요합니다."
@@ -237,6 +246,22 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
                     Toast("로그인이 되어있지 않습니다.")
                 }
             }
+
+            R.id.item_login -> {
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(Intent(this, Login::class.java))
+            }
+
+            //todo navi drawal 메뉴들 구현해줘야함
+            R.id.item_info -> {}
+
+            R.id.item_notice -> {}
+
+            R.id.item_private -> {}
+
+            R.id.item_policy -> {}
+
+            R.id.item_source -> {}
         }
         binding.drawerLayout.closeDrawer(GravityCompat.END)
         return true
