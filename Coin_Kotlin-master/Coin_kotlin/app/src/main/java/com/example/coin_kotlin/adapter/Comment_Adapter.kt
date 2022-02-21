@@ -66,7 +66,7 @@ class Comment_Adapter(
                 goodNum.text = "0"
             }
 
-            if(auth != null){
+            if(auth != null && (auth.uid.equals(item.id))){
                 nicknameT.run{
                     text = "글쓴이"
                     setTextColor(ContextCompat.getColor(activity, R.color.maincolor))

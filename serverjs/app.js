@@ -215,13 +215,14 @@ app.post('/comment/getlist', function(req, res) {
 });
 
 app.post('/comment/write', function(req, res) {
+    var id = req.body.id;
     var commentid = req.body.commentid;
     var nickname = req.body.nickname;
     var content = req.body.content;
     var postid = req.body.postid;
     var pselect_sql = 'SELECT commentnum FROM post WHERE postid = ?'
     var pupdate_sql = 'UPDATE post SET commentnum = ? WHERE postid = ?'
-    var cinsert_sql = 'INSERT INTO comment (commentid, nickname, content, postid) VALUES (?, ?, ?, ?)';
+    var cinsert_sql = 'INSERT INTO comment (commentid, nickname, content, postid, id) VALUES (?, ?, ?, ?, ?)';
 
     query(pselect_sql,postid) //게시물의 댓글 수 들고와서 +1 한다음 업데이트 시켜줌
     .then(result => {
@@ -230,7 +231,7 @@ app.post('/comment/write', function(req, res) {
         return query(pupdate_sql,params)
     })
     .then(result => { //댓글을 insert
-        var params = [commentid, nickname, content, postid];
+        var params = [commentid, nickname, content, postid, id];
         return query(cinsert_sql,params)
     })
     .then(result => {

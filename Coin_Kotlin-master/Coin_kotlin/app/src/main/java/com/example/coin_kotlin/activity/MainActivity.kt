@@ -28,6 +28,8 @@ import com.example.coin_kotlin.utility.Named.SETTING_FAVORIT
 import com.example.coin_kotlin.utility.RxAndroidUtils
 import com.example.coin_kotlin.utility.Utility
 import com.example.coin_kotlin.viewmodel.LiveData_TickerMap
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -280,8 +282,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.item_logout -> {
                 Toast("cliked logout")
-                if (auth.currentUser != null)
+                if (auth.currentUser != null){
+                    val opt = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                    val client = GoogleSignIn.getClient(this, opt)
+                    client.signOut()
                     auth.signOut()
+                }
                 else {
                     Toast("로그인이 되어있지 않습니다.")
                 }

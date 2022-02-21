@@ -123,7 +123,8 @@ interface Service {
             @Field("postid") postid: String,
             @Field("commentid") commentid: String,
             @Field("content") content: String,
-            @Field("nickname") nickname: String
+            @Field("nickname") nickname: String,
+            @Field("id") id:String
     ): Call<Comment>
 
     @FormUrlEncoded

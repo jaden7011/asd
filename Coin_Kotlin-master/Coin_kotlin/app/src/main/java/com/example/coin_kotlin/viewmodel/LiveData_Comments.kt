@@ -92,7 +92,7 @@ class LiveData_Comments(
                     val user = response.body()!!
 
                     // 댓글을 썼을 때 -> db에 집어넣고 새로운 댓글리스트를 가져와야하는 것이 한 묶음
-                    Repository.writeComment(postid, commentid, content, user.nickname)
+                    Repository.writeComment(postid, commentid, content, user.nickname,uid)
                         .enqueue(object : Callback<Comment> {
                             override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
                                 if (response.isSuccessful) {

@@ -23,6 +23,9 @@ data class Comment(
         @SerializedName("msg")
         @Expose
         val msg:String,
+        @SerializedName("id")
+        @Expose
+        val id:String,
         @SerializedName("createdat")
         @Expose
         val createdat: Date,

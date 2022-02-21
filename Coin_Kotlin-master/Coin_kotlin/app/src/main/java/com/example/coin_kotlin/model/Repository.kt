@@ -128,12 +128,13 @@ object Repository {
         postid: String,
         commentid: String,
         content: String,
-        nickname: String
+        nickname: String,
+        id:String
     ): Call<Comment> {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
-            .writeComment(postid, commentid, content, nickname)
+            .writeComment(postid, commentid, content, nickname,id)
     }
 
     fun love(

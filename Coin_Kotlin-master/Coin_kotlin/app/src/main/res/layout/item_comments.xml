@@ -44,8 +44,8 @@
                     <TextView
                         android:id="@+id/nickname_commentT"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="start|center_vertical"
+                        android:layout_height="match_parent"
+                        android:paddingEnd="2dp"
                         android:text="TextView"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -54,15 +54,13 @@
                         android:id="@+id/comment_GoodLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_weight="1"
+                        android:layout_marginStart="10dp"
                         android:gravity="center_vertical"
                         android:visibility="gone">
 
                         <ImageView
                             android:layout_width="15dp"
                             android:layout_height="15dp"
-                            android:layout_weight="0"
                             android:adjustViewBounds="true"
                             android:background="@drawable/ic__485477009_like_78561" />
 
