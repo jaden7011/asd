@@ -86,20 +86,6 @@ class Post_Adapter(
         }
     }
 
-//    inner class Chart_Holder(view : View) : RecyclerView.ViewHolder(view){
-//
-//        val chart:CandleStickChart = itemView.findViewById(R.id.candlestick_chart)
-//
-//        fun bind(item:ArrayList<Candle>){
-//            MPchart(chart).run {
-////                this.Init_Chart()
-//                this.Set_priceData(item)
-//                chart.moveViewToX(item.size.toFloat())
-//                Log.e("zxczxc","zxczxc"+item.size.toFloat())
-//            }
-//        }
-//    }
-
     fun Time_to_String(postdate: Date): String{
 
         val ctime = Date().time

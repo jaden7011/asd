@@ -2,6 +2,7 @@ package com.example.coin_kotlin.adapter
 
 import android.app.Activity
 import android.graphics.Typeface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +23,15 @@ import kotlin.collections.ArrayList
 
 class Comment_Adapter(
     val activity: Activity,
-    val comments: ArrayList<Comment>
+    private val comments: ArrayList<Comment>,
+    val goodListener: GoodListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val auth = FirebaseAuth.getInstance().currentUser
+
+    interface GoodListener{
+        fun pressed(comment:Comment)
+    }
 
     fun CommentDiffUtil(NewCommentList:ArrayList<Comment>){
 
@@ -65,9 +71,23 @@ class Comment_Adapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return CommentHolder(
-            LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_comments,parent,false))
+
+        val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_comments,parent,false)
+        val holder = CommentHolder(view)
+
+
+        holder.run {
+            goodNum_Layout.setOnClickListener {
+                goodListener.pressed(comments[holder.absoluteAdapterPosition])
+            }
+
+            option_btn.setOnClickListener {
+
+            }
+        }
+
+        return holder
     }
 
     override fun getItemCount(): Int {

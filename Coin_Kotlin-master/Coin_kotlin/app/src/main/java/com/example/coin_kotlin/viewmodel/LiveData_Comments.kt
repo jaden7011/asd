@@ -18,6 +18,7 @@ import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.Named.Time_to_String
 import com.example.coin_kotlin.utility.NetworkStatus
 import com.example.coin_kotlin.utility.Utility
+import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,7 +40,16 @@ class LiveData_Comments(
     }
 
     fun onCreate() {
-        adapter = Comment_Adapter(activity, ArrayList())
+        adapter = Comment_Adapter(activity, ArrayList(),object : Comment_Adapter.GoodListener{
+            override fun pressed(comment: Comment) {
+                val uid = FirebaseAuth.getInstance().currentUser?.uid
+                if(uid != null){
+                    love(comment.commentid,uid,0)
+                }else{
+                    Toast("실패하였습니다.")
+                }
+            }
+        })
         val utility = Utility(activity, activity.findViewById(R.id.commentRecycler), adapter)
         utility.RecyclerInit("VERTICAL")
     }
