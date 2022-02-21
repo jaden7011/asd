@@ -3,14 +3,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="User"
-            type="com.example.coin_kotlin.info.User" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="300dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:background="@color/night">
 
@@ -39,42 +33,46 @@
             android:id="@+id/middle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:orientation="horizontal"
-            android:padding="24dp"
+            android:padding="15dp"
             app:layout_constraintBottom_toTopOf="@id/bottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/top">
 
             <TextView
-                android:id="@+id/myNicknameT"
+                android:id="@+id/myNickT"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:maxLength="10"
                 android:singleLine="true"
-                android:text="@{User.Nickname}"
+                android:text="asdasd"
                 android:textColor="@color/night_white"
                 android:textSize="20sp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@android:drawable/stat_notify_sync" />
-
-            <TextView
-                android:id="@+id/changeNicknameT"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:background="@android:drawable/stat_notify_sync" />
+
+            <EditText
+                android:id="@+id/changeNickET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@color/night_white"
                 android:gravity="center"
                 android:maxLength="6"
                 android:singleLine="true"
-                android:text="asdasd"
-                android:textColor="@color/night_white"
-                android:textSize="20sp" />
+                android:textColor="@color/white"
+                android:textCursorDrawable="@drawable/cursor_edittext"
+                android:textSize="20sp">
+
+                <requestFocus />
+            </EditText>
 
         </LinearLayout>
 
@@ -90,7 +88,7 @@
             app:layout_constraintTop_toBottomOf="@id/middle">
 
             <Button
-                android:id="@+id/ChangeLocation_btn"
+                android:id="@+id/ChangeNick_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -101,7 +99,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/CancelChangeLocation_btn"
+                android:id="@+id/CancelChangeNick_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

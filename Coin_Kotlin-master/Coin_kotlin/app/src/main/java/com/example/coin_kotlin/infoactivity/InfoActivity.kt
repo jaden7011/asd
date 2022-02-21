@@ -1,5 +1,6 @@
 package com.example.coin_kotlin.infoactivity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -41,14 +42,13 @@ class InfoActivity : AppCompatActivity() {
             })
         }
 
-    }
+        binding.changeNickT.setOnClickListener {
+            startActivity(Intent(this,ChangeNicknameActivity::class.java).run { putExtra("nickname",user.nickname) })
+        }
 
-    fun changeNickanme(view: View){
+        binding.myPostT.setOnClickListener {
 
-    }
-
-    fun myPost(view:View){
-
+        }
     }
 
     fun Toast(str: String) {

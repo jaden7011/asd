@@ -99,21 +99,19 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/change_passwordT"
+                        android:id="@+id/change_nickT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:onClick="@{infoActivity::changeNickanme}"
                         android:text="닉네임 변경"
                         android:textColor="@color/night_white"
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/change_emailT"
+                        android:id="@+id/myPostT"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:onClick="@{infoActivity::myPost}"
                         android:text="내가 쓴 글"
                         android:textColor="@color/night_white"
                         android:textSize="18sp" />

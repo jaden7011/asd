@@ -17,6 +17,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".infoactivity.ChangeNicknameActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
             android:exported="false" />
         <activity
             android:name=".infoactivity.InfoActivity"
