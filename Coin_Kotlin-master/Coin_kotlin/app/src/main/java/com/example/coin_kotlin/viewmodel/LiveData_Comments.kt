@@ -1,5 +1,6 @@
 package com.example.coin_kotlin.viewmodel
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -44,7 +45,7 @@ class LiveData_Comments(
             override fun pressed(comment: Comment) {
                 val uid = FirebaseAuth.getInstance().currentUser?.uid
                 if(uid != null){
-                    love(comment.commentid,uid,0)
+                    love(comment.commentid,uid,0,comment.postid)
                 }else{
                     Toast("실패하였습니다.")
                 }
@@ -58,7 +59,6 @@ class LiveData_Comments(
         checkNetWork()
         loadingvisible(true)
 
-        //todo 새로고침 했을 때 게시판 최신정보를 가져옴 + 댓글도 가져와야함
         Repository.getPost(postid).enqueue(object : Callback<Post> {
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if (response.isSuccessful && response.body() != null) {
@@ -115,8 +115,6 @@ class LiveData_Comments(
                 Log.e("infoActivity", "onFailure user")
             }
         })
-
-
     }
 
     fun getComment(postid: String) {
@@ -136,19 +134,19 @@ class LiveData_Comments(
         })
     }
 
-    fun love(loveid: String, id: String, ispost: Int) {
+    fun love(loveid: String, id: String, ispost: Int,postid: String) {
         checkNetWork()
         Repository.love(loveid, id, ispost).enqueue(object : Callback<Post> {
+            @SuppressLint("SetTextI18n")
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if (response.isSuccessful && response.body() != null) {
                     val msg = response.body()?.msg
                     if (!msg.isNullOrEmpty()) {
                         Toast(msg)
-                        getPost(loveid)
+                        getPost(postid)
                     }
                 }
             }
-
             override fun onFailure(call: Call<Post>, t: Throwable) {
                 Log.e("love onfailure", "err: " + t.message)
             }

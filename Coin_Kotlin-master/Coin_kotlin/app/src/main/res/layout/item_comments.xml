@@ -102,9 +102,9 @@
                 android:showDividers="middle">
 
                 <ImageButton
-                    android:id="@+id/good_comment_comments"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:id="@+id/goodCommentBtn"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="5dp"
@@ -126,9 +126,9 @@
                     android:background="@color/dividecolor" />
 
                 <ImageButton
-                    android:id="@+id/opt_comment"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:id="@+id/commentOptBtn"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="4dp"
                     android:layout_marginEnd="5dp"

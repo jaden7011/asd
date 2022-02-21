@@ -78,7 +78,6 @@ app.post("/user/update",function(req,res){
             console.log(err)
         else{
             res.json({
-                result:true,
                 msg: '닉네임이 변경되었습니다.'
             })
         }
@@ -280,7 +279,7 @@ function uplove(loveid,id,ispost,res){
         console.log(result)
         console.log(ispost)
 
-        if(ispost){ //만약 post라면,,
+        if(ispost == 1){ //만약 post라면,,
             return query(post_sql,loveid)
         }else{//만약 comment라면,,
             return query(comment_sql,loveid)
@@ -290,7 +289,7 @@ function uplove(loveid,id,ispost,res){
         var lovecnt = result[0].love + 1
         var update_params = [lovecnt,loveid]
         
-        if(ispost){
+        if(ispost == 1){
             return query(updatePost_sql,update_params)
         }else{  
             return query(updateComment_sql,update_params)
@@ -300,7 +299,7 @@ function uplove(loveid,id,ispost,res){
         res.json({msg:"좋아요!"})
     })
     .catch(err => {
-        // res.json(err)
+        res.json(err)
     })
 }
 

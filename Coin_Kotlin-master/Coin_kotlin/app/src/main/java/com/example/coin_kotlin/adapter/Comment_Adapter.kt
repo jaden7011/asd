@@ -49,14 +49,22 @@ class Comment_Adapter(
         val contentT:TextView = itemView.findViewById(R.id.comment_commentT)
         val dateT:TextView = itemView.findViewById(R.id.date_commentT)
         val nicknameT:TextView = itemView.findViewById(R.id.nickname_commentT)
-        val goodnum:TextView = itemView.findViewById(R.id.goodNum_commentT)
-        val option_btn:ImageButton = itemView.findViewById(R.id.opt_comment)
-        val goodNum_Layout:LinearLayout = itemView.findViewById(R.id.comment_GoodLayout)
+        val goodNumLayout:LinearLayout = itemView.findViewById(R.id.comment_GoodLayout)
+        val goodNum:TextView = itemView.findViewById(R.id.goodNum_commentT)
+        val option_btn:ImageButton = itemView.findViewById(R.id.commentOptBtn)
+        val good_btn:ImageButton = itemView.findViewById(R.id.goodCommentBtn)
 
         fun bind(item:Comment){
             contentT.text = item.content
             dateT.text = formatTimeString(item.createdat,Date())
-            goodnum.text = item.love.toString()
+
+            if(item.love > 0){
+                goodNumLayout.visibility = View.VISIBLE
+                goodNum.text = item.love.toString()
+            }else{
+                goodNumLayout.visibility = View.GONE
+                goodNum.text = "0"
+            }
 
             if(auth != null){
                 nicknameT.run{
@@ -76,9 +84,8 @@ class Comment_Adapter(
                 .inflate(R.layout.item_comments,parent,false)
         val holder = CommentHolder(view)
 
-
         holder.run {
-            goodNum_Layout.setOnClickListener {
+            good_btn.setOnClickListener {
                 goodListener.pressed(comments[holder.absoluteAdapterPosition])
             }
 
