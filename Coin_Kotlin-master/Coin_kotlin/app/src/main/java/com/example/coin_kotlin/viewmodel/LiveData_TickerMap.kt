@@ -9,9 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.activity.MainActivity
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.data.Ticker_Response
-import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
-import com.example.coin_kotlin.utility.Named.FAVORIT_LIST
 import com.example.coin_kotlin.utility.NetworkStatus
 import com.google.gson.Gson
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -23,11 +21,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
-class MutableLiveData_TickerMap(val activity: MainActivity):ViewModel(){
+class LiveData_TickerMap(val activity: MainActivity):ViewModel(){
 
     class Factory(val activity: MainActivity) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return MutableLiveData_TickerMap(activity) as T
+            return LiveData_TickerMap(activity) as T
         }
     }
 
@@ -68,6 +66,12 @@ class MutableLiveData_TickerMap(val activity: MainActivity):ViewModel(){
 
 //                Log.d("accept", "search_str: $search_str")
 //                Log.d("accept", "data.size: "+it.data.size)
+
+                //todo  빗썸 점검중일 때 처리방법 생각해야함.
+//                if(it.data.isNullOrEmpty()){
+//                    activity.Toast("점검 중입니다..")
+//                    return@Consumer
+//                }
 
                 for(entry in it.data){
 

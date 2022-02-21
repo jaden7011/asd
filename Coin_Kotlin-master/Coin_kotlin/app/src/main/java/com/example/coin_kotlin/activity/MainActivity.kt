@@ -19,12 +19,13 @@ import com.example.coin_kotlin.R
 import com.example.coin_kotlin.adapter.Coin_Adapter
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.databinding.ActivityMainBinding
+import com.example.coin_kotlin.infoactivity.InfoActivity
 import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.utility.Named.FAVORIT_LIST
 import com.example.coin_kotlin.utility.Named.SETTING_FAVORIT
 import com.example.coin_kotlin.utility.RxAndroidUtils
 import com.example.coin_kotlin.utility.Utility
-import com.example.coin_kotlin.viewmodel.MutableLiveData_TickerMap
+import com.example.coin_kotlin.viewmodel.LiveData_TickerMap
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
     private var backKeyPressedTime: Long = 0
     private lateinit var binding : ActivityMainBinding
     private lateinit var ET_Observable_Disposable: Disposable
-    private lateinit var liveData_tickerMap:MutableLiveData_TickerMap
+    private lateinit var liveData_tickerMap:LiveData_TickerMap
     private lateinit var adapter: Coin_Adapter
     private var thread_all:NetworkThread? = null
     private var thread_search:NetworkThread? = null
@@ -69,7 +70,7 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         liveData_tickerMap =
-            ViewModelProvider(this, MutableLiveData_TickerMap.Factory(this))[MutableLiveData_TickerMap::class.java] //VM의 LiveData를 set하면서 Adapter를 Notify할 것입니다.
+            ViewModelProvider(this, LiveData_TickerMap.Factory(this))[LiveData_TickerMap::class.java] //VM의 LiveData를 set하면서 Adapter를 Notify할 것입니다.
         setView()
 
         liveData_tickerMap.coins.observe(this, Observer {
@@ -248,12 +249,15 @@ class MainActivity : AppCompatActivity(),NavigationView.OnNavigationItemSelected
             }
 
             R.id.item_login -> {
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(Intent(this, Login::class.java))
+                startActivity(Intent(this, Login::class.java).run {
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                })
             }
 
             //todo navi drawal 메뉴들 구현해줘야함
-            R.id.item_info -> {}
+            R.id.item_info -> {
+                startActivity(Intent(this,InfoActivity::class.java))
+            }
 
             R.id.item_notice -> {}
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.coin_kotlin">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,6 +16,12 @@
         android:theme="@style/Theme.Coin_kotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".infoactivity.ChangeNicknameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".infoactivity.InfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.Login"
             android:exported="true">
             <intent-filter>
@@ -23,6 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".infoactivity.InfoActivity"
+            android:exported="false"
+            tools:ignore="DuplicateActivity" />
         <activity
             android:name=".activity.SearchActivity"
             android:exported="false" />

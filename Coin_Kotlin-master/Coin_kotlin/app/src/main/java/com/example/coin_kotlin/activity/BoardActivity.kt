@@ -29,6 +29,7 @@ import retrofit2.Response
 
 class BoardActivity : AppCompatActivity() {
 
+    val auth = FirebaseAuth.getInstance().currentUser
     lateinit var binding: ActivityBoardBinding
     val coin_name: String by lazy {
         intent.extras?.getString("coin_name")!!
@@ -89,9 +90,13 @@ class BoardActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.toolbar_board_write_post_btn -> {
-                val intent = Intent(this, WriteActivity::class.java)
-                intent.putExtra("coin_name", coin_name)
-                startActivity(intent)
+                if(auth == null)
+                    Toast("로그인이 필요합니다.")
+                else{
+                    val intent = Intent(this, WriteActivity::class.java)
+                    intent.putExtra("coin_name", coin_name)
+                    startActivity(intent)
+                }
             }
 
             R.id.toolbar_board_addfavorit -> {
