@@ -1,11 +1,9 @@
 package com.example.coin_kotlin.infoactivity
 
 import android.app.Activity
-import android.content.Context
 import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.Window
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.coin_kotlin.R
@@ -15,6 +13,7 @@ import com.example.coin_kotlin.model.Repository
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class ChangeNicknameActivity : Activity() {
 
@@ -32,18 +31,25 @@ class ChangeNicknameActivity : Activity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_change_nickname)
 
         binding.myNickT.run {
-            text = user?.nickname
+            val nick = user?.nickname!!
+            text = parseNick(nick)
             requestFocus()
         }
 
         binding.ChangeNickBtn.setOnClickListener {
+
             if (user != null && user?.id != null) {
                 var tag = ""
                 for(i in 0..1){
                     tag+=user!!.id[i]
                 }
 
-                val nick = binding.changeNickET.text.toString() + " (#" + tag + ")"
+                if(!isNickPossible(binding.changeNickET.text.toString())){
+                    Toast("닉네임을 확인해주세요.")
+                    return@setOnClickListener
+                }
+
+                val nick = binding.changeNickET.text.toString().replace(" ","") + " (#" + tag + ")"
 
                 Repository.updateNick(user!!.id, nick).enqueue(object : Callback<User> {
                     override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -66,7 +72,19 @@ class ChangeNicknameActivity : Activity() {
         }
     }
 
+    fun parseNick(nick:String):String{
+        val tocken = StringTokenizer(nick)
+        return tocken.nextToken()
+    }
+
+    fun isNickPossible(nick: String):Boolean{
+        val n = nick.replace(" ","")
+        val result = n.matches("[0-9|a-z|A-Z|가-힝| ]*".toRegex())
+//        Toast(n)
+        return result
+    }
+
     fun Toast(str: String) {
-        android.widget.Toast.makeText(this, str, android.widget.Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
     }
 }
