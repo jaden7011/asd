@@ -1,18 +1,21 @@
 package com.example.coin_kotlin.adapter
 
 import android.app.Activity
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.info.Comment
 import com.example.coin_kotlin.utility.CommentInfo_DiffUtil
 import com.example.coin_kotlin.utility.Named
+import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -21,6 +24,8 @@ class Comment_Adapter(
     val activity: Activity,
     val comments: ArrayList<Comment>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val auth = FirebaseAuth.getInstance().currentUser
 
     fun CommentDiffUtil(NewCommentList:ArrayList<Comment>){
 
@@ -45,8 +50,17 @@ class Comment_Adapter(
         fun bind(item:Comment){
             contentT.text = item.content
             dateT.text = formatTimeString(item.createdat,Date())
-            nicknameT.text = item.nickname
             goodnum.text = item.love.toString()
+
+            if(auth != null){
+                nicknameT.run{
+                    text = "글쓴이"
+                    setTextColor(ContextCompat.getColor(activity, R.color.maincolor))
+                    setTypeface(null, Typeface.BOLD_ITALIC)
+                }
+            }else{
+                nicknameT.text = item.nickname
+            }
         }
     }
 

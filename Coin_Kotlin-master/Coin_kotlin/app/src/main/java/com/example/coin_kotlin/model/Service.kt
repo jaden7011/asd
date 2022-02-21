@@ -64,7 +64,7 @@ interface Service {
 
     @FormUrlEncoded
     @POST("/user/update")
-    fun updateUser_nickname(
+    fun updateNick(
             @Field("id") Id: String,
             @Field("nickname") nickname: String
     ): Call<User>

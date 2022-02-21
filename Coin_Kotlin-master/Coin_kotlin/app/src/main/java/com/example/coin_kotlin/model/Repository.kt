@@ -49,6 +49,16 @@ object Repository {
                 .getUser(id)
     }
 
+    fun updateNick(
+        id:String,
+        nickname:String
+    ):Call<User>{
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .updateNick(id,nickname)
+    }
+
     fun writePost(postid: String,
                   title: String,
                   content: String,

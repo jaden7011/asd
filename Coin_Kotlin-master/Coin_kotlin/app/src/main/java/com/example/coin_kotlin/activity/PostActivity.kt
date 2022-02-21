@@ -28,7 +28,7 @@ import java.util.*
 
 class PostActivity : AppCompatActivity() {
 
-    val auth = FirebaseAuth.getInstance().currentUser
+    private val auth = FirebaseAuth.getInstance().currentUser
     lateinit var binding: ActivityPostBinding
     private val post: Post by lazy {
         intent.extras?.getParcelable<Post>("post")!!
@@ -43,12 +43,16 @@ class PostActivity : AppCompatActivity() {
         setView(this)
 
         binding.AddCommentBtn.setOnClickListener {
-            val content = binding.AddCommentT.text.toString()
-            val nickname = FirebaseAuth.getInstance().currentUser?.displayName
-            val commentid = post.postid + Date().time
 
-            if (content.isNotEmpty() && nickname!!.isNotEmpty()) {
-                livedataComment.addComment(post.postid, commentid, content, nickname)
+            auth?.run {
+                val content = binding.AddCommentT.text.toString()
+                val commentid = post.postid + Date().time
+
+                if (content.isNotEmpty()) {
+                    livedataComment.addComment(auth.uid,post.postid, commentid, content)
+                }else{
+                    Toast("내용을 적어주세요.")
+                }
             }
         }
 

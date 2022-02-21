@@ -17,9 +17,14 @@ import retrofit2.Response
 
 class InfoActivity : AppCompatActivity() {
 
-    val auth = FirebaseAuth.getInstance().currentUser
+    private val auth = FirebaseAuth.getInstance().currentUser
     lateinit var binding:ActivityInfoBinding
     lateinit var user:User
+
+    override fun onResume() {
+        super.onResume()
+        getUser()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +32,20 @@ class InfoActivity : AppCompatActivity() {
     }
 
     fun setView(){
+        getUser()
         binding = DataBindingUtil.setContentView(this,R.layout.activity_info)
+
+        binding.changeNickT.setOnClickListener {
+            startActivity(Intent(this,ChangeNicknameActivity::class.java).run {
+                putExtra("user",user) })
+        }
+
+        binding.myPostT.setOnClickListener {
+
+        }
+    }
+
+    fun getUser(){
         auth?.run {
             Repository.getUser(uid).enqueue(object : Callback<User>{
                 override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -40,14 +58,6 @@ class InfoActivity : AppCompatActivity() {
                     Log.e("infoActivity","onFailure user")
                 }
             })
-        }
-
-        binding.changeNickT.setOnClickListener {
-            startActivity(Intent(this,ChangeNicknameActivity::class.java).run { putExtra("nickname",user.nickname) })
-        }
-
-        binding.myPostT.setOnClickListener {
-
         }
     }
 

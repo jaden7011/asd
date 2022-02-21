@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coin_kotlin.databinding.ActivityWriteBinding
 import com.example.coin_kotlin.info.Post
+import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.Repository
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
@@ -16,6 +17,8 @@ import java.util.*
 
 class WriteActivity : AppCompatActivity() {
 
+    private val auth = FirebaseAuth.getInstance().currentUser
+    lateinit var user:User
     private var backKeyPressedTime: Long = 0
     private val coin_name: String by lazy {
         intent.extras?.getString("coin_name")!!
@@ -34,25 +37,36 @@ class WriteActivity : AppCompatActivity() {
     }
 
     fun upload() {
-        val user = FirebaseAuth.getInstance().currentUser!!
-        val id = user.uid
-        val postid = Date().time.toString() + id
-        val title = binding.titleEdit.text.toString()
-        val content = binding.contentEdit.text.toString()
 
-        Repository.writePost(postid,title,content,user.displayName!!,id,coin_name)
-                .enqueue(object : Callback<Post> {
-                    override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                        if(response.body()!!.result){
-                            Toast(response.body()!!.msg)
-                            finish()
-                        }
+        auth?.run {
+            Repository.getUser(uid).enqueue(object : Callback<User>{
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if(response.isSuccessful && response.body() != null){
+                        user = response.body()!!
+                        val postid = Date().time.toString() + user.id
+                        val title = binding.titleEdit.text.toString()
+                        val content = binding.contentEdit.text.toString()
+
+                        Repository.writePost(postid,title,content,user.nickname,user.id,coin_name)
+                            .enqueue(object : Callback<Post> {
+                                override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                                    if(response.body()!!.result){
+                                        Toast(response.body()!!.msg)
+                                        finish()
+                                    }
+                                }
+                                override fun onFailure(call: Call<Post>, t: Throwable) {
+                                    Log.e("writePost","err: " + t.message)
+                                    binding.writeLoadingview.loaderLyaout.visibility = View.GONE
+                                }
+                            })
                     }
-                    override fun onFailure(call: Call<Post>, t: Throwable) {
-                        Log.e("writePost","err: " + t.message)
-                        binding.writeLoadingview.loaderLyaout.visibility = View.GONE
-                    }
-                })
+                }
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    Log.e("infoActivity","onFailure user")
+                }
+            })
+        }
     }
 
     override fun onBackPressed() {
