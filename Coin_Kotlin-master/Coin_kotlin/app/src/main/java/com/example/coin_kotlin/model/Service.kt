@@ -112,6 +112,13 @@ interface Service {
     ): Call<Post>
 
     @FormUrlEncoded
+    @POST("/comment/delete")
+    fun deleteComment(
+        @Field("commentid") commentid: String,
+        @Field("postid") postid: String
+    ): Call<Comment>
+
+    @FormUrlEncoded
     @POST("/comment/getlist")
     fun getCommentList( //postid로 해당 게시글의 comment를 전부 가져옴
             @Field("postid") postid: String

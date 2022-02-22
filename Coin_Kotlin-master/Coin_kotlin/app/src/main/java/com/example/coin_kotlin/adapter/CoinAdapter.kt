@@ -24,7 +24,7 @@ import com.example.coin_kotlin.utility.Named.PRICE_UNDER
 import com.example.coin_kotlin.utility.Named.RATE_HIGH
 import com.example.coin_kotlin.utility.Named.RATE_UNDER
 
-class Coin_Adapter (
+class CoinAdapter (
     val activity: Activity,
     val coins: ArrayList<Ticker>
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {

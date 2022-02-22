@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -16,14 +15,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.databinding.ActivityPostBinding
 import com.example.coin_kotlin.info.Post
-import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.Named.CHANGED
-import com.example.coin_kotlin.utility.Named.DELETE
 import com.example.coin_kotlin.viewmodel.LiveData_Comments
 import com.google.firebase.auth.FirebaseAuth
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.*
 
 class PostActivity : AppCompatActivity() {
@@ -33,7 +27,7 @@ class PostActivity : AppCompatActivity() {
     private val post: Post by lazy {
         intent.extras?.getParcelable<Post>("post")!!
     }
-    private lateinit var livedataComment: LiveData_Comments
+    lateinit var livedataComment: LiveData_Comments
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,7 +83,7 @@ class PostActivity : AppCompatActivity() {
             onCreate()
             getComment(post.postid)
             livedataComment.comments.observe(activity, Observer {
-                livedataComment.adapter.CommentDiffUtil(it)
+                livedataComment.adapter.commentDiffUtil(it)
                 textclear()
             })
         }

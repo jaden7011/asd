@@ -1,6 +1,5 @@
 package com.example.coin_kotlin.viewmodel
 
-import android.annotation.SuppressLint
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -10,7 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.PostActivity
-import com.example.coin_kotlin.adapter.Comment_Adapter
+import com.example.coin_kotlin.adapter.CommentAdapter
 import com.example.coin_kotlin.info.Comment
 import com.example.coin_kotlin.info.CommentList
 import com.example.coin_kotlin.info.Post
@@ -28,7 +27,7 @@ class LiveData_Comments(
     val activity: PostActivity
 ) : ViewModel() {
 
-    lateinit var adapter: Comment_Adapter
+    lateinit var adapter: CommentAdapter
 
     class Factory(val activity: PostActivity) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -41,7 +40,7 @@ class LiveData_Comments(
     }
 
     fun onCreate() {
-        adapter = Comment_Adapter(activity, ArrayList(),object : Comment_Adapter.GoodListener{
+        adapter = CommentAdapter(activity, ArrayList(),object : CommentAdapter.GoodListener{
             override fun pressed(comment: Comment) {
                 val uid = FirebaseAuth.getInstance().currentUser?.uid
                 if(uid != null){
@@ -181,6 +180,21 @@ class LiveData_Comments(
 
             override fun onFailure(call: Call<Post>, t: Throwable) {
                 Log.e("delete post", "err: " + t.message)
+            }
+
+        })
+    }
+
+    fun delComment(comment: Comment){
+        Repository.deleteComment(comment.commentid,comment.postid).enqueue(object : Callback<Comment>{
+            override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
+                if (response.isSuccessful && response.body() != null){
+                    Toast(response.body()!!.msg)
+                    getPost(comment.postid)
+                }
+            }
+            override fun onFailure(call: Call<Comment>, t: Throwable) {
+                Log.e("delComment","fail: " + t.message)
             }
 
         })

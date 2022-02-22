@@ -115,6 +115,16 @@ object Repository {
             .deletePost(postid)
     }
 
+    fun deleteComment(
+        commentid: String,
+        postid: String
+    ): Call<Comment> {
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .deleteComment(commentid,postid)
+    }
+
     fun getCommentList(
         postid:String
     ): Call<CommentList> {

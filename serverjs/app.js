@@ -197,7 +197,7 @@ app.post('/post/delete', function (req, res) {
     })
     .then(result => {
         res.json({
-            msg:"삭제 되었습니다."
+            msg:"게시물이 삭제되었습니다."
         })
     })
     .catch(err => {})
@@ -249,15 +249,31 @@ app.post('/comment/write', function(req, res) {
 
 app.post('/comment/delete', function(req,res){
     var commentid = req.body.commentid
-    var sql = 'DELETE FROM comment WHERE commentid = ?'
+    var postid = req.body.postid
 
-    query(sql,commentid)
+    var delComment_sql = 'DELETE FROM comment WHERE commentid = ?'
+    var selectPost_sql = 'SELECT commentnum FROM post WHERE postid = ?'
+    var updatePost_sql = 'UPDATE post SET commentnum = ? WHERE postid = ?'
+    var delClove_sql = 'DELETE FROM clove WHERE commentid = ?'
+
+    query(delComment_sql,commentid)
     .then(result => {
-       rm_Clove(commentid,res)
+       return query(selectPost_sql,postid)
     })
-    .catch(err => {
-
+    .then(result => {
+        var commentnum = result[0].commentnum - 1
+        var params = [commentnum,postid];
+        return query(updatePost_sql,params)
     })
+    .then(result => {
+        return query(delClove_sql,commentid)
+    })
+    .then(result => {
+        res.json({
+            msg:"댓글이 삭제되었습니다."
+        })
+    })
+    .catch(err => {})
 })
 
 app.post('/post/love', function(req,res) { //love에 중복이 있ㄷ면 진행안하고 없으면 love insert -> c or p update
@@ -305,26 +321,9 @@ function rm_Clove(commentid,res){
     query(sql,commentid)
     .then(result => {
         res.json({
-            mgs:"댓글이 삭제되었습니다."
+            msg:"댓글이 삭제되었습니다."
         })
     }).catch(err => {})
-}
-
-function del_Plove(postid,res){
-    var psql = 'DELETE FROM plove WHERE postid = ?'
-    var csql = 'DELETE FROM clove WHERE postid = ?'
-
-    query(psql,postid)
-    .then(result => {   
-        return query(csql,postid)
-    })
-    then(result => {
-        res.json({
-            mgs:"게시물이 삭제되었습니다."
-        })
-    }).catch(err => {
-        // res.json(err)
-    })
 }
 
 function up_Clove(commentid,postid,id,res){

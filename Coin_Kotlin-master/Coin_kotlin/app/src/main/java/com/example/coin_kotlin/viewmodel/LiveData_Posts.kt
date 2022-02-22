@@ -9,15 +9,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.BoardActivity
-import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.activity.SearchActivity
-import com.example.coin_kotlin.adapter.Post_Adapter
+import com.example.coin_kotlin.adapter.PostAdapter
 import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.PostList
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.MPchart
-import com.example.coin_kotlin.utility.Named
 import com.example.coin_kotlin.utility.Named.Time_to_String
 import com.example.coin_kotlin.utility.NetworkStatus
 import com.example.coin_kotlin.utility.Utility
@@ -27,13 +25,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 class LiveData_Posts(val activity: Activity):ViewModel() {
 
-    lateinit var adapter: Post_Adapter
+    lateinit var adapter: PostAdapter
 
     class Factory(val activity: Activity) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -49,13 +45,13 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
 
         when(activity){
             is BoardActivity -> {
-                adapter = Post_Adapter(activity,ArrayList())
+                adapter = PostAdapter(activity,ArrayList())
                 val utility = Utility(activity,(activity).findViewById(R.id.Board_Recycler),adapter)
                 utility.RecyclerInit("VERTICAL")
             }
 
             is SearchActivity -> {
-                adapter = Post_Adapter(activity,ArrayList())
+                adapter = PostAdapter(activity,ArrayList())
                 val utility = Utility(activity,(activity).findViewById(R.id.searchRecyclerView),adapter)
                 utility.RecyclerInit("VERTICAL")
             }

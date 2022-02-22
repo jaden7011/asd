@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
+import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.info.Comment
 import com.example.coin_kotlin.utility.CommentInfo_DiffUtil
 import com.example.coin_kotlin.utility.Named
@@ -22,10 +23,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class Comment_Adapter(
+class CommentAdapter(
     val activity: Activity,
     private val comments: ArrayList<Comment>,
-    val goodListener: GoodListener
+    private val goodListener: GoodListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val auth = FirebaseAuth.getInstance().currentUser
@@ -34,7 +35,7 @@ class Comment_Adapter(
         fun pressed(comment:Comment)
     }
 
-    fun CommentDiffUtil(NewCommentList:ArrayList<Comment>){
+    fun commentDiffUtil(NewCommentList:ArrayList<Comment>){
 
         val diffCalback = CommentInfo_DiffUtil(comments,NewCommentList)
         val diffRes = DiffUtil.calculateDiff(diffCalback)
@@ -120,7 +121,9 @@ class Comment_Adapter(
         alert.setItems(items) { dialog, which ->
             when (which) {
                 0 -> {
-
+                    if(activity is PostActivity){
+                        activity.livedataComment.delComment(comment)
+                    }
                 }
             }
         }

@@ -16,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
-import com.example.coin_kotlin.adapter.Coin_Adapter
+import com.example.coin_kotlin.adapter.CoinAdapter
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.databinding.ActivityMainBinding
 import com.example.coin_kotlin.info.User
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var binding: ActivityMainBinding
     private lateinit var ET_Observable_Disposable: Disposable
     private lateinit var liveData_tickerMap: LiveData_TickerMap
-    private lateinit var adapter: Coin_Adapter
+    private lateinit var adapter: CoinAdapter
     private var thread_all: NetworkThread? = null
     private var thread_search: NetworkThread? = null
 
@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.drawerLayout.openDrawer(GravityCompat.END)
         }
 
-        adapter = Coin_Adapter(this, ArrayList())
+        adapter = CoinAdapter(this, ArrayList())
 
         val utility = Utility(this, binding.CoinRecyclerView, adapter) //리사이클러뷰 적용하는 것
         utility.RecyclerInit("VERTICAL")

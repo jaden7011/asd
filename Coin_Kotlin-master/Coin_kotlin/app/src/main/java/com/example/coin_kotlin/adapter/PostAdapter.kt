@@ -27,7 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class Post_Adapter(
+class PostAdapter(
         val activity: Activity,
         val posts:ArrayList<Post>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
