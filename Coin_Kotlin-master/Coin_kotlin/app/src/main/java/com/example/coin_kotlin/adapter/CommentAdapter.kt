@@ -71,7 +71,6 @@ class CommentAdapter(
                 goodNum.text = "0"
             }
 
-            Log.e("zzzzzzz","postid: "+item.postid + "\nid: "+item.id)
             if(post.id == item.id){
                 nicknameT.run{
                     text = "글쓴이"

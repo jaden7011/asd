@@ -31,9 +31,6 @@ app.post('/user/join', function (req, res) {
         res.json({
             result: true,
             msg: '회원가입에 성공했습니다.',
-            id: id,
-            nickname: nickname,
-            mail:mail
         })
     })
     .catch(err => {
@@ -55,13 +52,9 @@ app.post('/user/info', function (req, res) {
                     msg: '등록되지 않은 회원입니다.'
                 })
             } else {
-                res.json({
-                    result: true,
-                    msg: '회원정보확인',
-                    id: result[0].id,
-                    nickname: result[0].nickname,
-                    mail: result[0].mail
-                });
+                result[0].result = true
+                result[0].msg = "정보확인완료"
+                res.json(result[0]);
             }
         }
     })
@@ -82,6 +75,19 @@ app.post("/user/update",function(req,res){
             })
         }
     })
+})
+
+app.post('/user/delete',function(req,res){
+    var id = req.body.id
+    var sql = 'DELETE FROM user WHERE id = ?'
+
+    query(sql,id)
+    .then(result => {
+        res.json({
+            msg:"탈퇴되었습니다."
+        })
+    })
+    .catch(err => {})
 })
 
 app.post('/post/write', function (req, res) {

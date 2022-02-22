@@ -25,8 +25,8 @@ import retrofit2.Response
 class InfoActivity : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance().currentUser
-    lateinit var binding:ActivityInfoBinding
-    lateinit var user:User
+    lateinit var binding: ActivityInfoBinding
+    lateinit var user: User
 
     override fun onResume() {
         super.onResume()
@@ -38,13 +38,14 @@ class InfoActivity : AppCompatActivity() {
         setView()
     }
 
-    private fun setView(){
+    private fun setView() {
         getUser()
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_info)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_info)
 
         binding.changeNickT.setOnClickListener {
-            startActivity(Intent(this,ChangeNicknameActivity::class.java).run {
-                putExtra("user",user) })
+            startActivity(Intent(this, ChangeNicknameActivity::class.java).run {
+                putExtra("user", user)
+            })
         }
 
         binding.myPostT.setOnClickListener {
@@ -56,8 +57,8 @@ class InfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun withdrawDialog(){
-        val dialog = AlertDialog.Builder(this,android.R.style.Theme_DeviceDefault_Dialog)
+    private fun withdrawDialog() {
+        val dialog = AlertDialog.Builder(this, android.R.style.Theme_DeviceDefault_Dialog)
 
         dialog.setMessage("회원탈퇴를 하시겠습니까?\n\n\'사용자의 정보\'와 \'결제내역\'이 모두 삭제됩니다. \n또한,\'작성글\'과 \'댓글\'의 내용은 남아있게 됩니다.")
             .setPositiveButton("탈퇴") { _, _ ->
@@ -68,36 +69,58 @@ class InfoActivity : AppCompatActivity() {
             .show()
     }
 
-    fun withdraw(){
+    fun withdraw() {
         val user = FirebaseAuth.getInstance().currentUser!!
+        val id = user.uid
         val opt = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         val client = GoogleSignIn.getClient(this, opt)
-        client.signOut()
+
         user.delete().addOnCompleteListener {
-            if(it.isSuccessful){
-                startActivity(Intent(this, Login::class.java).run {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                })
-            }else{
+            if (it.isSuccessful) {
+                client.signOut().addOnCompleteListener {
+                    Repository.delUser(id).enqueue(object : Callback<User> {
+                        override fun onResponse(call: Call<User>, response: Response<User>) {
+                            if (response.isSuccessful) {
+                                response.body()?.msg?.let { it1 ->
+                                    Toast(it1)
+                                    loginActivity()
+                                }
+                            }
+                        }
+
+                        override fun onFailure(call: Call<User>, t: Throwable) {
+                            Log.e("InfoActi", "fail withdraw:" + t.message)
+                        }
+
+                    })
+                }
+            } else {
                 Toast("실패")
             }
         }
     }
 
-    private fun getUser(){
+    private fun getUser() {
         auth?.run {
-            Repository.getUser(uid).enqueue(object : Callback<User>{
+            Repository.getUser(uid).enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if(response.isSuccessful && response.body() != null){
+                    if (response.isSuccessful && response.body() != null) {
                         user = response.body()!!
                         binding.user = user
                     }
                 }
+
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.e("infoActivity","onFailure user")
+                    Log.e("infoActivity", "onFailure user")
                 }
             })
         }
+    }
+
+    fun loginActivity() {
+        startActivity(Intent(this, Login::class.java).run {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        })
     }
 
     fun Toast(str: String) {

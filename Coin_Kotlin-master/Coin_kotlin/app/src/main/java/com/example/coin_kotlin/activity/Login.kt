@@ -94,7 +94,7 @@ class Login : AppCompatActivity() {
                         for(i in 0..1)
                             tag += uid[i]
 
-                        setUser(uid, "$nickname(#$tag)", mail)
+                        setUser(uid, "$nickname (#$tag)", mail)
                     } else {
                         Log.e(TAG, "signInWithCredential: failure: " + task.result)
                     }
@@ -103,10 +103,20 @@ class Login : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        //todo Check if user is signed in (non-null) and update UI accordingly.
-        if(auth.currentUser != null){
-            startActivity()
-        }
+        auth.uid?.let { Repository.getUser(it).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful && response.body() != null){
+                    if(response.body()!!.result){
+                        startActivity()
+                    }
+                }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e(TAG, "onStart in failed: " + t.message)
+                Toast("로그인에 실패했습니다.")
+            }
+
+        }) }
     }
 
     private fun logout(){
@@ -123,7 +133,7 @@ class Login : AppCompatActivity() {
     fun setUser(
              id:String,
              nickname:String,
-             mail:String,
+             mail:String
     ){
         Repository.getUser(id).enqueue(object : Callback<User>{
             override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -135,8 +145,12 @@ class Login : AppCompatActivity() {
                         Repository.setUser(id,nickname,mail).enqueue(object : Callback<User> {
                             override fun onResponse(call: Call<User>, response: Response<User>) {
                                 if(response.isSuccessful && response.body() != null){
-                                    Toast("success")
-                                    startActivity()
+                                    if(response.body()!!.result){
+                                        Toast("success")
+                                        startActivity()
+                                    }else{
+                                        Toast("로그인에 실패하였습니다.")
+                                    }
                                 }
                             }
                             override fun onFailure(call: Call<User>, t: Throwable) {
@@ -150,7 +164,6 @@ class Login : AppCompatActivity() {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.e("onFailure","onFailure: "+t.message)
             }
-
         })
     }
 

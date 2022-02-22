@@ -70,6 +70,12 @@ interface Service {
     ): Call<User>
 
     @FormUrlEncoded
+    @POST("/user/delete")
+    fun delUser(
+        @Field("id") id:String
+    ): Call<User>
+
+    @FormUrlEncoded
     @POST("/post/write")
     fun writePost(
             @Field("postid") postid: String,

@@ -35,7 +35,8 @@ object Repository {
 
     fun setUser(id: String,
                 nickname: String,
-                mail: String): Call<User> {
+                mail: String
+    ): Call<User> {
         return RetrofitFactory
                 .createRetrofit(ec2_URL)
                 .create(Service::class.java)
@@ -47,6 +48,13 @@ object Repository {
                 .createRetrofit(ec2_URL)
                 .create(Service::class.java)
                 .getUser(id)
+    }
+
+    fun delUser(id: String): Call<User> {
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .delUser(id)
     }
 
     fun updateNick(
