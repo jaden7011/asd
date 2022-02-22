@@ -128,11 +128,18 @@ interface Service {
     ): Call<Comment>
 
     @FormUrlEncoded
-    @POST("/love")
-    fun love(
-        @Field("loveid") loveid: String,
+    @POST("/post/love")
+    fun plove(
+        @Field("postid") postid: String,
         @Field("id") id: String,
-        @Field("ispost") ispost: Int
+    ): Call<Post>
+
+    @FormUrlEncoded
+    @POST("/comment/love")
+    fun clove(
+        @Field("commentid") commentid: String,
+        @Field("postid") postid: String,
+        @Field("id") id: String
     ): Call<Post>
 
 

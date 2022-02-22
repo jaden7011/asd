@@ -1,8 +1,9 @@
 package com.example.coin_kotlin.adapter
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Typeface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,7 +20,7 @@ import com.example.coin_kotlin.utility.Named
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class Comment_Adapter(
     val activity: Activity,
@@ -90,7 +91,13 @@ class Comment_Adapter(
             }
 
             option_btn.setOnClickListener {
-
+                val comment = comments[holder.absoluteAdapterPosition]
+                val commentPublisher = comment.id
+                if(auth != null && (auth.uid == commentPublisher)){
+                    deleteDialog(comment)
+                }else{
+                    othersDialog(comment)
+                }
             }
         }
 
@@ -105,6 +112,35 @@ class Comment_Adapter(
         if(holder is CommentHolder){
             holder.bind(comments[position])
         }
+    }
+
+    private fun deleteDialog(comment: Comment) {
+        val items = arrayOf("삭제")
+        val alert: AlertDialog.Builder = AlertDialog.Builder(activity)
+        alert.setItems(items) { dialog, which ->
+            when (which) {
+                0 -> {
+
+                }
+            }
+        }
+        val alertDialog: AlertDialog = alert.create()
+        alertDialog.show()
+    }
+
+
+    private fun othersDialog(comment: Comment) {
+        val items = arrayOf("신고")
+        val alert: AlertDialog.Builder = AlertDialog.Builder(activity)
+        alert.setItems(items) { dialog, which -> //todo 기능추가해줘야함.
+            when (which) {
+                0 -> {
+
+                }
+            }
+        }
+        val alertDialog: AlertDialog = alert.create()
+        alertDialog.show()
     }
 
     companion object {

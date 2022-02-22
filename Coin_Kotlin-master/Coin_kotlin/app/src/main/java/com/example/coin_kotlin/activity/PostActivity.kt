@@ -57,8 +57,10 @@ class PostActivity : AppCompatActivity() {
         }
 
         binding.goodBtnFrame.setOnClickListener {
-            if (!auth?.uid.isNullOrEmpty())
-                livedataComment.love(post.postid, FirebaseAuth.getInstance().uid!!, 1,post.postid)
+            if (!auth?.uid.isNullOrEmpty()) {
+
+                livedataComment.postLove(post.postid, FirebaseAuth.getInstance().uid!!)
+            }
             else {
                 Toast("로그인 후에 이용가능합니다..")
             }
@@ -117,19 +119,7 @@ class PostActivity : AppCompatActivity() {
 
         when (item.itemId) {
             R.id.delete -> {
-                Repository.deletePost(post.postid).enqueue(object : Callback<Post> {
-                    override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                        if (response.body() != null)
-                            Toast(response.body()!!.msg)
-                        setResult(DELETE)
-                        finish()
-                    }
-
-                    override fun onFailure(call: Call<Post>, t: Throwable) {
-                        Log.e("delete post", "err: " + t.message)
-                    }
-
-                })
+               livedataComment.delPost(post.postid)
             }
 
             R.id.autonew -> {

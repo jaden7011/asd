@@ -127,19 +127,6 @@ class BoardActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (resultCode) {
-//            DELETE -> livedataPostinfo.Get_Candle_Posts(coin_name)
-//            CHANGED -> {
-//                if (data != null) {
-////                    Log.e("CHANGED","postid: "+data.getStringExtra("postid")!!)
-//                    livedataPostinfo.getPost(data.getStringExtra("postid")!!)
-//                }
-//            }
-        }
-    }
-
     fun Toast(str: String) {
         android.widget.Toast.makeText(this, str, android.widget.Toast.LENGTH_SHORT).show();
     }

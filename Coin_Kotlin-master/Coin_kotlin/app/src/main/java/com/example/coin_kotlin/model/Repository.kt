@@ -137,15 +137,25 @@ object Repository {
             .writeComment(postid, commentid, content, nickname,id)
     }
 
-    fun love(
-        loveid:String,
-        id:String,
-        ispost:Int
+    fun plove(
+        postid:String,
+        id:String
     ): Call<Post> {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
-            .love(loveid, id, ispost)
+            .plove(postid, id)
+    }
+
+    fun clove(
+        commentid: String,
+        postid:String,
+        id:String
+    ): Call<Post> {
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .clove(commentid, postid, id)
     }
 
 }

@@ -182,23 +182,25 @@ app.post('/post/delete', function (req, res) {
     var postid = req.body.postid;
     var postsql = 'DELETE FROM post WHERE postid = ?';
     var commentsql = 'DELETE FROM comment WHERE postid = ?';
-    var love_sql = 'DELETE FROM love WHERE loveid = ?'
+    var psql = 'DELETE FROM plove WHERE postid = ?'
+    var csql = 'DELETE FROM clove WHERE postid = ?'
 
     query(postsql,postid) //post제거
-        .then(result => {
-            return query(commentsql,postid)
+    .then(result => {
+        return query(commentsql,postid)
     })
     .then(result => { //comment 제거
-        return query(love_sql,postid)
+        return query(psql,postid)
     })
-    .then(result => {//love 제거
+    .then(result => {
+        return query(csql,postid)
+    })
+    .then(result => {
         res.json({
-            msg:"제거되었습니다."
+            msg:"삭제 되었습니다."
         })
     })
-    .catch(err => {
-
-    })
+    .catch(err => {})
 });
 
 app.post('/comment/getlist', function(req, res) {
@@ -245,12 +247,24 @@ app.post('/comment/write', function(req, res) {
     
 });
 
-app.post('/love', function(req,res) { //love에 중복이 있ㄷ면 진행안하고 없없으으면 love insert -> c or p update
-    var loveid = req.body.loveid
+app.post('/comment/delete', function(req,res){
+    var commentid = req.body.commentid
+    var sql = 'DELETE FROM comment WHERE commentid = ?'
+
+    query(sql,commentid)
+    .then(result => {
+       rm_Clove(commentid,res)
+    })
+    .catch(err => {
+
+    })
+})
+
+app.post('/post/love', function(req,res) { //love에 중복이 있ㄷ면 진행안하고 없으면 love insert -> c or p update
+    var postid = req.body.postid
     var id = req.body.id
-    var ispost = req.body.ispost
-    var check_sql =  "SELECT EXISTS(SELECT * FROM love WHERE loveid = ? AND id = ? AND ispost = ? ) as exist";
-    var params = [loveid, id, ispost]
+    var check_sql =  "SELECT EXISTS(SELECT * FROM plove WHERE postid = ? AND id = ?) as exist";
+    var params = [postid, id]
 
     query(check_sql,params)
     .then(result => {
@@ -260,41 +274,76 @@ app.post('/love', function(req,res) { //love에 중복이 있ㄷ면 진행안하
             })
             return
         }else{
-            uplove(loveid,id,ispost,res)
+            up_Plove(postid,id,res)
         }
     })
 })
 
-function uplove(loveid,id,ispost,res){
+app.post('/comment/love', function(req,res) {
+    var commentid = req.body.commentid
+    var postid = req.body.postid
+    var id = req.body.id
+    var check_sql =  "SELECT EXISTS(SELECT * FROM clove WHERE commentid = ? AND id = ? AND postid = ?) as exist";
+    var params = [commentid, id, postid]
 
-    var insert_sql = 'INSERT INTO love (loveid, id, ispost) VALUES (?, ?, ?)'
-    var post_sql = 'SELECT love FROM post WHERE postid = ?'
+    query(check_sql,params)
+    .then(result =>{
+        if(result[0].exist == 1){
+            res.json({
+                msg: "이미 좋아요를 눌렀습니다."
+            })
+            return
+        }
+        else
+            up_Clove(commentid,postid,id,res)
+    })
+})
+
+function rm_Clove(commentid,res){
+    var sql = 'DELETE FROM clove WHERE commentid = ?'
+
+    query(sql,commentid)
+    .then(result => {
+        res.json({
+            mgs:"댓글이 삭제되었습니다."
+        })
+    }).catch(err => {})
+}
+
+function del_Plove(postid,res){
+    var psql = 'DELETE FROM plove WHERE postid = ?'
+    var csql = 'DELETE FROM clove WHERE postid = ?'
+
+    query(psql,postid)
+    .then(result => {   
+        return query(csql,postid)
+    })
+    then(result => {
+        res.json({
+            mgs:"게시물이 삭제되었습니다."
+        })
+    }).catch(err => {
+        // res.json(err)
+    })
+}
+
+function up_Clove(commentid,postid,id,res){
+
+    var insert_sql = 'INSERT INTO clove (commentid, id, postid) VALUES (?, ?, ?)'
     var comment_sql = 'SELECT love FROM comment WHERE commentid = ?'
-    var updatePost_sql = 'UPDATE post SET love = ? WHERE postid = ?'
     var updateComment_sql = 'UPDATE comment SET love = ? WHERE commentid = ?'
 
-    var insert_params = [loveid, id, ispost]
+    var insert_params = [commentid, id, postid]
 
     query(insert_sql,insert_params)
     .then(result => { //love에 데이터 집어넣고,
-        console.log(result)
-        console.log(ispost)
-
-        if(ispost == 1){ //만약 post라면,,
-            return query(post_sql,loveid)
-        }else{//만약 comment라면,,
-            return query(comment_sql,loveid)
-        }
+        return query(comment_sql,commentid)
     })
     .then(result => { //해당 (게시물/댓글) 의 love갯수 뽑아내서 +1해주고
         var lovecnt = result[0].love + 1
-        var update_params = [lovecnt,loveid]
+        var update_params = [lovecnt,commentid]
         
-        if(ispost == 1){
-            return query(updatePost_sql,update_params)
-        }else{  
-            return query(updateComment_sql,update_params)
-        }
+        return query(updateComment_sql,update_params)
     })
     .then(result => {
         res.json({msg:"좋아요!"})
@@ -303,6 +352,34 @@ function uplove(loveid,id,ispost,res){
         res.json(err)
     })
 }
+
+function up_Plove(postid,id,res){
+
+    var insert_sql = 'INSERT INTO plove (postid, id) VALUES (?, ?)'
+    var post_sql = 'SELECT love FROM post WHERE postid = ?'
+    var updatePost_sql = 'UPDATE post SET love = ? WHERE postid = ?'
+    
+    var insert_params = [postid, id]
+
+    query(insert_sql,insert_params)
+    .then(result => { //love에 데이터 집어넣고,
+        return query(post_sql,postid)
+    })
+    .then(result => { //해당 (게시물/댓글) 의 love갯수 뽑아내서 +1해주고
+        var lovecnt = result[0].love + 1
+        var update_params = [lovecnt,postid]
+        
+        return query(updatePost_sql,update_params)
+    })
+    .then(result => {
+        res.json({msg:"좋아요!"})
+    })
+    .catch(err => {
+        res.json(err)
+    })
+}
+
+
 
 function query(sql, args){
     return new Promise((resolve,reject) => {

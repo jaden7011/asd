@@ -45,7 +45,7 @@ class LiveData_Comments(
             override fun pressed(comment: Comment) {
                 val uid = FirebaseAuth.getInstance().currentUser?.uid
                 if(uid != null){
-                    love(comment.commentid,uid,0,comment.postid)
+                    commentLove(comment.commentid,comment.postid,uid)
                 }else{
                     Toast("실패하였습니다.")
                 }
@@ -134,10 +134,9 @@ class LiveData_Comments(
         })
     }
 
-    fun love(loveid: String, id: String, ispost: Int,postid: String) {
+    fun commentLove(commentid: String, postid: String, id:String){
         checkNetWork()
-        Repository.love(loveid, id, ispost).enqueue(object : Callback<Post> {
-            @SuppressLint("SetTextI18n")
+        Repository.clove(commentid, postid, id).enqueue(object :Callback<Post>{
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if (response.isSuccessful && response.body() != null) {
                     val msg = response.body()?.msg
@@ -148,8 +147,42 @@ class LiveData_Comments(
                 }
             }
             override fun onFailure(call: Call<Post>, t: Throwable) {
-                Log.e("love onfailure", "err: " + t.message)
+                Log.e("clove onfailure", "err: " + t.message)
             }
+        })
+    }
+
+    fun postLove(postid: String,id: String){
+        checkNetWork()
+        Repository.plove(postid,id).enqueue(object :Callback<Post>{
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                if (response.isSuccessful && response.body() != null) {
+                    val msg = response.body()?.msg
+                    if (!msg.isNullOrEmpty()) {
+                        Toast(msg)
+                        getPost(postid)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                Log.e("plove onfailure", "err: " + t.message)
+            }
+
+        })
+    }
+
+    fun delPost(postid: String){
+        Repository.deletePost(postid).enqueue(object : Callback<Post> {
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                if (response.body() != null)
+                    Toast(response.body()!!.msg)
+                activity.finish()
+            }
+
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                Log.e("delete post", "err: " + t.message)
+            }
+
         })
     }
 
