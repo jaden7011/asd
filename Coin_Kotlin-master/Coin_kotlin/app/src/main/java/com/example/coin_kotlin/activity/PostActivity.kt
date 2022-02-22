@@ -24,7 +24,7 @@ class PostActivity : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance().currentUser
     lateinit var binding: ActivityPostBinding
-    private val post: Post by lazy {
+    val post: Post by lazy {
         intent.extras?.getParcelable<Post>("post")!!
     }
     lateinit var livedataComment: LiveData_Comments
@@ -101,7 +101,7 @@ class PostActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (auth != null)
+        if (auth != null && auth.uid == post.id)
             menuInflater.inflate(R.menu.mypost_menu, menu)
         else
             menuInflater.inflate(R.menu.otherspost_menu, menu)

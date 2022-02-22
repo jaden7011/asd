@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.graphics.Typeface
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.info.Comment
+import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.utility.CommentInfo_DiffUtil
 import com.example.coin_kotlin.utility.Named
 import com.google.firebase.auth.FirebaseAuth
@@ -25,6 +27,7 @@ import java.util.*
 
 class CommentAdapter(
     val activity: Activity,
+    private val post:Post,
     private val comments: ArrayList<Comment>,
     private val goodListener: GoodListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -68,14 +71,17 @@ class CommentAdapter(
                 goodNum.text = "0"
             }
 
-            if(auth != null && (auth.uid.equals(item.id))){
+            Log.e("zzzzzzz","postid: "+item.postid + "\nid: "+item.id)
+            if(post.id == item.id){
                 nicknameT.run{
                     text = "글쓴이"
                     setTextColor(ContextCompat.getColor(activity, R.color.maincolor))
-                    setTypeface(null, Typeface.BOLD_ITALIC)
                 }
             }else{
-                nicknameT.text = item.nickname
+                nicknameT.run{
+                    text = item.nickname
+                    setTextColor(ContextCompat.getColor(activity, R.color.textcolor))
+                }
             }
         }
     }

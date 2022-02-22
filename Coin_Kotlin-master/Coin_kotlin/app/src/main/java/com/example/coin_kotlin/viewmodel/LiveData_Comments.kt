@@ -40,7 +40,7 @@ class LiveData_Comments(
     }
 
     fun onCreate() {
-        adapter = CommentAdapter(activity, ArrayList(),object : CommentAdapter.GoodListener{
+        adapter = CommentAdapter(activity, activity.post ,ArrayList(),object : CommentAdapter.GoodListener{
             override fun pressed(comment: Comment) {
                 val uid = FirebaseAuth.getInstance().currentUser?.uid
                 if(uid != null){

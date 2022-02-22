@@ -281,7 +281,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.item_logout -> {
-                Toast("cliked logout")
+                Toast("logout")
                 if (auth.currentUser != null){
                     val opt = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
                     val client = GoogleSignIn.getClient(this, opt)

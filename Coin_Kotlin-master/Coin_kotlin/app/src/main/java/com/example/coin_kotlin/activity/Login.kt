@@ -90,7 +90,11 @@ class Login : AppCompatActivity() {
                         val nickname = user?.displayName ?: "non_name"
                         val mail = user?.email ?: "non_email"
 
-                        setUser(uid,nickname, mail)
+                        var tag = ""
+                        for(i in 0..1)
+                            tag += uid[i]
+
+                        setUser(uid, "$nickname(#$tag)", mail)
                     } else {
                         Log.e(TAG, "signInWithCredential: failure: " + task.result)
                     }
