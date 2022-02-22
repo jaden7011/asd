@@ -75,27 +75,28 @@ class InfoActivity : AppCompatActivity() {
         val opt = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         val client = GoogleSignIn.getClient(this, opt)
 
-        user.delete().addOnCompleteListener {
-            if (it.isSuccessful) {
-                client.signOut().addOnCompleteListener {
-                    Repository.delUser(id).enqueue(object : Callback<User> {
-                        override fun onResponse(call: Call<User>, response: Response<User>) {
-                            if (response.isSuccessful) {
-                                response.body()?.msg?.let { it1 ->
-                                    Toast(it1)
-                                    loginActivity()
+        client.signOut().addOnCompleteListener {
+            if(it.isSuccessful){
+                user.delete().addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        Repository.delUser(id).enqueue(object : Callback<User> {
+                            override fun onResponse(call: Call<User>, response: Response<User>) {
+                                if (response.isSuccessful) {
+                                    response.body()?.msg?.let { it1 ->
+                                        Toast(it1)
+                                        loginActivity()
+                                    }
                                 }
                             }
-                        }
-
-                        override fun onFailure(call: Call<User>, t: Throwable) {
-                            Log.e("InfoActi", "fail withdraw:" + t.message)
-                        }
-
-                    })
+                            override fun onFailure(call: Call<User>, t: Throwable) {
+                                Log.e("InfoActi", "fail withdraw:" + t.message)
+                            }
+                        })
+                    } else {
+                        Toast("실패")
+                        Log.e("asdd","asdasd ${it.exception.toString()}")
+                    }
                 }
-            } else {
-                Toast("실패")
             }
         }
     }
