@@ -20,9 +20,12 @@ class MypostActivity : AppCompatActivity() {
     val user by lazy { intent.extras?.getParcelable<User>("user") }
     lateinit var livedataPosts: LiveData_Posts
 
-    override fun onRestart() {
-        super.onRestart()
-        livedataPosts.myPost(user!!.id)
+    override fun onResume() {
+        super.onResume()
+        livedataPosts.run{
+            onCreate()
+            myPost(user!!.id)
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +48,6 @@ class MypostActivity : AppCompatActivity() {
         livedataPosts.posts.observe(this, Observer {
             livedataPosts.adapter.PostDiffUtil(it)
         })
-        livedataPosts.run{
-            onCreate()
-            myPost(user!!.id)
-        }
     }
 
     fun toolbar() {
