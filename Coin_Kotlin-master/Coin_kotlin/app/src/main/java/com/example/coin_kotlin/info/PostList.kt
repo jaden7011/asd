@@ -13,9 +13,9 @@ data class PostList(
         val postList:ArrayList<Post>,
         @SerializedName("msg")
         @Expose
-        val msg:String
+        val msg:String,
+        @SerializedName("issuccess")
+        @Expose
+        val isuccess:Boolean
 
-): Parcelable {
-    constructor()
-            : this(ArrayList(),"")
-}
+): Parcelable

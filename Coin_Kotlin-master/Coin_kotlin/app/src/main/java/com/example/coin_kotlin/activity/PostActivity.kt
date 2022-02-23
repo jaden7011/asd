@@ -74,7 +74,7 @@ class PostActivity : AppCompatActivity() {
             }
         }
 
-        Toolbar()
+        toolbar()
         binding.post = post
 
         livedataComment =
@@ -89,7 +89,7 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
-    fun Toolbar() {
+    fun toolbar() {
         setSupportActionBar(findViewById(R.id.toolbar_post))
         val actionbar = supportActionBar
         actionbar?.run {

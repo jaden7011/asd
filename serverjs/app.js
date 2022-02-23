@@ -176,10 +176,12 @@ app.post('/post/mypost', function (req, res) {
         if (err){
             console.log(err);
         }else if(result.length === 0){
-    
+            res.json({
+                msg:"작성한 글이 없습니다."
+            })
         }
         else {
-          res.json({result})
+            res.json({result})
         }
     });
 });

@@ -15,10 +15,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Coin_kotlin"
         android:usesCleartextTraffic="true">
+
+        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+
+        <activity
+            android:name=".infoactivity.MypostActivity"
+            android:exported="false" >
+        </activity>
+
         <activity
             android:name=".infoactivity.ChangeNicknameActivity"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
             android:name=".infoactivity.InfoActivity"
             android:exported="false" />

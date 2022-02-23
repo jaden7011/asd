@@ -14,6 +14,7 @@ import com.example.coin_kotlin.adapter.PostAdapter
 import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.PostList
+import com.example.coin_kotlin.infoactivity.MypostActivity
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.MPchart
 import com.example.coin_kotlin.utility.Named.Time_to_String
@@ -46,13 +47,19 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
         when(activity){
             is BoardActivity -> {
                 adapter = PostAdapter(activity,ArrayList())
-                val utility = Utility(activity,(activity).findViewById(R.id.Board_Recycler),adapter)
+                val utility = Utility(activity,activity.binding.BoardRecycler,adapter)
                 utility.RecyclerInit("VERTICAL")
             }
 
             is SearchActivity -> {
                 adapter = PostAdapter(activity,ArrayList())
-                val utility = Utility(activity,(activity).findViewById(R.id.searchRecyclerView),adapter)
+                val utility = Utility(activity,activity.binding.searchRecyclerView,adapter)
+                utility.RecyclerInit("VERTICAL")
+            }
+
+            is MypostActivity -> {
+                adapter = PostAdapter(activity,ArrayList())
+                val utility = Utility(activity,activity.binding.mypostRecyclerView,adapter)
                 utility.RecyclerInit("VERTICAL")
             }
         }
@@ -111,6 +118,7 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
         coin: String,
         keyword: String
     ){
+        checkNetWork()
         Repository.searchPostList(coin,keyword).enqueue(object : Callback<PostList>{
             override fun onResponse(call: Call<PostList>, response: Response<PostList>) {
                 if(response.isSuccessful && response.body() != null) {
@@ -125,6 +133,24 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
             }
             override fun onFailure(call: Call<PostList>, t: Throwable) {
                 Log.e("getPostList onfail","err: "+t.message)
+            }
+        })
+    }
+
+    fun myPost(id:String){
+        checkNetWork()
+
+        Repository.myPostList(id).enqueue(object : Callback<PostList>{
+            override fun onResponse(call: Call<PostList>, response: Response<PostList>) {
+                if(response.isSuccessful && response.body() != null){
+                    for(post in response.body()!!.postList){
+                        post.dateFormate_for_layout = Time_to_String(post.createdat)
+                    }
+                    posts.value = response.body()!!.postList
+                }
+            }
+            override fun onFailure(call: Call<PostList>, t: Throwable) {
+                Log.e("myPost onfail","err: "+t.message)
             }
         })
     }

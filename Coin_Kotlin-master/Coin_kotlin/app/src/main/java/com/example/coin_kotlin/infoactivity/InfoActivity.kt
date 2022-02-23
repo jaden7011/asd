@@ -15,8 +15,10 @@ import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.Repository
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.ktx.Firebase
 import retrofit2.Call
 import retrofit2.Callback
@@ -27,6 +29,7 @@ class InfoActivity : AppCompatActivity() {
     private val auth = FirebaseAuth.getInstance().currentUser
     lateinit var binding: ActivityInfoBinding
     lateinit var user: User
+    private val RC_SIGN_IN = 9001
 
     override fun onResume() {
         super.onResume()
@@ -49,7 +52,9 @@ class InfoActivity : AppCompatActivity() {
         }
 
         binding.myPostT.setOnClickListener {
-
+            startActivity(Intent(this, MypostActivity::class.java).run {
+                putExtra("user", user)
+            })
         }
 
         binding.withdraw.setOnClickListener {
@@ -62,21 +67,58 @@ class InfoActivity : AppCompatActivity() {
 
         dialog.setMessage("회원탈퇴를 하시겠습니까?\n\n\'사용자의 정보\'와 \'결제내역\'이 모두 삭제됩니다. \n또한,\'작성글\'과 \'댓글\'의 내용은 남아있게 됩니다.")
             .setPositiveButton("탈퇴") { _, _ ->
-                withdraw()
+                requestTocken()
             }
             .setNeutralButton("아니오") { _, _ ->
             }
             .show()
     }
 
-    fun withdraw() {
+    fun requestTocken() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("900857055162-5110niio0f1b612kc0bgrlt34tdpg7c4.apps.googleusercontent.com")
+            .requestEmail()
+            .build()
+
+        val signInIntent = GoogleSignIn.getClient(this, gso).signInIntent
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                val account = task.getResult(ApiException::class.java)!!
+                Log.e("InfoActivity", "firebaseAuthWithGoogle success:" + account.id)
+                withdraw(account.idToken!!)
+            } catch (e: ApiException) {
+                // Google Sign In failed, update UI appropriately
+                Log.e("InfoActivity", "Google sign in failed: " + e.message)
+                Toast("로그인에 실패했습니다.")
+            }
+        }
+    }
+
+    fun withdraw(idToken: String) {
         val user = FirebaseAuth.getInstance().currentUser!!
         val id = user.uid
+
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        user.reauthenticate(credential)
+            .addOnCompleteListener(this) { task ->
+                signout(user,id)
+            }
+    }
+
+    fun signout(user: FirebaseUser, id: String) {
         val opt = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
         val client = GoogleSignIn.getClient(this, opt)
 
         client.signOut().addOnCompleteListener {
-            if(it.isSuccessful){
+            if (it.isSuccessful) {
                 user.delete().addOnCompleteListener {
                     if (it.isSuccessful) {
                         Repository.delUser(id).enqueue(object : Callback<User> {
@@ -88,13 +130,14 @@ class InfoActivity : AppCompatActivity() {
                                     }
                                 }
                             }
+
                             override fun onFailure(call: Call<User>, t: Throwable) {
                                 Log.e("InfoActi", "fail withdraw:" + t.message)
                             }
                         })
                     } else {
                         Toast("실패")
-                        Log.e("asdd","asdasd ${it.exception.toString()}")
+                        Log.e("asdd", "asdasd ${it.exception.toString()}")
                     }
                 }
             }

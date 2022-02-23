@@ -70,6 +70,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:20.1.0' // 파이어베이스 코어
     implementation 'com.google.firebase:firebase-auth:21.0.1'
 
+    //광고
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
+
     implementation "androidx.recyclerview:recyclerview:1.2.1"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.7.0'
