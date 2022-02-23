@@ -181,11 +181,16 @@ app.post('/post/mypost', function (req, res) {
             console.log(err);
         }else if(result.length === 0){
             res.json({
+                issuccess:false,
                 msg:"작성한 글이 없습니다."
             })
         }
         else {
-            res.json({result})
+            res.json({
+                result: result,
+                issuccess : true,
+                msg: "불러왔습니다."
+            })
         }
     });
 });
