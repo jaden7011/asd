@@ -122,10 +122,18 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
         Repository.searchPostList(coin,keyword).enqueue(object : Callback<PostList>{
             override fun onResponse(call: Call<PostList>, response: Response<PostList>) {
                 if(response.isSuccessful && response.body() != null) {
-                    for(post in response.body()!!.postList){
-                        post.dateFormate_for_layout = Time_to_String(post.createdat)
+                    val issuccess = response.body()!!.isuccess
+                    val msg = response.body()!!.msg
+
+                    if(issuccess){
+                        for(post in response.body()!!.postList){
+                            post.dateFormate_for_layout = Time_to_String(post.createdat)
+                        }
+                        posts.value = response.body()!!.postList
+                        Toast(msg)
+                    }else{
+                        Toast(msg)
                     }
-                    posts.value = response.body()!!.postList
                 }
                 else{
                     Log.e("getPostList onResponse","size: "+response.body()?.postList?.size)
@@ -143,10 +151,18 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
         Repository.myPostList(id).enqueue(object : Callback<PostList>{
             override fun onResponse(call: Call<PostList>, response: Response<PostList>) {
                 if(response.isSuccessful && response.body() != null){
-                    for(post in response.body()!!.postList){
-                        post.dateFormate_for_layout = Time_to_String(post.createdat)
+                    val issuccess = response.body()!!.isuccess
+                    val msg = response.body()!!.msg
+
+                    if(issuccess){
+                        for(post in response.body()!!.postList){
+                            post.dateFormate_for_layout = Time_to_String(post.createdat)
+                        }
+                        Toast(msg)
+                        posts.value = response.body()!!.postList
+                    }else{
+                        Toast(msg)
                     }
-                    posts.value = response.body()!!.postList
                 }
             }
             override fun onFailure(call: Call<PostList>, t: Throwable) {
@@ -171,5 +187,9 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
             }
             return
         }
+    }
+
+    fun Toast(str: String) {
+        android.widget.Toast.makeText(activity, str, android.widget.Toast.LENGTH_SHORT).show();
     }
 }

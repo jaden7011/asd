@@ -162,13 +162,18 @@ app.post('/post/search', function (req, res) {
     .then(result => {
         if(result.length === 0)
             res.json({
+                issuccess:false,
                 msg:"찾는 게시물이 없습니다."
             })
         else
-            res.json({result})
+            res.json({
+                result:result,
+                msg: "게시물을 찾았습니다.",
+                issuccess: true
+            })
     })
     .catch(err => {
-        res.json(err)
+        // res.json(err)
     })
 });
 
