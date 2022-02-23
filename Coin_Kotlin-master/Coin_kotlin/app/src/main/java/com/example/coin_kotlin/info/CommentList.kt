@@ -9,5 +9,8 @@ data class CommentList(
         val commentlist:ArrayList<Comment>,
         @SerializedName("msg")
         @Expose
-        val msg:String?
+        val msg:String?,
+        @SerializedName("issuccess")
+        @Expose
+        val issuccess:Boolean,
 )

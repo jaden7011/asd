@@ -50,7 +50,7 @@ class WriteActivity : AppCompatActivity() {
                         Repository.writePost(postid,title,content,user.nickname,user.id,coin_name)
                             .enqueue(object : Callback<Post> {
                                 override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                                    if(response.body()!!.result){
+                                    if(response.body()!!.issuccess){
                                         Toast(response.body()!!.msg)
                                         finish()
                                     }

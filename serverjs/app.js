@@ -104,12 +104,12 @@ app.post('/post/write', function (req, res) {
     connection.query(sql, params, function (err, result) {
         if (err)
             res.json({
-                result: false,
+                issuccess: false,
                 msg: '글쓰기에 실패했습니다.'
             })
         else {
             res.json({
-                result: true,
+                issuccess: true,
                 msg: '글쓰기에 성공했습니다.'
             })
         }
@@ -138,11 +138,15 @@ app.post('/post', function (req, res) {
         if (err){
             console.log(err);
         }else if(result.length === 0){
-    
+            res.json({
+                msg:"존재하지 않는 게시물입니다.",
+                issuccess:false
+            })
         }
         else {
-            var post = result[0]
-            res.json(post)
+            result[0].msg = "게시물을 불러왔습니다."
+            result[0].issuccess = true
+            res.json(result[0])
         }
     });
 });
@@ -321,6 +325,7 @@ app.post('/comment/love', function(req,res) {
         else
             up_Clove(commentid,postid,id,res)
     })
+    .catch(err => {})
 })
 
 function rm_Clove(commentid,res){

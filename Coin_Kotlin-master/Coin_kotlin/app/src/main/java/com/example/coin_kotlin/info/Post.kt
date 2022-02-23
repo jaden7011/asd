@@ -35,9 +35,9 @@ data class Post(
         @SerializedName("coin")
         @Expose
         val coin:String,
-        @SerializedName("result")
+        @SerializedName("issuccess")
         @Expose
-        val result:Boolean,
+        val issuccess:Boolean,
         var dateFormate_for_layout: String?,
         @SerializedName("commentnum")
         @Expose

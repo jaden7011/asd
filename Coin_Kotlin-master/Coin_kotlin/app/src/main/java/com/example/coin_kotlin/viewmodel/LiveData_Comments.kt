@@ -61,11 +61,21 @@ class LiveData_Comments(
         Repository.getPost(postid).enqueue(object : Callback<Post> {
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if (response.isSuccessful && response.body() != null) {
-                    val post = response.body()
-                    post?.dateFormate_for_layout = Time_to_String(post!!.createdat)
-                    activity.binding.post = post
-                    getComment(postid)
-                    loadingvisible(false)
+                    val issuccess = response.body()?.issuccess!!
+                    val msg = response.body()?.msg!!
+                    if(issuccess){
+                        val post = response.body()
+                        post?.dateFormate_for_layout = Time_to_String(post!!.createdat)
+                        activity.binding.post = post
+                        getComment(postid)
+                        Toast(msg)
+                        loadingvisible(false)
+                    }else{
+                        Toast(msg)
+                        activity.finish()
+                        loadingvisible(false)
+                    }
+
                 }
             }
 

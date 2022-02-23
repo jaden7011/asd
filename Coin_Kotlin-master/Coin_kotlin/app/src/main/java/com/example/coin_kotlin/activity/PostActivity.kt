@@ -51,7 +51,6 @@ class PostActivity : AppCompatActivity() {
         }
 
         binding.goodBtnFrame.setOnClickListener {
-//            Toast("as ${auth?.uid}")
             if (!auth?.uid.isNullOrEmpty()) {
                 livedataComment.postLove(post.postid, auth?.uid!!)
             }
