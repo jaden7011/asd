@@ -51,9 +51,9 @@ class PostActivity : AppCompatActivity() {
         }
 
         binding.goodBtnFrame.setOnClickListener {
+//            Toast("as ${auth?.uid}")
             if (!auth?.uid.isNullOrEmpty()) {
-
-                livedataComment.postLove(post.postid, FirebaseAuth.getInstance().uid!!)
+                livedataComment.postLove(post.postid, auth?.uid!!)
             }
             else {
                 Toast("로그인 후에 이용가능합니다..")

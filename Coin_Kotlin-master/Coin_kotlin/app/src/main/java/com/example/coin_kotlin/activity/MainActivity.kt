@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     if(response.isSuccessful && response.body() != null){
                         user = response.body()!!
                     }else{
-                        user = User("non","non","non","",false)
+                        loginActivity()
                     }
                 }
                 override fun onFailure(call: Call<User>, t: Throwable) {
@@ -294,9 +294,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             R.id.item_login -> {
-                startActivity(Intent(this, Login::class.java).run {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                })
+                loginActivity()
             }
 
             //todo navi drawal 메뉴들 구현해줘야함
@@ -318,6 +316,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         binding.drawerLayout.closeDrawer(GravityCompat.END)
         return true
+    }
+
+    fun loginActivity(){
+        startActivity(Intent(this, Login::class.java).run {
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        })
     }
 
     override fun onBackPressed() {
