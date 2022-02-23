@@ -14,6 +14,7 @@ import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.info.Post
+import com.example.coin_kotlin.infoactivity.MypostActivity
 import com.example.coin_kotlin.utility.MPchart
 import com.example.coin_kotlin.utility.Named.CHART_VIEWTYPE
 import com.example.coin_kotlin.utility.Named.HOUR
@@ -75,6 +76,7 @@ class PostAdapter(
         val commentNum:TextView = itemView.findViewById(R.id.commentNum_postItem)
         val imageView:ImageView = itemView.findViewById(R.id.postImage)
         val nicknameT:TextView = itemView.findViewById(R.id.nicknameT)
+        val coinNameT = itemView.findViewById<TextView>(R.id.coinNameT)
 
         fun bind(item:Post){
             title.text = item.title
@@ -83,6 +85,12 @@ class PostAdapter(
             goodNum.text = item.love.toString()
             commentNum.text = item.commentNum.toString()
             nicknameT.text = item.nickname
+
+            if(activity is MypostActivity){
+                coinNameT.visibility = View.VISIBLE
+                coinNameT.text = item.coin
+            }else
+                coinNameT.visibility = View.GONE
         }
     }
 
