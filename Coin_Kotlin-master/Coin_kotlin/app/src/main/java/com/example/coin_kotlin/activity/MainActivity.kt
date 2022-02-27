@@ -344,9 +344,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         if (System.currentTimeMillis() <= backKeyPressedTime + 1500) {
             //아래 3줄은 프로세스 종료
-            moveTaskToBack(true)
-            Process.killProcess(Process.myPid())
-            System.exit(1)
+//            moveTaskToBack(true)
+//            Process.killProcess(Process.myPid())
+//            System.exit(1)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            finish()
         }
     }
 

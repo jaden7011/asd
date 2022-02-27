@@ -31,8 +31,9 @@ class AdmobActivity : AppCompatActivity() {
 
     fun setView() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_admob)
-        loadResources()
-        (application as MyApplication).getAdManager().showAdIfAvailable(object : FullScreenContentCallback() {
+        (application as MyApplication).getAdManager()
+//            .showAdIfAvailable()
+            .showAdIfAvailable(object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 isAdDismissed = true
                 launchMainActivity()
@@ -41,6 +42,7 @@ class AdmobActivity : AppCompatActivity() {
                 isAdShown = true
             }
         })
+        loadResources()
     }
 
     fun loadResources() {

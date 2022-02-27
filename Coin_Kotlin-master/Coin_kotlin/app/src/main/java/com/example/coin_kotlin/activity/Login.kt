@@ -129,6 +129,7 @@ class Login : AppCompatActivity() {
     private fun startActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     fun setUser(
