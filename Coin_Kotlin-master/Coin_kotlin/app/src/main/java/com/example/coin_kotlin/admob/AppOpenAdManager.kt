@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ProcessLifecycleOwner
+import com.example.coin_kotlin.activity.AdmobActivity
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -19,13 +20,15 @@ class AppOpenAdManager : LifecycleObserver {
     private val TAG = "AppOpenAdManager"
     private var appOpenAd: AppOpenAd? = null
     private var currentActivity: Activity? = null
-    private val AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294"
+    private val AD_UNIT_ID = "ca-app-pub-2931857165077003/1819092941"
     private val adRequest: AdRequest by lazy { AdRequest.Builder().build() }
     private lateinit var application: Application
     private var isShowingAd = false
     private val isAdAvailable: Boolean
         get() = appOpenAd != null && wasLoadTimeLessThanNHoursAgo()
     private var loadTime: Long = 0
+    val isTimetoAd: Boolean
+        get() = wasLoadTimeMoreThanNHoursAgo()
 
     fun initialize(application: Application) {
         this.application = application
@@ -35,7 +38,6 @@ class AppOpenAdManager : LifecycleObserver {
             override fun onActivityStarted(activity: Activity) {
                 Log.e(TAG,"ACT START")
                 currentActivity = activity
-//                showAdIfAvailable()
             }
 
             override fun onActivityResumed(activity: Activity) {
@@ -146,6 +148,12 @@ class AppOpenAdManager : LifecycleObserver {
         val dateDifference = Date().time - loadTime
         val numMilliSecondsPerHour = 3600000
         return dateDifference < numMilliSecondsPerHour * numHours
+    }
+
+    private fun wasLoadTimeMoreThanNHoursAgo(numHours: Long = 1): Boolean {
+        val dateDifference = Date().time - loadTime
+        val numMilliSecondsPerHour = 3600000
+        return dateDifference >= numMilliSecondsPerHour * numHours
     }
 }
 

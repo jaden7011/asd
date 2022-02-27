@@ -28,7 +28,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.collections.ArrayList
 
-class LiveData_Posts(val activity: Activity):ViewModel() {
+class LiveData_Posts(val activity: Activity) : ViewModel() {
 
     lateinit var adapter: PostAdapter
 
@@ -42,32 +42,30 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
         MutableLiveData<ArrayList<Post>>()
     }
 
-    fun onCreate(){
-
-        when(activity){
+    fun onCreate() {
+        when (activity) {
             is BoardActivity -> {
-                adapter = PostAdapter(activity,ArrayList())
-                val utility = Utility(activity,activity.binding.BoardRecycler,adapter)
+                adapter = PostAdapter(activity, ArrayList())
+                val utility = Utility(activity, activity.binding.BoardRecycler, adapter)
                 utility.RecyclerInit("VERTICAL")
             }
 
             is SearchActivity -> {
-                adapter = PostAdapter(activity,ArrayList())
-                val utility = Utility(activity,activity.binding.searchRecyclerView,adapter)
+                adapter = PostAdapter(activity, ArrayList())
+                val utility = Utility(activity, activity.binding.searchRecyclerView, adapter)
                 utility.RecyclerInit("VERTICAL")
             }
 
             is MypostActivity -> {
-                adapter = PostAdapter(activity,ArrayList())
-                val utility = Utility(activity,activity.binding.mypostRecyclerView,adapter)
+                adapter = PostAdapter(activity, ArrayList())
+                val utility = Utility(activity, activity.binding.mypostRecyclerView, adapter)
                 utility.RecyclerInit("VERTICAL")
             }
         }
 
     }
 
-    fun Get_Candle_Posts(coin:String){
-
+    fun Get_Candle_Posts(coin: String) {
         checkNetWork()
         onCreate()
 
@@ -78,15 +76,17 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
                 Log.d("onSuccess", "onSuccess[size]: " + it.data.size)
                 val candles = ArrayList<Candle>()
 
-                for(x in it.data){
-                    candles.add(Candle(
-                        x[0],
-                        x[1],
-                        x[2],
-                        x[3],
-                        x[4],
-                        x[5]
-                    ))
+                for (x in it.data) {
+                    candles.add(
+                        Candle(
+                            x[0],
+                            x[1],
+                            x[2],
+                            x[3],
+                            x[4],
+                            x[5]
+                        )
+                    )
                 }
 
                 MPchart((activity as BoardActivity).binding.priceChart).run {
@@ -94,20 +94,23 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
                     this.candleStickChart.moveViewToX(candles.size.toFloat())
                 }
 
-                Repository.getPostList(coin).enqueue(object : Callback<PostList>{
+                Repository.getPostList(coin).enqueue(object : Callback<PostList> {
                     override fun onResponse(call: Call<PostList>, response: Response<PostList>) {
-                        if(response.isSuccessful && response.body() != null) {
-                            for(post in response.body()!!.postList){
+                        if (response.isSuccessful && response.body() != null) {
+                            for (post in response.body()!!.postList) {
                                 post.dateFormate_for_layout = Time_to_String(post.createdat)
                             }
                             posts.value = response.body()!!.postList
-                        }
-                        else{
-                            Log.e("getPostList onResponse","size: "+response.body()?.postList?.size)
+                        } else {
+                            Log.e(
+                                "getPostList onResponse",
+                                "size: " + response.body()?.postList?.size
+                            )
                         }
                     }
+
                     override fun onFailure(call: Call<PostList>, t: Throwable) {
-                        Log.e("getPostList onfail","err: "+t.message)
+                        Log.e("getPostList onfail", "err: " + t.message)
                     }
 
                 })
@@ -117,72 +120,106 @@ class LiveData_Posts(val activity: Activity):ViewModel() {
     fun searchPostList(
         coin: String,
         keyword: String
-    ){
+    ) {
         checkNetWork()
-        Repository.searchPostList(coin,keyword).enqueue(object : Callback<PostList>{
+        Repository.searchPostList(coin, keyword).enqueue(object : Callback<PostList> {
             override fun onResponse(call: Call<PostList>, response: Response<PostList>) {
-                if(response.isSuccessful && response.body() != null) {
+                if (response.isSuccessful && response.body() != null) {
                     val issuccess = response.body()!!.isuccess
                     val msg = response.body()!!.msg
 
-                    if(issuccess){
-                        for(post in response.body()!!.postList){
+                    if (issuccess) {
+                        for (post in response.body()!!.postList) {
                             post.dateFormate_for_layout = Time_to_String(post.createdat)
                         }
                         posts.value = response.body()!!.postList
                         Toast(msg)
-                    }else{
+                    } else {
                         Toast(msg)
                     }
-                }
-                else{
-                    Log.e("getPostList onResponse","size: "+response.body()?.postList?.size)
+                } else {
+                    Log.e("getPostList onResponse", "size: " + response.body()?.postList?.size)
                 }
             }
+
             override fun onFailure(call: Call<PostList>, t: Throwable) {
-                Log.e("getPostList onfail","err: "+t.message)
+                Log.e("getPostList onfail", "err: " + t.message)
             }
         })
     }
 
-    fun myPost(id:String){
+    fun myPost(id: String) {
         checkNetWork()
 
-        Repository.myPostList(id).enqueue(object : Callback<PostList>{
+        Repository.myPostList(id).enqueue(object : Callback<PostList> {
             override fun onResponse(call: Call<PostList>, response: Response<PostList>) {
-                if(response.isSuccessful && response.body() != null){
+                if (response.isSuccessful && response.body() != null) {
                     val issuccess = response.body()!!.isuccess
                     val msg = response.body()!!.msg
 
-                    if(issuccess){
-                        for(post in response.body()!!.postList){
+                    if (issuccess) {
+                        for (post in response.body()!!.postList) {
                             post.dateFormate_for_layout = Time_to_String(post.createdat)
                         }
                         Toast(msg)
                         posts.value = response.body()!!.postList
-                    }else{
+                    } else {
                         Toast(msg)
                     }
                 }
             }
+
             override fun onFailure(call: Call<PostList>, t: Throwable) {
-                Log.e("myPost onfail","err: "+t.message)
+                Log.e("myPost onfail", "err: " + t.message)
             }
         })
     }
 
-    fun checkNetWork(){
-        if (!NetworkStatus.isConnected(activity)){
-            Log.e("main_network","network is disconnected")
-            when(activity){
-                is BoardActivity ->{
+    fun updatePost(postid: String) {
+        checkNetWork()
+
+        Repository.getPost(postid).enqueue(object : Callback<Post> {
+            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+                if (response.isSuccessful && response.body() != null) {
+                    val post = response.body()
+                    if(posts.value != null){
+                        val postlist = posts.value!!.clone() as ArrayList<Post>
+
+                        for(i in 0 until postlist.size){
+                            if(postlist[i].postid == post?.postid){
+                                post.dateFormate_for_layout = Time_to_String(post.createdat)
+                                postlist[i] = post
+                                Log.e("postid","current: " +postlist[i].commentNum)
+                                Log.e("postid","live: " +posts.value!![i].commentNum)
+                                posts.value = postlist
+                            }
+                        }
+                    }
+                } else {
+                    Toast("게시물을 찾지 못했습니다.")
+                }
+            }
+
+            override fun onFailure(call: Call<Post>, t: Throwable) {
+                Log.e("getpost", "err: " + t.message)
+            }
+        })
+    }
+
+    fun checkNetWork() {
+        if (!NetworkStatus.isConnected(activity)) {
+            Log.e("main_network", "network is disconnected")
+            when (activity) {
+                is BoardActivity -> {
                     Handler(Looper.getMainLooper()).postDelayed({
-                        activity.Toast("인터넷 연결이 되어있지 않습니다.") },0)
+                        activity.Toast("인터넷 연결이 되어있지 않습니다.")
+                    }, 0)
                 }
 
-                is SearchActivity ->{
+                is SearchActivity -> {
                     Handler(Looper.getMainLooper()).postDelayed({
-                        activity.Toast("인터넷 연결이 되어있지 않습니다.") },0)
+                        activity.Toast("인터넷 연결이 되어있지 않습니다.")
+                    }, 0)
                 }
             }
             return

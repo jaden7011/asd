@@ -10,6 +10,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.Login
+import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityInfoBinding
 import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.Repository

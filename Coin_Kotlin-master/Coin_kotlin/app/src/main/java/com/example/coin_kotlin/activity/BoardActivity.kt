@@ -3,7 +3,6 @@ package com.example.coin_kotlin.activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBar
@@ -14,20 +13,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
+import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityBoardBinding
-import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.PreferenceManager
-import com.example.coin_kotlin.model.Repository
-import com.example.coin_kotlin.utility.Named.CHANGED
-import com.example.coin_kotlin.utility.Named.DELETE
 import com.example.coin_kotlin.utility.Named.FAVORIT_LIST
+import com.example.coin_kotlin.utility.Named.POSTACTIVITY
+import com.example.coin_kotlin.utility.Named.SEARCHACTIVITY
+import com.example.coin_kotlin.utility.Named.WRITEACTIVITY
 import com.example.coin_kotlin.viewmodel.LiveData_Posts
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class BoardActivity : AppCompatActivity() {
 
@@ -41,7 +38,10 @@ class BoardActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        livedataPostinfo.Get_Candle_Posts(coin_name)
+        (application as MyApplication).getAdManager().run {
+            if (isTimetoAd)
+                showAdIfAvailable()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,12 +96,12 @@ class BoardActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.toolbar_board_write_post_btn -> {
-                if(auth == null)
+                if (auth == null)
                     Toast("로그인이 필요합니다.")
-                else{
-                    val intent = Intent(this, WriteActivity::class.java)
-                    intent.putExtra("coin_name", coin_name)
-                    startActivity(intent)
+                else {
+                    startActivityForResult(Intent(this, WriteActivity::class.java).run {
+                        putExtra("coin_name", coin_name)
+                    }, WRITEACTIVITY)
                 }
             }
 
@@ -116,9 +116,9 @@ class BoardActivity : AppCompatActivity() {
             }
 
             R.id.toolbar_board_search -> {
-                startActivity(Intent(this,SearchActivity::class.java).run {
-                    putExtra("coin_name",coin_name)
-                })
+                startActivityForResult(Intent(this, SearchActivity::class.java).run {
+                    putExtra("coin_name", coin_name)
+                }, SEARCHACTIVITY)
             }
 
             R.id.toolbar_board_reset -> {
@@ -131,6 +131,27 @@ class BoardActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (resultCode) {
+            POSTACTIVITY -> {
+                val postid = data?.getStringExtra("postid")
+                if (!postid.isNullOrEmpty()){
+                    livedataPostinfo.updatePost(postid)
+                }
+            }
+
+            WRITEACTIVITY -> {
+                livedataPostinfo.Get_Candle_Posts(coin_name)
+            }
+
+            SEARCHACTIVITY -> {
+                livedataPostinfo.Get_Candle_Posts(coin_name)
+            }
+        }
     }
 
     fun Toast(str: String) {

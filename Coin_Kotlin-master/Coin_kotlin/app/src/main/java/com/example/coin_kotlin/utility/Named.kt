@@ -23,6 +23,8 @@ object Named {
     const val FAVORIT_LIST = "FAVORIT_LIST"
 
     const val POSTACTIVITY = 300
+    const val WRITEACTIVITY = 301
+    const val SEARCHACTIVITY = 302
 
     const val BOARD_FRAGMENT = 1201
     const val NOTIFICATION_FRAGMENT = 1202
@@ -45,7 +47,6 @@ object Named {
     const val SEARCH_LIMIT = 500
     const val UPLOAD_LIMIT = 20
 
-    const val WRITE_RESULT = 1000
     const val DELETE_RESULT = 1001
     const val SOMETHING_IN_POST = 1002
     const val CHANGED_LOCATION = 1003

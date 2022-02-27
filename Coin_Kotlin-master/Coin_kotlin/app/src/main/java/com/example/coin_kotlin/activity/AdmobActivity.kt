@@ -21,7 +21,6 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 class AdmobActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAdmobBinding
-    val ad by lazy { (application as MyApplication).getAdManager() }
     var isAdShown = false
     var isAdDismissed = false
 
@@ -33,7 +32,7 @@ class AdmobActivity : AppCompatActivity() {
     fun setView() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_admob)
         loadResources()
-        ad.showAdIfAvailable(object : FullScreenContentCallback() {
+        (application as MyApplication).getAdManager().showAdIfAvailable(object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 isAdDismissed = true
                 launchMainActivity()
@@ -45,7 +44,7 @@ class AdmobActivity : AppCompatActivity() {
     }
 
     fun loadResources() {
-        val timer = object : CountDownTimer(1000L, 1000L) {
+        val timer = object : CountDownTimer(1500L, 1000L) {
             override fun onTick(p0: Long) {}
             override fun onFinish() {
                 if (!isAdShown)

@@ -13,9 +13,11 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
+import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityPostBinding
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.utility.Named.CHANGED
+import com.example.coin_kotlin.utility.Named.POSTACTIVITY
 import com.example.coin_kotlin.viewmodel.LiveData_Comments
 import com.google.firebase.auth.FirebaseAuth
 import java.util.*
@@ -28,6 +30,14 @@ class PostActivity : AppCompatActivity() {
         intent.extras?.getParcelable<Post>("post")!!
     }
     lateinit var livedataComment: LiveData_Comments
+
+    override fun onRestart() {
+        super.onRestart()
+        (application as MyApplication).getAdManager().run {
+            if (isTimetoAd)
+                showAdIfAvailable()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,7 +133,6 @@ class PostActivity : AppCompatActivity() {
                 Handler(Looper.getMainLooper()).postDelayed({
                     item.isEnabled = true
                 }, 1000)
-
             }
         }
         return super.onOptionsItemSelected(item)
@@ -137,9 +146,7 @@ class PostActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        setResult(CHANGED, Intent().run {
-            putExtra("postid", post.postid)
-        })
+        setResult(POSTACTIVITY,Intent().putExtra("postid",post.postid))
         finish()
     }
 

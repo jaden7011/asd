@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityWriteBinding
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.Repository
+import com.example.coin_kotlin.utility.Named.WRITEACTIVITY
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
@@ -18,12 +20,20 @@ import java.util.*
 class WriteActivity : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance().currentUser
-    lateinit var user:User
+    lateinit var user: User
     private var backKeyPressedTime: Long = 0
     private val coin_name: String by lazy {
         intent.extras?.getString("coin_name")!!
     }
     private lateinit var binding: ActivityWriteBinding
+
+    override fun onRestart() {
+        super.onRestart()
+        (application as MyApplication).getAdManager().run {
+            if (isTimetoAd)
+                showAdIfAvailable()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,31 +49,43 @@ class WriteActivity : AppCompatActivity() {
     fun upload() {
 
         auth?.run {
-            Repository.getUser(uid).enqueue(object : Callback<User>{
+            Repository.getUser(uid).enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if(response.isSuccessful && response.body() != null){
+                    if (response.isSuccessful && response.body() != null) {
                         user = response.body()!!
                         val postid = Date().time.toString() + user.id
                         val title = binding.titleEdit.text.toString()
                         val content = binding.contentEdit.text.toString()
 
-                        Repository.writePost(postid,title,content,user.nickname,user.id,coin_name)
+                        Repository.writePost(
+                            postid,
+                            title,
+                            content,
+                            user.nickname,
+                            user.id,
+                            coin_name
+                        )
                             .enqueue(object : Callback<Post> {
-                                override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                                    if(response.body()!!.issuccess){
+                                override fun onResponse(
+                                    call: Call<Post>,
+                                    response: Response<Post>
+                                ) {
+                                    if (response.body()!!.issuccess) {
                                         Toast(response.body()!!.msg)
-                                        finish()
+                                        setResultAndFinish()
                                     }
                                 }
+
                                 override fun onFailure(call: Call<Post>, t: Throwable) {
-                                    Log.e("writePost","err: " + t.message)
+                                    Log.e("writePost", "err: " + t.message)
                                     binding.writeLoadingview.loaderLyaout.visibility = View.GONE
                                 }
                             })
                     }
                 }
+
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.e("infoActivity","onFailure user")
+                    Log.e("infoActivity", "onFailure user")
                 }
             })
         }
@@ -80,6 +102,11 @@ class WriteActivity : AppCompatActivity() {
             //아래 3줄은 프로세스 종료
             finish()
         }
+    }
+
+    fun setResultAndFinish(){
+        setResult(WRITEACTIVITY)
+        finish()
     }
 
     fun Toast(str: String) {

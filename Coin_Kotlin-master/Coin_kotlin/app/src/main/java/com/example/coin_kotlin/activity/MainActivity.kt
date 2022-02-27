@@ -56,18 +56,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onResume() {
         super.onResume()
-
         auth.uid?.let {
             Repository.getUser(it).enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if(response.isSuccessful && response.body() != null){
+                    if (response.isSuccessful && response.body() != null) {
                         user = response.body()!!
-                    }else{
+                    } else {
                         loginActivity()
                     }
                 }
+
                 override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.e("MainActivity","onFailure resume")
+                    Log.e("MainActivity", "onFailure resume")
                 }
 
             })
@@ -81,6 +81,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.searchET.text.toString(),
             PreferenceManager.getBoolean(this, SETTING_FAVORIT)
         )
+        (application as MyApplication).getAdManager().run {
+            if (isTimetoAd)
+                showAdIfAvailable()
+        }
     }
 
     override fun onPause() { //화면 밖으로 나갈 경우 모든 Thread 종료
@@ -171,6 +175,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     (headerview.findViewById<TextView>(R.id.mail_T)).text = "로그인이 필요합니다."
                 }
             }
+
             override fun onDrawerClosed(drawerView: View) {}
             override fun onDrawerStateChanged(newState: Int) {}
         })
@@ -283,13 +288,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.item_logout -> {
                 Toast("logout")
-                if (auth.currentUser != null){
-                    val opt = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
+                if (auth.currentUser != null) {
+                    val opt =
+                        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
                     val client = GoogleSignIn.getClient(this, opt)
                     client.signOut()
                     auth.signOut()
-                }
-                else {
+                } else {
                     Toast("로그인이 되어있지 않습니다.")
                 }
             }
@@ -319,7 +324,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    fun loginActivity(){
+    fun loginActivity() {
         startActivity(Intent(this, Login::class.java).run {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         })

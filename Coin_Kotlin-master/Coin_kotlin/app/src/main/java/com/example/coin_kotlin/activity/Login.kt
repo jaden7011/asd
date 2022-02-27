@@ -104,20 +104,20 @@ class Login : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 //        signIn()
-//        auth.uddid?.let { Repository.getUser(it).enqueue(object : Callback<User>{
-//            override fun onResponse(call: Call<User>, response: Response<User>) {
-//                if(response.isSuccessful && response.body() != null){
-//                    if(response.body()!!.result){
-//                        startActivity()
-//                    }
-//                }
-//            }
-//            override fun onFailure(call: Call<User>, t: Throwable) {
-//                Log.e(TAG, "onStart in failed: " + t.message)
-//                Toast("로그인에 실패했습니다.")
-//            }
-//
-//        }) }
+        auth.uid?.let { Repository.getUser(it).enqueue(object : Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if(response.isSuccessful && response.body() != null){
+                    if(response.body()!!.result){
+                        startActivity()
+                    }
+                }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.e(TAG, "onStart in failed: " + t.message)
+                Toast("로그인에 실패했습니다.")
+            }
+
+        }) }
     }
 
     private fun logout() {

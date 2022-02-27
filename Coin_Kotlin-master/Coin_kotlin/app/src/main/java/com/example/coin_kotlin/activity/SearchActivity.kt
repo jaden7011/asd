@@ -1,15 +1,18 @@
 package com.example.coin_kotlin.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
+import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivitySearchBinding
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.utility.Named
+import com.example.coin_kotlin.utility.Named.SEARCHACTIVITY
 import com.example.coin_kotlin.utility.RxAndroidUtils
 import com.example.coin_kotlin.viewmodel.LiveData_Posts
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -28,6 +31,10 @@ class SearchActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         livedataPostinfo.searchPostList(coin_name,binding.searchET.text.toString())
+        (application as MyApplication).getAdManager().run {
+            if (isTimetoAd)
+                showAdIfAvailable()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +59,11 @@ class SearchActivity : AppCompatActivity() {
         livedataPostinfo.posts.observe(this, Observer {
             livedataPostinfo.adapter.PostDiffUtil(it)
         })
+    }
+
+    override fun onBackPressed() {
+        setResult(SEARCHACTIVITY)
+        finish()
     }
 
     fun Toast(str: String) {

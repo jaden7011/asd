@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
+import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityChangeNicknameBinding
 import com.example.coin_kotlin.databinding.ActivityMypostBinding
 import com.example.coin_kotlin.info.User
@@ -19,6 +20,14 @@ class MypostActivity : AppCompatActivity() {
     lateinit var binding: ActivityMypostBinding
     val user by lazy { intent.extras?.getParcelable<User>("user") }
     lateinit var livedataPosts: LiveData_Posts
+
+    override fun onRestart() {
+        super.onRestart()
+        (application as MyApplication).getAdManager().run {
+            if (isTimetoAd)
+                showAdIfAvailable()
+        }
+    }
 
     override fun onResume() {
         super.onResume()
