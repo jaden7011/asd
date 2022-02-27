@@ -68,7 +68,6 @@ class LiveData_Comments(
                         post?.dateFormate_for_layout = Time_to_String(post!!.createdat)
                         activity.binding.post = post
                         getComment(postid)
-                        Toast(msg)
                         loadingvisible(false)
                     }else{
                         Toast(msg)

@@ -129,6 +129,7 @@ class PostActivity : AppCompatActivity() {
                 item.isEnabled = false
 
                 livedataComment.getPost(post.postid)
+                Toast("게시물을 불러옵니다.")
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     item.isEnabled = true

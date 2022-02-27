@@ -135,7 +135,6 @@ class AppOpenAdManager : LifecycleObserver {
                         isShowingAd = true
                     }
                 }
-                Log.e(TAG,"current: $currentActivity")
                 show(currentActivity)
             }
         } else {
