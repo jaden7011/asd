@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
+import com.example.coin_kotlin.activity.AdmobActivity
 import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.info.Post
@@ -51,8 +52,8 @@ class PostAdapter(
 
         view.setOnClickListener {
             activity.startActivityForResult(Intent(activity,PostActivity::class.java).apply {
-                this.putExtra("post",posts[holder.absoluteAdapterPosition])
-            }, POSTACTIVITY)
+                    this.putExtra("post",posts[holder.absoluteAdapterPosition])
+                }, POSTACTIVITY)
         }
 
         return holder
@@ -60,7 +61,7 @@ class PostAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if(holder is Post_Holder)
-            holder.bind(posts[position]!!)
+            holder.bind(posts[position])
     }
 
     override fun getItemCount(): Int {
@@ -81,7 +82,7 @@ class PostAdapter(
         fun bind(item:Post){
             title.text = item.title
             content.text = item.content
-            dateT.text = Time_to_String(item.createdat!!)
+            dateT.text = Time_to_String(item.createdat)
             goodNum.text = item.love.toString()
             commentNum.text = item.commentNum.toString()
             nicknameT.text = item.nickname

@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.adapter.CoinAdapter
+import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.databinding.ActivityMainBinding
 import com.example.coin_kotlin.info.User

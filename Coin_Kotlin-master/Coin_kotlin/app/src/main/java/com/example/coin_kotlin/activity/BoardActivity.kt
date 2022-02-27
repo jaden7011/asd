@@ -22,6 +22,8 @@ import com.example.coin_kotlin.utility.Named.CHANGED
 import com.example.coin_kotlin.utility.Named.DELETE
 import com.example.coin_kotlin.utility.Named.FAVORIT_LIST
 import com.example.coin_kotlin.viewmodel.LiveData_Posts
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,6 +49,10 @@ class BoardActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board)
         toolbar = findViewById(R.id.toolbar_board)
         Toolbar()
+        MobileAds.initialize(this)
+        binding.ads.run {
+            loadAd(AdRequest.Builder().build())
+        }
         livedataPostinfo =
             ViewModelProvider(this, LiveData_Posts.Factory(this))[LiveData_Posts::class.java]
         livedataPostinfo.Get_Candle_Posts(coin_name)
