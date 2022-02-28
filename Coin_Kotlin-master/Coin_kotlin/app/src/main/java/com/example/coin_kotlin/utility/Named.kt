@@ -36,7 +36,7 @@ object Named {
     var FIRST_BRING = false
     var NEW_MESSAGE = false
 
-    const val DELETE = 1113
+    const val POSTDELETE = 1113
     const val CHANGED = 1114
     const val SET = 1115
 

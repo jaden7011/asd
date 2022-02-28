@@ -69,6 +69,12 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx' // 파이어베이스 앱 분석
     implementation 'com.google.firebase:firebase-core:20.1.0' // 파이어베이스 코어
     implementation 'com.google.firebase:firebase-auth:21.0.1'
+    implementation 'com.google.firebase:firebase-messaging:23.0.0'
+
+    //코루틴
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation 'com.google.guava:guava:27.0.1-android'
 
     //광고
     implementation 'com.google.android.gms:play-services-ads:20.6.0'

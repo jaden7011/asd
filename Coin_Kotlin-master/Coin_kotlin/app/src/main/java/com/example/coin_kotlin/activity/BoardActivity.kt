@@ -18,6 +18,7 @@ import com.example.coin_kotlin.databinding.ActivityBoardBinding
 import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.utility.Named.FAVORIT_LIST
 import com.example.coin_kotlin.utility.Named.POSTACTIVITY
+import com.example.coin_kotlin.utility.Named.POSTDELETE
 import com.example.coin_kotlin.utility.Named.SEARCHACTIVITY
 import com.example.coin_kotlin.utility.Named.WRITEACTIVITY
 import com.example.coin_kotlin.viewmodel.LiveData_Posts
@@ -150,6 +151,13 @@ class BoardActivity : AppCompatActivity() {
 
             SEARCHACTIVITY -> {
                 livedataPostinfo.Get_Candle_Posts(coin_name)
+            }
+
+            POSTDELETE -> {
+                val postid = data?.getStringExtra("postid")
+                if (!postid.isNullOrEmpty()){
+                    livedataPostinfo.delPost(postid)
+                }
             }
         }
     }

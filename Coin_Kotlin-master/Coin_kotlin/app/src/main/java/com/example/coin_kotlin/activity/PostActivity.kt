@@ -147,7 +147,11 @@ class PostActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        setResult(POSTACTIVITY,Intent().putExtra("postid",post.postid))
+        ResultFinish(POSTACTIVITY)
+    }
+
+    fun ResultFinish(response:Int){
+        setResult(response,Intent().putExtra("postid",post.postid))
         finish()
     }
 

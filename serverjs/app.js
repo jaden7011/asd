@@ -22,9 +22,10 @@ app.post('/user/join', function (req, res) {
     var id = req.body.id;
     var nickname = req.body.nickname;
     var mail = req.body.mail;
+    var token = req.body.token
 
-    var sql = 'INSERT INTO user (id, nickname, mail) VALUES (?, ?, ?)';
-    var params = [id, nickname, mail];
+    var sql = 'INSERT INTO user (id, nickname, mail, token) VALUES (?, ?, ?, ?)';
+    var params = [id, nickname, mail, token];
 
     query(sql,params)
     .then(result => {
@@ -77,6 +78,21 @@ app.post("/user/update",function(req,res){
     })
 })
 
+app.post("user/update/token", (req,res) => {
+    var id = req.body.id
+    var token = req.body.token
+    var sql = 'UPDATE user SET token = ? WHERE id = ?'
+    var params = [token,id]
+
+    query(sql,params)
+    .then(result => {
+        res.json({
+            msg:"토큰갱신완료"
+        })
+    })
+    .catch(err => {})
+})
+
 app.post('/user/delete',function(req,res){
     var id = req.body.id
     var sql = 'DELETE FROM user WHERE id = ?'
@@ -97,9 +113,10 @@ app.post('/post/write', function (req, res) {
     var content = req.body.content;
     var nickname = req.body.nickname;
     var id = req.body.id;
+    var token = req.body.token
 
-    var sql = 'INSERT INTO post (postid, title, content, nickname, id, coin) VALUES (?, ?, ?, ?, ?, ?)';
-    var params = [postid, title, content, nickname, id, coin];
+    var sql = 'INSERT INTO post (postid, title, content, nickname, id, coin, token) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    var params = [postid, title, content, nickname, id, coin, token];
 
     connection.query(sql, params, function (err, result) {
         if (err)
@@ -400,8 +417,6 @@ function up_Plove(postid,id,res){
         res.json(err)
     })
 }
-
-
 
 function query(sql, args){
     return new Promise((resolve,reject) => {

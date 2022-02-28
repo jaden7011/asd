@@ -13,6 +13,8 @@ data class User(
         val nickname:String,
         @SerializedName("mail") @Expose
         val mail:String,
+        @SerializedName("token") @Expose
+        val token:String,
         @SerializedName("msg") @Expose
         val msg:String,
         @SerializedName("result") @Expose

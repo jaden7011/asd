@@ -53,7 +53,8 @@ interface Service {
     fun setUser(
             @Field("id") Id: String,
             @Field("nickname") nickname: String,
-            @Field("mail") mail: String
+            @Field("mail") mail: String,
+            @Field("token") token: String
     ): Call<User>
 
     @FormUrlEncoded
@@ -70,6 +71,13 @@ interface Service {
     ): Call<User>
 
     @FormUrlEncoded
+    @POST("/user/update/token")
+    fun updateUserToken(
+        @Field("id") id: String,
+        @Field("token") token: String
+    ): Call<User>
+
+    @FormUrlEncoded
     @POST("/user/delete")
     fun delUser(
         @Field("id") id:String
@@ -83,7 +91,8 @@ interface Service {
             @Field("content") content: String,
             @Field("nickname") nickname: String,
             @Field("id") id: String,
-            @Field("coin") coin: String
+            @Field("coin") coin: String,
+            @Field("token") token: String
     ): Call<Post>
 
     @FormUrlEncoded

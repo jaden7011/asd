@@ -15,6 +15,7 @@ import com.example.coin_kotlin.info.CommentList
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.Repository
+import com.example.coin_kotlin.utility.Named.POSTDELETE
 import com.example.coin_kotlin.utility.Named.Time_to_String
 import com.example.coin_kotlin.utility.NetworkStatus
 import com.example.coin_kotlin.utility.Utility
@@ -183,8 +184,8 @@ class LiveData_Comments(
         Repository.deletePost(postid).enqueue(object : Callback<Post> {
             override fun onResponse(call: Call<Post>, response: Response<Post>) {
                 if (response.body() != null)
-                    Toast(response.body()!!.msg)
-                activity.finish()
+                    Toast(response.body()!!.msg?:"")
+                activity.ResultFinish(POSTDELETE)
             }
 
             override fun onFailure(call: Call<Post>, t: Throwable) {

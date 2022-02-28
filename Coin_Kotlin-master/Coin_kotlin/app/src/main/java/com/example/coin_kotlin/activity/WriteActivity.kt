@@ -9,6 +9,7 @@ import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityWriteBinding
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.User
+import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.Named.WRITEACTIVITY
 import com.google.firebase.auth.FirebaseAuth
@@ -47,7 +48,6 @@ class WriteActivity : AppCompatActivity() {
     }
 
     fun upload() {
-
         auth?.run {
             Repository.getUser(uid).enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {
@@ -63,7 +63,8 @@ class WriteActivity : AppCompatActivity() {
                             content,
                             user.nickname,
                             user.id,
-                            coin_name
+                            coin_name,
+                            getToken()
                         )
                             .enqueue(object : Callback<Post> {
                                 override fun onResponse(
@@ -71,7 +72,7 @@ class WriteActivity : AppCompatActivity() {
                                     response: Response<Post>
                                 ) {
                                     if (response.body()!!.issuccess) {
-                                        Toast(response.body()!!.msg)
+                                        Toast(response.body()!!.msg?:"")
                                         setResultAndFinish()
                                     }
                                 }
@@ -88,6 +89,15 @@ class WriteActivity : AppCompatActivity() {
                     Log.e("infoActivity", "onFailure user")
                 }
             })
+        }
+    }
+
+    fun getToken(): String{
+        val token = PreferenceManager.getString(this,"fcmToken")
+        return if(token.isNullOrEmpty())
+            ""
+        else{
+            token
         }
     }
 

@@ -10,6 +10,7 @@ import com.example.coin_kotlin.R
 import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityLoginBinding
 import com.example.coin_kotlin.info.User
+import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -137,6 +138,7 @@ class Login : AppCompatActivity() {
         nickname: String,
         mail: String
     ) {
+        PreferenceManager.setString(this,"id",id)
         Repository.getUser(id).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful && response.body() != null) {
@@ -144,7 +146,7 @@ class Login : AppCompatActivity() {
                     if (response.body()!!.result) { //이미 가입된 정보가 있는 경우 그냥 패쓰
                         startActivity()
                     } else {// 처음이라면 db에 정보 입력
-                        Repository.setUser(id, nickname, mail).enqueue(object : Callback<User> {
+                        Repository.setUser(id, nickname, mail,getToken()).enqueue(object : Callback<User> {
                             override fun onResponse(call: Call<User>, response: Response<User>) {
                                 if (response.isSuccessful && response.body() != null) {
                                     if (response.body()!!.result) {
@@ -169,6 +171,15 @@ class Login : AppCompatActivity() {
                 Log.e("onFailure", "onFailure: " + t.message)
             }
         })
+    }
+
+    fun getToken(): String{
+        val token = PreferenceManager.getString(this,"fcmToken")
+        return if(token.isNullOrEmpty())
+            ""
+        else{
+            token
+        }
     }
 
     fun Toast(str: String) {

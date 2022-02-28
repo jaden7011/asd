@@ -35,12 +35,13 @@ object Repository {
 
     fun setUser(id: String,
                 nickname: String,
-                mail: String
+                mail: String,
+                token: String
     ): Call<User> {
         return RetrofitFactory
                 .createRetrofit(ec2_URL)
                 .create(Service::class.java)
-                .setUser(id,nickname,mail)
+                .setUser(id,nickname,mail, token)
     }
 
     fun getUser(id: String): Call<User> {
@@ -67,17 +68,28 @@ object Repository {
             .updateNick(id,nickname)
     }
 
+    fun updateToken(
+        id:String,
+        token:String
+    ):Call<User>{
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .updateUserToken(id, token)
+    }
+
     fun writePost(postid: String,
                   title: String,
                   content: String,
                   nickname: String,
                   id: String,
-                  coin: String
+                  coin: String,
+                  token: String
     ): Call<Post> {
         return RetrofitFactory
                 .createRetrofit(ec2_URL)
                 .create(Service::class.java)
-                .writePost(postid,title, content, nickname, id, coin)
+                .writePost(postid,title, content, nickname, id, coin, token)
     }
 
     fun getPostList(coin: String

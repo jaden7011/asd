@@ -192,6 +192,7 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
                                 Log.e("postid","current: " +postlist[i].commentNum)
                                 Log.e("postid","live: " +posts.value!![i].commentNum)
                                 posts.value = postlist
+                                return
                             }
                         }
                     }
@@ -204,6 +205,18 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
                 Log.e("getpost", "err: " + t.message)
             }
         })
+    }
+
+    fun delPost(postid: String){
+        val postlist = posts.value!!.clone() as ArrayList<Post>
+
+        for(i in 0 until postlist.size){
+            if(postlist[i].postid == postid){
+                postlist.removeAt(i)
+                posts.value = postlist
+                return
+            }
+        }
     }
 
     fun checkNetWork() {

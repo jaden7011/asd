@@ -31,19 +31,17 @@ data class Post(
         val love: Int,
         @SerializedName("msg")
         @Expose
-        val msg:String,
+        val msg:String?,
         @SerializedName("coin")
         @Expose
         val coin:String,
         @SerializedName("issuccess")
         @Expose
         val issuccess:Boolean,
+        @SerializedName("token") @Expose
+        val token:String,
         var dateFormate_for_layout: String?,
         @SerializedName("commentnum")
         @Expose
         val commentNum: Int
-): Parcelable {
-        constructor()
-                : this("","","",Date(),"","",
-                0,"","",true,"",0)
-}
+): Parcelable
