@@ -15,11 +15,17 @@ import com.example.coin_kotlin.info.CommentList
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.Repository
+import com.example.coin_kotlin.model.fcm
 import com.example.coin_kotlin.utility.Named.POSTDELETE
 import com.example.coin_kotlin.utility.Named.Time_to_String
 import com.example.coin_kotlin.utility.NetworkStatus
 import com.example.coin_kotlin.utility.Utility
 import com.google.firebase.auth.FirebaseAuth
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -90,7 +96,8 @@ class LiveData_Comments(
         uid: String,
         postid: String,
         commentid: String,
-        content: String
+        content: String,
+        token: String
     ) {
         checkNetWork()
         loadingvisible(true)
@@ -109,6 +116,9 @@ class LiveData_Comments(
                                     getPost(postid)
                                     loadingvisible(false)
                                     activity.textclear()
+                                    CoroutineScope(Dispatchers.IO).launch {
+                                        fcm.sendNotification(token,"댓글이 달렸어요!",content)
+                                    }
                                 }
                             }
                             override fun onFailure(call: Call<Comment>, t: Throwable) {

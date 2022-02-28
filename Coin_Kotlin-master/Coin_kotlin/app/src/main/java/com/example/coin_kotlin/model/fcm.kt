@@ -14,13 +14,13 @@ object fcm {
 
     suspend fun sendNotification(token: String, title: String, message: String){
 
-        CoroutineScope(Dispatchers.Main).launch {
             val client = OkHttpClient()
             val dataJson = JSONObject().run {
                 put("title",title)
                 put("body",message)
             }
             val json = JSONObject().run {
+                put("priority","high")
                 put("notification",dataJson)
                 put("to",token)
             }
@@ -33,6 +33,5 @@ object fcm {
                 .build()
 
             val response = client.newCall(req).execute()
-        }.join()
     }
 }

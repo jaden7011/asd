@@ -16,6 +16,7 @@ import com.example.coin_kotlin.R
 import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityPostBinding
 import com.example.coin_kotlin.info.Post
+import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.utility.Named.CHANGED
 import com.example.coin_kotlin.utility.Named.POSTACTIVITY
 import com.example.coin_kotlin.viewmodel.LiveData_Comments
@@ -53,7 +54,7 @@ class PostActivity : AppCompatActivity() {
                 val commentid = post.postid + Date().time
 
                 if (content.isNotEmpty()) {
-                    livedataComment.addComment(auth.uid,post.postid, commentid, content)
+                    livedataComment.addComment(auth.uid,post.postid, commentid, content,getToken())
                 }else{
                     Toast("내용을 적어주세요.")
                 }
@@ -67,6 +68,15 @@ class PostActivity : AppCompatActivity() {
             else {
                 Toast("로그인 후에 이용가능합니다..")
             }
+        }
+    }
+
+    fun getToken(): String{
+        val token = PreferenceManager.getString(this,"fcmToken")
+        return if(token.isNullOrEmpty())
+            ""
+        else{
+            token
         }
     }
 
