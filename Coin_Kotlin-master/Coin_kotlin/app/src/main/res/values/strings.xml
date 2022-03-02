@@ -2,5 +2,7 @@
     <string name="app_name">Coin_kotlin</string>
     <string name="default_notification_channel_id">default_channel</string>
     <string name="banner">ca-app-pub-2931857165077003/1321734659</string>
+    <string name="adKey">ca-app-pub-2931857165077003~4700036026</string>
+    <string name="adTestKey">ca-app-pub-3940256099942544~3347511713</string>
     <string name="fcm_key">AAAA0b9Dx7o:APA91bGyxtDqDggU6I5gRiKxuFW6tld7cpPERm53_WkFwD7tSHZcEp8p3l6slrRQAJEk34Q8XVjJXYvUkKDBmX9y--rHCBAMr5hb-oGFukYvVkAM7Vdhrl72y822SR-LnvDGuk9oWjrZ</string>
 </resources>
