@@ -7,13 +7,12 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.adapter.CommentAdapter
 import com.example.coin_kotlin.info.Comment
-import com.example.coin_kotlin.info.CommentList
 import com.example.coin_kotlin.info.Post
-import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.model.fcm
 import com.example.coin_kotlin.utility.Named.POSTDELETE
@@ -21,20 +20,20 @@ import com.example.coin_kotlin.utility.Named.Time_to_String
 import com.example.coin_kotlin.utility.NetworkStatus
 import com.example.coin_kotlin.utility.Utility
 import com.google.firebase.auth.FirebaseAuth
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.Exception
 
 class LiveData_Comments(
     val activity: PostActivity
 ) : ViewModel() {
 
     lateinit var adapter: CommentAdapter
+    private val TAG = "LiveData_Comments"
 
     class Factory(val activity: PostActivity) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -65,31 +64,31 @@ class LiveData_Comments(
         checkNetWork()
         loadingvisible(true)
 
-        Repository.getPost(postid).enqueue(object : Callback<Post> {
-            override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val issuccess = response.body()?.issuccess!!
-                    val msg = response.body()?.msg!!
-                    if(issuccess){
-                        val post = response.body()
-                        post?.dateFormate_for_layout = Time_to_String(post!!.createdat)
-                        activity.binding.post = post
-                        getComment(postid)
-                        loadingvisible(false)
-                    }else{
+        viewModelScope.launch {
+            try {
+                val post = Repository.getPost(postid)
+                val issuccess = post.issuccess
+                val msg = post.msg
+
+                if(issuccess){
+                    post.dateFormate_for_layout = Time_to_String(post.createdat)
+                    activity.binding.post = post
+                    val commentList = Repository.getCommentList(post.postid)
+                    for (c in commentList.commentlist)
+                        c.dateFormate_for_layout = Time_to_String(c.createdat)
+                    comments.value = commentList.commentlist
+                    loadingvisible(false)
+                }else{
+                    if (msg != null) {
                         Toast(msg)
-                        activity.finish()
-                        loadingvisible(false)
                     }
-
+                    activity.finish()
+                    loadingvisible(false)
                 }
+            }catch (e:Exception){
+                Log.e(TAG, "onFailure getPost: ${e.message}")
             }
-
-            override fun onFailure(call: Call<Post>, t: Throwable) {
-                Log.e("LiveData_Comments", "onFailure: " + t.message)
-                loadingvisible(false)
-            }
-        })
+        }
     }
 
     fun addComment(
@@ -97,97 +96,171 @@ class LiveData_Comments(
         postid: String,
         commentid: String,
         content: String,
-        token: String
     ) {
         checkNetWork()
         loadingvisible(true)
 
-        Repository.getUser(uid).enqueue(object : Callback<User> {// 닉네임 db에서 가져오고,
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val user = response.body()!!
+        //getuser -> writeCom -> getPost(날짜처리) -> getCom(날짜처리)
 
-                    // 댓글을 썼을 때 -> db에 집어넣고 새로운 댓글리스트를 가져와야하는 것이 한 묶음
-                    Repository.writeComment(postid, commentid, content, user.nickname,uid)
-                        .enqueue(object : Callback<Comment> {
-                            override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
-                                if (response.isSuccessful) {
-                                    Log.e("addComment", "onResponse: " + response.body()?.msg)
-                                    getPost(postid)
-                                    loadingvisible(false)
-                                    activity.textclear()
-                                    CoroutineScope(Dispatchers.IO).launch {
-                                        fcm.sendNotification(token,"댓글이 달렸어요!",content)
-                                    }
-                                }
-                            }
-                            override fun onFailure(call: Call<Comment>, t: Throwable) {
-                                Log.e("addComment", "onFailure: " + t.message)
-                                activity.textclear()
-                                loadingvisible(false)
-                            }
-                        })
+        viewModelScope.launch{
+            try {
+                val user = Repository.getUser(uid)
+                Repository.writeComment(postid,commentid,content,user.nickname,uid)
+                val post = Repository.getPost(postid)
+
+                val issuccess = post.issuccess
+                val msg = post.msg
+
+                Log.e(TAG, "isss: $issuccess msg: $msg ")
+
+                if(issuccess){
+                    post.dateFormate_for_layout = Time_to_String(post.createdat)
+                    activity.binding.post = post
+                    val commentList = Repository.getCommentList(post.postid)
+                    for (c in commentList.commentlist) {
+                        c.dateFormate_for_layout = Time_to_String(c.createdat)
+                    }
+                    comments.value = commentList.commentlist
+                    CoroutineScope(Dispatchers.IO).launch {
+                        fcm.sendNotification(post.token,"댓글이 달렸어요!",content)
+                    }
+                    loadingvisible(false)
+                }else{
+                    if (msg != null) {
+                        Toast(msg)
+                    }
+                    activity.finish()
+                    loadingvisible(false)
                 }
+            }catch (e: Exception){
+                Log.e(TAG, "onFailure addComment: ${e.message}")
             }
+        }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.e("infoActivity", "onFailure user")
-            }
-        })
+//        Repository.getUser(uid).enqueue(object : Callback<User> {// 닉네임 db에서 가져오고,
+//            override fun onResponse(call: Call<User>, response: Response<User>) {
+//                if (response.isSuccessful && response.body() != null) {
+//                    val user = response.body()!!
+//
+//                    // 댓글을 썼을 때 -> db에 집어넣고 새로운 댓글리스트를 가져와야하는 것이 한 묶음
+//                    Repository.writeComment(postid, commentid, content, user.nickname,uid)
+//                        .enqueue(object : Callback<Comment> {
+//                            override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
+//                                if (response.isSuccessful) {
+//                                    Log.e("addComment", "onResponse: " + response.body()?.msg)
+//                                    getPost(postid)
+//                                    loadingvisible(false)
+//                                    activity.textclear()
+//                                    CoroutineScope(Dispatchers.IO).launch {
+//                                        fcm.sendNotification(token,"댓글이 달렸어요!",content)
+//                                    }
+//                                }
+//                            }
+//                            override fun onFailure(call: Call<Comment>, t: Throwable) {
+//                                Log.e("addComment", "onFailure: " + t.message)
+//                                activity.textclear()
+//                                loadingvisible(false)
+//                            }
+//                        })
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<User>, t: Throwable) {
+//                Log.e("infoActivity", "onFailure user")
+//            }
+//        })
     }
 
     fun getComment(postid: String) {
         checkNetWork()
-        Repository.getCommentList(postid).enqueue(object : Callback<CommentList> {
-            override fun onResponse(call: Call<CommentList>, response: Response<CommentList>) {
-                if (response.isSuccessful && response.body() != null) {
-                    for (comment in response.body()!!.commentlist)
-                        comment.dateFormate_for_layout = Time_to_String(comment.createdat)
-                    comments.value = response.body()!!.commentlist
-                }
-            }
 
-            override fun onFailure(call: Call<CommentList>, t: Throwable) {
+        viewModelScope.launch {
+            try {
+                val commentList = Repository.getCommentList(postid)
+                for (comment in commentList.commentlist)
+                    comment.dateFormate_for_layout = Time_to_String(comment.createdat)
+                comments.value = commentList.commentlist
+            }catch (t: Exception){
                 Log.e("getComment", "onFailure: " + t.message)
             }
-        })
+        }
+//
+//        Repository.getCommentList(postid).enqueue(object : Callback<CommentList> {
+//            override fun onResponse(call: Call<CommentList>, response: Response<CommentList>) {
+//                if (response.isSuccessful && response.body() != null) {
+//                    for (comment in response.body()!!.commentlist)
+//                        comment.dateFormate_for_layout = Time_to_String(comment.createdat)
+//                    comments.value = response.body()!!.commentlist
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<CommentList>, t: Throwable) {
+//
+//            }
+//        })
     }
 
     fun commentLove(commentid: String, postid: String, id:String){
         checkNetWork()
-        Repository.clove(commentid, postid, id).enqueue(object :Callback<Post>{
-            override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val msg = response.body()?.msg
-                    if (!msg.isNullOrEmpty()) {
-                        Toast(msg)
-                        getPost(postid)
-                    }
+
+        viewModelScope.launch {
+            try {
+                val apply = Repository.clove(commentid, postid, id)
+                if(apply.msg != null){
+                    Toast(apply.msg)
+                    getPost(postid)
                 }
+            }catch (e:Exception){
+                Log.e("clove onfailure", "err: " + e.message)
             }
-            override fun onFailure(call: Call<Post>, t: Throwable) {
-                Log.e("clove onfailure", "err: " + t.message)
-            }
-        })
+        }
+
+//        Repository.clove(commentid, postid, id).enqueue(object :Callback<Post>{
+//            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+//                if (response.isSuccessful && response.body() != null) {
+//                    val msg = response.body()?.msg
+//                    if (!msg.isNullOrEmpty()) {
+//                        Toast(msg)
+//                        getPost(postid)
+//                    }
+//                }
+//            }
+//            override fun onFailure(call: Call<Post>, t: Throwable) {
+//                Log.e("clove onfailure", "err: " + t.message)
+//            }
+//        })
     }
 
     fun postLove(postid: String,id: String){
         checkNetWork()
-        Repository.plove(postid,id).enqueue(object :Callback<Post>{
-            override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val msg = response.body()?.msg
-                    if (!msg.isNullOrEmpty()) {
-                        Toast(msg)
-                        getPost(postid)
-                    }
-                }
-            }
-            override fun onFailure(call: Call<Post>, t: Throwable) {
-                Log.e("plove onfailure", "err: " + t.message)
-            }
 
-        })
+        viewModelScope.launch {
+            try {
+                val apply = Repository.plove(postid, id)
+                if(apply.msg != null){
+                    Toast(apply.msg)
+                    getPost(postid)
+                }
+            }catch (e:Exception){
+                Log.e("clove onfailure", "err: " + e.message)
+            }
+        }
+
+//        Repository.plove(postid,id).enqueue(object :Callback<Post>{
+//            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+//                if (response.isSuccessful && response.body() != null) {
+//                    val msg = response.body()?.msg
+//                    if (!msg.isNullOrEmpty()) {
+//                        Toast(msg)
+//                        getPost(postid)
+//                    }
+//                }
+//            }
+//            override fun onFailure(call: Call<Post>, t: Throwable) {
+//                Log.e("plove onfailure", "err: " + t.message)
+//            }
+//
+//        })
     }
 
     fun delPost(postid: String){
@@ -222,8 +295,7 @@ class LiveData_Comments(
 
     fun loadingvisible(visibiltity: Boolean) {
         if (visibiltity)
-            (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility =
-                View.VISIBLE
+            (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.VISIBLE
         else
             (activity as PostActivity).binding.postLoadingview.loaderLyaout.visibility = View.GONE
     }

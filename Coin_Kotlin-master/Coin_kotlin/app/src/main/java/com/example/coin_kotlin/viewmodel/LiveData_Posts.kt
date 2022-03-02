@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.BoardActivity
 import com.example.coin_kotlin.activity.SearchActivity
@@ -23,6 +24,8 @@ import com.example.coin_kotlin.utility.Utility
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +34,7 @@ import kotlin.collections.ArrayList
 class LiveData_Posts(val activity: Activity) : ViewModel() {
 
     lateinit var adapter: PostAdapter
+    private val TAG = "LiveData_Posts"
 
     class Factory(val activity: Activity) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -178,33 +182,52 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
     fun updatePost(postid: String) {
         checkNetWork()
 
-        Repository.getPost(postid).enqueue(object : Callback<Post> {
-            override fun onResponse(call: Call<Post>, response: Response<Post>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val post = response.body()
-                    if(posts.value != null){
-                        val postlist = posts.value!!.clone() as ArrayList<Post>
+        viewModelScope.launch {
+            try {
+                val post = Repository.getPost(postid)
+                val postlist = posts.value!!.clone() as ArrayList<Post>
 
-                        for(i in 0 until postlist.size){
-                            if(postlist[i].postid == post?.postid){
-                                post.dateFormate_for_layout = Time_to_String(post.createdat)
-                                postlist[i] = post
-                                Log.e("postid","current: " +postlist[i].commentNum)
-                                Log.e("postid","live: " +posts.value!![i].commentNum)
-                                posts.value = postlist
-                                return
-                            }
-                        }
+                for(i in 0 until postlist.size){
+                    if(postlist[i].postid == post.postid){
+                        post.dateFormate_for_layout = Time_to_String(post.createdat)
+                        postlist[i] = post
+                        posts.value = postlist
+                        break
                     }
-                } else {
-                    Toast("게시물을 찾지 못했습니다.")
                 }
+            }catch (e:Exception){
+                Log.e(TAG,""+e.message)
+                Toast("삭제된 게시물입니다.")
             }
+        }
 
-            override fun onFailure(call: Call<Post>, t: Throwable) {
-                Log.e("getpost", "err: " + t.message)
-            }
-        })
+//        Repository.getPost(postid).enqueue(object : Callback<Post> {
+//            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+//                if (response.isSuccessful && response.body() != null) {
+//                    val post = response.body()
+//                    if(posts.value != null){
+//                        val postlist = posts.value!!.clone() as ArrayList<Post>
+//
+//                        for(i in 0 until postlist.size){
+//                            if(postlist[i].postid == post?.postid){
+//                                post.dateFormate_for_layout = Time_to_String(post.createdat)
+//                                postlist[i] = post
+//                                Log.e("postid","current: " +postlist[i].commentNum)
+//                                Log.e("postid","live: " +posts.value!![i].commentNum)
+//                                posts.value = postlist
+//                                return
+//                            }
+//                        }
+//                    }
+//                } else {
+//                    Toast("게시물을 찾지 못했습니다.")
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<Post>, t: Throwable) {
+//                Log.e("getpost", "err: " + t.message)
+//            }
+//        })
     }
 
     fun delPost(postid: String){

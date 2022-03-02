@@ -13,6 +13,12 @@ import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.Named.WRITEACTIVITY
 import com.google.firebase.auth.FirebaseAuth
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,6 +33,7 @@ class WriteActivity : AppCompatActivity() {
         intent.extras?.getString("coin_name")!!
     }
     private lateinit var binding: ActivityWriteBinding
+    private val TAG = "WriteActivity"
 
     override fun onRestart() {
         super.onRestart()
@@ -49,46 +56,99 @@ class WriteActivity : AppCompatActivity() {
 
     fun upload() {
         auth?.run {
-            Repository.getUser(uid).enqueue(object : Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (response.isSuccessful && response.body() != null) {
-                        user = response.body()!!
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
+                    val user = Repository.getUser(uid)
+                    if(user.result){
                         val postid = Date().time.toString() + user.id
                         val title = binding.titleEdit.text.toString()
                         val content = binding.contentEdit.text.toString()
-
-                        Repository.writePost(
-                            postid,
-                            title,
-                            content,
-                            user.nickname,
-                            user.id,
-                            coin_name,
-                            getToken()
-                        )
-                            .enqueue(object : Callback<Post> {
-                                override fun onResponse(
-                                    call: Call<Post>,
-                                    response: Response<Post>
-                                ) {
-                                    if (response.body()!!.issuccess) {
-                                        Toast(response.body()!!.msg?:"")
-                                        setResultAndFinish()
-                                    }
-                                }
-
-                                override fun onFailure(call: Call<Post>, t: Throwable) {
-                                    Log.e("writePost", "err: " + t.message)
-                                    binding.writeLoadingview.loaderLyaout.visibility = View.GONE
-                                }
-                            })
+                        val apply = Repository.writePost(postid,title,content,user.nickname,user.id,coin_name,user.token)
+                        if (apply.issuccess){
+                            apply.msg?.let { Toast(it) }
+                            setResultAndFinish()
+                        }else
+                            Toast("글쓰기에 실패했습니다.")
+                    }else{
+                        Toast(user.msg)
                     }
+                    binding.writeLoadingview.loaderLyaout.visibility = View.GONE
+                }catch (e:Exception){
+                    Log.e(TAG, "onResume in failed: " + e.message)
+                    Toast("글쓰기에 실패했습니다.")
+                    binding.writeLoadingview.loaderLyaout.visibility = View.GONE
                 }
+            }
 
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.e("infoActivity", "onFailure user")
-                }
-            })
+//            Repository.getUser(uid)
+//                .doOnError {
+//                    Log.e(TAG, "onResume in failed: " + it.message)
+//                    Toast("로그인에 실패했습니다.")
+//                }
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .filter {
+//                    return@filter it.result
+//                }
+//                .subscribe {
+//                    user = it
+//                    val postid = Date().time.toString() + user.id
+//                    val title = binding.titleEdit.text.toString()
+//                    val content = binding.contentEdit.text.toString()
+//                    Repository.writePost(postid,title,content,user.nickname,user.id,coin_name,user.token).enqueue(object : Callback<Post> {
+//                            override fun onResponse(call: Call<Post>,response: Response<Post>) {
+//                                if (response.body()!!.issuccess) {
+//                                    Toast(response.body()!!.msg?:"")
+//                                    setResultAndFinish()
+//                                }
+//                            }
+//                            override fun onFailure(call: Call<Post>, t: Throwable) {
+//                                Log.e("writePost", "err: " + t.message)
+//                                binding.writeLoadingview.loaderLyaout.visibility = View.GONE
+//                            }
+//                        })
+//                }
+
+//            Repository.getUser(uid).enqueue(object : Callback<User> {
+//                override fun onResponse(call: Call<User>, response: Response<User>) {
+//                    if (response.isSuccessful && response.body() != null) {
+//                        user = response.body()!!
+//                        val postid = Date().time.toString() + user.id
+//                        val title = binding.titleEdit.text.toString()
+//                        val content = binding.contentEdit.text.toString()
+//
+//                        Repository.writePost(
+//                            postid,
+//                            title,
+//                            content,
+//                            user.nickname,
+//                            user.id,
+//                            coin_name,
+//                            getToken()
+//                        )
+//                            .enqueue(object : Callback<Post> {
+//                                override fun onResponse(
+//                                    call: Call<Post>,
+//                                    response: Response<Post>
+//                                ) {
+//                                    if (response.body()!!.issuccess) {
+//                                        Toast(response.body()!!.msg?:"")
+//                                        setResultAndFinish()
+//                                    }
+//                                }
+//
+//                                override fun onFailure(call: Call<Post>, t: Throwable) {
+//                                    Log.e("writePost", "err: " + t.message)
+//                                    binding.writeLoadingview.loaderLyaout.visibility = View.GONE
+//                                }
+//                            })
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<User>, t: Throwable) {
+//                    Log.e("infoActivity", "onFailure user")
+//                }
+//            })
         }
     }
 

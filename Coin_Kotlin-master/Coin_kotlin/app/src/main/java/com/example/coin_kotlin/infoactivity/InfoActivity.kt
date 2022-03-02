@@ -21,6 +21,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.ktx.Firebase
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.functions.Consumer
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,6 +37,7 @@ class InfoActivity : AppCompatActivity() {
     lateinit var binding: ActivityInfoBinding
     lateinit var user: User
     private val RC_SIGN_IN = 9001
+    private val TAG = "InfoActivity"
 
     override fun onResume() {
         super.onResume()
@@ -147,18 +154,32 @@ class InfoActivity : AppCompatActivity() {
 
     private fun getUser() {
         auth?.run {
-            Repository.getUser(uid).enqueue(object : Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (response.isSuccessful && response.body() != null) {
-                        user = response.body()!!
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
+                    val res_user = Repository.getUser(uid)
+                    if(res_user.result){
+                        user = res_user
                         binding.user = user
                     }
+                }catch (e:Exception){
+                    Log.e(TAG, "getUser in failed: " + e.message)
+                    Toast("회원정보 확인에 실패했습니다.")
                 }
-
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.e("infoActivity", "onFailure user")
-                }
-            })
+            }
+//
+//
+//            Repository.getUser(uid).enqueue(object : Callback<User> {
+//                override fun onResponse(call: Call<User>, response: Response<User>) {
+//                    if (response.isSuccessful && response.body() != null) {
+//                        user = response.body()!!
+//                        binding.user = user
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<User>, t: Throwable) {
+//                    Log.e("infoActivity", "onFailure user")
+//                }
+//            })
         }
     }
 

@@ -33,24 +33,23 @@ object Repository {
                 .downloadImage(coin_name)
     }
 
-    fun setUser(id: String,
+    suspend fun setUser(id: String,
                 nickname: String,
                 mail: String,
                 token: String
-    ): Call<User> {
+    ): User {
         return RetrofitFactory
                 .createRetrofit(ec2_URL)
                 .create(Service::class.java)
                 .setUser(id,nickname,mail, token)
     }
 
-    fun getUser(id: String): Call<User> {
+    suspend fun getUser(id: String): User {
         return RetrofitFactory
-                .createRetrofit(ec2_URL)
-                .create(Service::class.java)
-                .getUser(id)
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .getUser(id)
     }
-
     fun delUser(id: String): Call<User> {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
@@ -68,24 +67,24 @@ object Repository {
             .updateNick(id,nickname)
     }
 
-    fun updateToken(
+    suspend fun updateToken(
         id:String,
         token:String
-    ):Call<User>{
+    ):User{
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
             .updateUserToken(id, token)
     }
 
-    fun writePost(postid: String,
+    suspend fun writePost(postid: String,
                   title: String,
                   content: String,
                   nickname: String,
                   id: String,
                   coin: String,
                   token: String
-    ): Call<Post> {
+    ): Post {
         return RetrofitFactory
                 .createRetrofit(ec2_URL)
                 .create(Service::class.java)
@@ -100,12 +99,12 @@ object Repository {
                 .getPostList(coin)
     }
 
-    fun getPost(postid: String
-    ): Call<Post> {
+    suspend fun getPost(postid: String
+    ): Post {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
-            .getpost(postid)
+            .getPost(postid)
     }
 
     fun searchPostList(
@@ -145,43 +144,43 @@ object Repository {
             .deleteComment(commentid,postid)
     }
 
-    fun getCommentList(
+    suspend fun getCommentList(
         postid:String
-    ): Call<CommentList> {
+    ): CommentList {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
             .getCommentList(postid)
     }
 
-    fun writeComment(
+    suspend fun writeComment(
         postid: String,
         commentid: String,
         content: String,
         nickname: String,
         id:String
-    ): Call<Comment> {
+    ): Comment {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
             .writeComment(postid, commentid, content, nickname,id)
     }
 
-    fun plove(
+    suspend fun plove(
         postid:String,
         id:String
-    ): Call<Post> {
+    ): Post {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
             .plove(postid, id)
     }
 
-    fun clove(
+    suspend fun clove(
         commentid: String,
         postid:String,
         id:String
-    ): Call<Post> {
+    ): Post {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)

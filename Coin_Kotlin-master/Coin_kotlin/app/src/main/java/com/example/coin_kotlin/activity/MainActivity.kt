@@ -2,7 +2,6 @@ package com.example.coin_kotlin.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Process
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -37,9 +36,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -53,24 +52,51 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var adapter: CoinAdapter
     private var thread_all: NetworkThread? = null
     private var thread_search: NetworkThread? = null
+    private val TAG = "MainActivity"
 
     override fun onResume() {
         super.onResume()
-        auth.uid?.let {
-            Repository.getUser(it).enqueue(object : Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (response.isSuccessful && response.body() != null) {
-                        user = response.body()!!
-                    } else {
+        auth.uid?.let { id ->
+            CoroutineScope(Dispatchers.Main).launch {
+                try {
+                    val res_user = Repository.getUser(id)
+                    if(res_user.result)
+                        user = res_user
+                    else
                         loginActivity()
-                    }
+                }catch (e:Exception){
+                    Log.e(TAG, "onResume in failed: " + e.message)
+                    Toast("로그인에 실패했습니다.")
                 }
+            }
 
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    Log.e("MainActivity", "onFailure resume")
-                }
+//            Repository.getUser(uid)
+//                .doOnError {
+//
+//                }
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(io.reactivex.rxjava3.functions.Consumer { it ->
+//                    if(it.result)
+//                        user = it
+//                    else
+//                        loginActivity()
+//                })
 
-            })
+//            Repository.getUser(it).enqueue(object : Callback<User> {
+//                override fun onResponse(call: Call<User>, response: Response<User>) {
+//                    if (response.isSuccessful && response.body() != null) {
+//                        user = response.body()!!
+//                    } else {
+//                        loginActivity()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<User>, t: Throwable) {
+//                    Log.e("MainActivity", "onFailure resume")
+//                }
+//
+//            })
         }
     }
 

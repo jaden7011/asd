@@ -15,6 +15,11 @@ import com.example.coin_kotlin.activity.Login
 import com.example.coin_kotlin.info.User
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,14 +40,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(newtToken: String) {
         Log.e(TAG,newtToken)
         val id = PreferenceManager.getString(this,"id")
-        if(id != null && newtToken.isEmpty()){
-            saveToken(newtToken)
-            Repository.updateToken(id,newtToken).enqueue(object : Callback<User>{
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                }
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                }
-            })
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                if(id != null)
+                    Repository.updateToken(id,newtToken)
+                saveToken(newtToken)
+            }catch (e:Exception){
+                Log.e(TAG,e.message+"")
+            }
         }
     }
 

@@ -78,7 +78,7 @@ app.post("/user/update",function(req,res){
     })
 })
 
-app.post("user/update/token", (req,res) => {
+app.post("/user/update/token", (req,res) => {
     var id = req.body.id
     var token = req.body.token
     var sql = 'UPDATE user SET token = ? WHERE id = ?'

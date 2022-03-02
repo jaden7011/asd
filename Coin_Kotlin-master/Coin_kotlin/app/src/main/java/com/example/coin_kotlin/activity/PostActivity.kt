@@ -54,7 +54,7 @@ class PostActivity : AppCompatActivity() {
                 val commentid = post.postid + Date().time
 
                 if (content.isNotEmpty()) {
-                    livedataComment.addComment(auth.uid,post.postid, commentid, content,post.token)
+                    livedataComment.addComment(auth.uid,post.postid, commentid, content)
                 }else{
                     Toast("내용을 적어주세요.")
                 }

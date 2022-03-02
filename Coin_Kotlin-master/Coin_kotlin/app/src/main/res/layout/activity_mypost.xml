@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:adSize="BANNER"
-            app:adUnitId="ca-app-pub-2931857165077003/1321734659"
+            app:adUnitId="@string/banner"
             app:layout_constraintBottom_toTopOf="@+id/mypostRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

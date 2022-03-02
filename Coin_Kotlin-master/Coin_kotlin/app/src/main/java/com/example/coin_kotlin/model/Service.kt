@@ -6,10 +6,10 @@ import com.example.coin_kotlin.data.Transaction_List_Response
 import com.example.coin_kotlin.info.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.Deferred
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
-import java.sql.Date
 
 interface Service {
 
@@ -50,18 +50,24 @@ interface Service {
     //이 아래로는 mysql db
     @FormUrlEncoded
     @POST("/user/join")
-    fun setUser(
+    suspend fun setUser(
             @Field("id") Id: String,
             @Field("nickname") nickname: String,
             @Field("mail") mail: String,
             @Field("token") token: String
-    ): Call<User>
+    ): User
+
+//    @FormUrlEncoded
+//    @POST("/user/info")
+//    fun getUser(
+//            @Field("id") Id: String
+//    ): Single<User>
 
     @FormUrlEncoded
     @POST("/user/info")
-    fun getUser(
-            @Field("id") Id: String
-    ): Call<User>
+    suspend fun getUser(
+        @Field("id") Id: String
+    ): User
 
     @FormUrlEncoded
     @POST("/user/update")
@@ -72,10 +78,10 @@ interface Service {
 
     @FormUrlEncoded
     @POST("/user/update/token")
-    fun updateUserToken(
+    suspend fun updateUserToken(
         @Field("id") id: String,
         @Field("token") token: String
-    ): Call<User>
+    ): User
 
     @FormUrlEncoded
     @POST("/user/delete")
@@ -85,7 +91,7 @@ interface Service {
 
     @FormUrlEncoded
     @POST("/post/write")
-    fun writePost(
+    suspend fun writePost(
             @Field("postid") postid: String,
             @Field("title") title: String,
             @Field("content") content: String,
@@ -93,7 +99,7 @@ interface Service {
             @Field("id") id: String,
             @Field("coin") coin: String,
             @Field("token") token: String
-    ): Call<Post>
+    ): Post
 
     @FormUrlEncoded
     @POST("/post/getlist")
@@ -114,11 +120,17 @@ interface Service {
             @Field("id") id: String
     ): Call<PostList>
 
+//    @FormUrlEncoded
+//    @POST("/post")
+//    fun getpost(
+//        @Field("postid") postid: String
+//    ): Call<Post>
+
     @FormUrlEncoded
     @POST("/post")
-    fun getpost(
+    suspend fun getPost(
         @Field("postid") postid: String
-    ): Call<Post>
+    ):Post
 
     @FormUrlEncoded
     @POST("/post/delete")
@@ -135,34 +147,34 @@ interface Service {
 
     @FormUrlEncoded
     @POST("/comment/getlist")
-    fun getCommentList( //postid로 해당 게시글의 comment를 전부 가져옴
-            @Field("postid") postid: String
-    ): Call<CommentList>
+    suspend fun getCommentList( //postid로 해당 게시글의 comment를 전부 가져옴
+        @Field("postid") postid: String
+    ): CommentList
 
     @FormUrlEncoded
     @POST("/comment/write")
-    fun writeComment( //postid로 해당 게시글의 comment를 전부 가져옴
+    suspend fun writeComment( //postid로 해당 게시글의 comment를 전부 가져옴
             @Field("postid") postid: String,
             @Field("commentid") commentid: String,
             @Field("content") content: String,
             @Field("nickname") nickname: String,
             @Field("id") id:String
-    ): Call<Comment>
+    ): Comment
 
     @FormUrlEncoded
     @POST("/post/love")
-    fun plove(
+    suspend fun plove(
         @Field("postid") postid: String,
         @Field("id") id: String,
-    ): Call<Post>
+    ): Post
 
     @FormUrlEncoded
     @POST("/comment/love")
-    fun clove(
+    suspend fun clove(
         @Field("commentid") commentid: String,
         @Field("postid") postid: String,
         @Field("id") id: String
-    ): Call<Post>
+    ): Post
 
 
 }
