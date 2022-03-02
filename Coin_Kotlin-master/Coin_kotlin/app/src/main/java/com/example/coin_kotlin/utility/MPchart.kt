@@ -47,7 +47,7 @@ class MPchart(val candleStickChart: CandleStickChart,val activity:Activity) {
             val res = SimpleDateFormat("yy/MM/dd")
                 .format(Date(candles[it].createdAt!!.toLong()))
             val ss = StringBuffer(res).apply {
-                if(this[0] == '2' && (this[1] == '2' || this[1] == '1')){
+                if(this[0] == '2' && this[1] == '2'){
                     this.delete(0,3)
                 }
             }
@@ -190,7 +190,7 @@ class MPchart(val candleStickChart: CandleStickChart,val activity:Activity) {
                         chartClose.text = "종가: ${candles[idx].close}"
                     }
                 }
-            }, 1000)
+            }, 800)
 
 //            postInvalidateDelayed(2000L)
 //            invalidate()

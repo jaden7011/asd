@@ -52,15 +52,6 @@
                 android:textColor="@color/night_white"
                 android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/chartClose"
-                android:layout_marginStart="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="종가: "
-                android:textColor="@color/night_white"
-                android:textSize="15sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -71,7 +62,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="고: "
+                    android:text="고가: "
                     android:textColor="@color/colorAccent"
                     android:textSize="15sp" />
 
@@ -80,8 +71,17 @@
                     android:layout_marginStart="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="저: "
+                    android:text="저가: "
                     android:textColor="@color/darger_blue"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/chartClose"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="종가: "
+                    android:textColor="@color/illuminating_yellow"
                     android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>

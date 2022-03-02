@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -107,7 +108,7 @@ class LiveData_Comments(
                 val user = Repository.getUser(uid)
                 Repository.writeComment(postid,commentid,content,user.nickname,uid)
                 val post = Repository.getPost(postid)
-
+                val postuser = Repository.getUser(post.id)
                 val issuccess = post.issuccess
                 val msg = post.msg
 
@@ -121,9 +122,7 @@ class LiveData_Comments(
                         c.dateFormate_for_layout = Time_to_String(c.createdat)
                     }
                     comments.value = commentList.commentlist
-                    CoroutineScope(Dispatchers.IO).launch {
-                        fcm.sendNotification(post.token,"댓글이 달렸어요!",content)
-                    }
+                    fcm.sendNotification(postuser.token,"댓글이 달렸어요!",content)
                     loadingvisible(false)
                 }else{
                     if (msg != null) {

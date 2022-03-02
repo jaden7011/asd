@@ -1,24 +1,19 @@
 package com.example.coin_kotlin.activity
 
-import android.app.Application
 import android.content.Intent
-import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
-import android.view.Window
-import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.coin_kotlin.R
-import com.example.coin_kotlin.admob.AppOpenAdManager
 import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityAdmobBinding
 import com.example.coin_kotlin.model.PreferenceManager
+import com.example.coin_kotlin.utility.NetworkStatus
 import com.google.android.gms.ads.FullScreenContentCallback
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.initialization.InitializationStatus
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -35,8 +30,8 @@ class AdmobActivity : AppCompatActivity() {
 
     private fun setView() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_admob)
+        checkNetWork()
         (application as MyApplication).getAdManager()
-//            .showAdIfAvailable()
             .showAdIfAvailable(object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 isAdDismissed = true
@@ -84,6 +79,18 @@ class AdmobActivity : AppCompatActivity() {
     fun launchMainActivity() {
         startActivity(Intent(this, Login::class.java))
         finish()
+    }
+
+    fun checkNetWork() {
+        if (!NetworkStatus.isConnected(this)) {
+            Log.e("splash act", "network is disconnected")
+            Handler(Looper.getMainLooper()).postDelayed({ Toast("인터넷 연결이 되어있지 않습니다.") }, 0)
+            return
+        }
+    }
+
+    fun Toast(str: String) {
+        android.widget.Toast.makeText(this, str, android.widget.Toast.LENGTH_SHORT).show();
     }
 
 }

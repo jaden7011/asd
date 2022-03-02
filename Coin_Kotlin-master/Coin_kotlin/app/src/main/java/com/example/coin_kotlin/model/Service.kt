@@ -97,8 +97,7 @@ interface Service {
             @Field("content") content: String,
             @Field("nickname") nickname: String,
             @Field("id") id: String,
-            @Field("coin") coin: String,
-            @Field("token") token: String
+            @Field("coin") coin: String
     ): Post
 
     @FormUrlEncoded
@@ -119,12 +118,6 @@ interface Service {
     fun myPostList(
             @Field("id") id: String
     ): Call<PostList>
-
-//    @FormUrlEncoded
-//    @POST("/post")
-//    fun getpost(
-//        @Field("postid") postid: String
-//    ): Call<Post>
 
     @FormUrlEncoded
     @POST("/post")

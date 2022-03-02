@@ -113,10 +113,9 @@ app.post('/post/write', function (req, res) {
     var content = req.body.content;
     var nickname = req.body.nickname;
     var id = req.body.id;
-    var token = req.body.token
 
-    var sql = 'INSERT INTO post (postid, title, content, nickname, id, coin, token) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    var params = [postid, title, content, nickname, id, coin, token];
+    var sql = 'INSERT INTO post (postid, title, content, nickname, id, coin) VALUES (?, ?, ?, ?, ?, ?)';
+    var params = [postid, title, content, nickname, id, coin];
 
     connection.query(sql, params, function (err, result) {
         if (err)

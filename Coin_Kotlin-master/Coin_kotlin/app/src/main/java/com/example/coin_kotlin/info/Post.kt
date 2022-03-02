@@ -8,40 +8,27 @@ import java.util.*
 
 @Parcelize
 data class Post(
-        @SerializedName("postid")
-        @Expose
+        @SerializedName("postid") @Expose
         val postid: String,
-        @SerializedName("title")
-        @Expose
+        @SerializedName("title") @Expose
         val title: String,
-        @SerializedName("content")
-        @Expose
+        @SerializedName("content") @Expose
         val content: String,
-        @SerializedName("createdat")
-        @Expose
+        @SerializedName("createdat") @Expose
         val createdat: Date,
-        @SerializedName("nickname")
-        @Expose
+        @SerializedName("nickname") @Expose
         val nickname: String,
-        @SerializedName("id")
-        @Expose
+        @SerializedName("id") @Expose
         val id: String,
-        @SerializedName("love")
-        @Expose
+        @SerializedName("love") @Expose
         val love: Int,
-        @SerializedName("msg")
-        @Expose
+        @SerializedName("msg") @Expose
         val msg:String?,
-        @SerializedName("coin")
-        @Expose
+        @SerializedName("coin") @Expose
         val coin:String,
-        @SerializedName("issuccess")
-        @Expose
+        @SerializedName("issuccess") @Expose
         val issuccess:Boolean,
-        @SerializedName("token") @Expose
-        val token:String,
         var dateFormate_for_layout: String?,
-        @SerializedName("commentnum")
-        @Expose
+        @SerializedName("commentnum") @Expose
         val commentNum: Int
 ): Parcelable

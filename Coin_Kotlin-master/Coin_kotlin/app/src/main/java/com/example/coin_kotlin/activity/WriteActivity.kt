@@ -63,7 +63,7 @@ class WriteActivity : AppCompatActivity() {
                         val postid = Date().time.toString() + user.id
                         val title = binding.titleEdit.text.toString()
                         val content = binding.contentEdit.text.toString()
-                        val apply = Repository.writePost(postid,title,content,user.nickname,user.id,coin_name,user.token)
+                        val apply = Repository.writePost(postid,title,content,user.nickname,user.id,coin_name)
                         if (apply.issuccess){
                             apply.msg?.let { Toast(it) }
                             setResultAndFinish()

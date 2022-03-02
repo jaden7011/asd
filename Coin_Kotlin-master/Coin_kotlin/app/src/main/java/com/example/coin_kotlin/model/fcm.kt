@@ -1,13 +1,12 @@
 package com.example.coin_kotlin.model
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okhttp3.MediaType
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import okhttp3.RequestBody
+import okhttp3.*
 import org.json.JSONObject
+import java.io.IOException
 
 object fcm {
     val JSON = MediaType.parse("application/json; charset=utf-8")
@@ -36,8 +35,16 @@ object fcm {
                     .post(reqBody)
                     .build()
 
-                val response = client.newCall(req).execute()
+                val response = client.newCall(req).enqueue(object : Callback{
+                    override fun onResponse(call: Call, response: Response) {
+                        Log.e("FCM","success")
+                    }
+                    override fun onFailure(call: Call, e: IOException) {
+                        Log.e("FCM","onFailure: "+e.message)
+                    }
+                })
             } catch (e: Exception) {
+                Log.e("FCM",e.message+"")
             }
         }
     }

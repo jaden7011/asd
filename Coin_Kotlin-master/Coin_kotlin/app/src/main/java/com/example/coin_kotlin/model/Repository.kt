@@ -82,13 +82,12 @@ object Repository {
                   content: String,
                   nickname: String,
                   id: String,
-                  coin: String,
-                  token: String
+                  coin: String
     ): Post {
         return RetrofitFactory
                 .createRetrofit(ec2_URL)
                 .create(Service::class.java)
-                .writePost(postid,title, content, nickname, id, coin, token)
+                .writePost(postid,title, content, nickname, id, coin)
     }
 
     fun getPostList(coin: String

@@ -110,6 +110,7 @@ class Login : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        //todo 자동로그인 시에도 토큰 확인하자
         auth.uid?.let { id ->
             CoroutineScope(Dispatchers.Main).launch {
                 try {
