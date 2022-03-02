@@ -150,7 +150,7 @@ object Repository {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
-            .getCommentList(postid)
+            .getCommentListSingle(postid)
     }
 
     suspend fun writeComment(

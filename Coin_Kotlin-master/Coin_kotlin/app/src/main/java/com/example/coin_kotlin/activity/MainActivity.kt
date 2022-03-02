@@ -69,34 +69,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     Toast("로그인에 실패했습니다.")
                 }
             }
-
-//            Repository.getUser(uid)
-//                .doOnError {
-//
-//                }
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeOn(Schedulers.io())
-//                .subscribe(io.reactivex.rxjava3.functions.Consumer { it ->
-//                    if(it.result)
-//                        user = it
-//                    else
-//                        loginActivity()
-//                })
-
-//            Repository.getUser(it).enqueue(object : Callback<User> {
-//                override fun onResponse(call: Call<User>, response: Response<User>) {
-//                    if (response.isSuccessful && response.body() != null) {
-//                        user = response.body()!!
-//                    } else {
-//                        loginActivity()
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<User>, t: Throwable) {
-//                    Log.e("MainActivity", "onFailure resume")
-//                }
-//
-//            })
         }
     }
 

@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.BoardActivity
 import com.example.coin_kotlin.activity.SearchActivity
 import com.example.coin_kotlin.adapter.PostAdapter
@@ -24,7 +23,6 @@ import com.example.coin_kotlin.utility.Utility
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -93,7 +91,7 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
                     )
                 }
 
-                MPchart((activity as BoardActivity).binding.priceChart).run {
+                MPchart((activity as BoardActivity).binding.priceChart,activity).run {
                     this.Set_priceData(candles)
                     this.candleStickChart.moveViewToX(candles.size.toFloat())
                 }

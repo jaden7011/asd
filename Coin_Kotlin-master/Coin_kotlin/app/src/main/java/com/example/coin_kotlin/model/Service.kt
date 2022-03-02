@@ -147,7 +147,7 @@ interface Service {
 
     @FormUrlEncoded
     @POST("/comment/getlist")
-    suspend fun getCommentList( //postid로 해당 게시글의 comment를 전부 가져옴
+    suspend fun getCommentListSingle( //postid로 해당 게시글의 comment를 전부 가져옴
         @Field("postid") postid: String
     ): CommentList
 

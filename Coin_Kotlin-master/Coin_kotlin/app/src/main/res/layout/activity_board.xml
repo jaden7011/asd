@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -14,11 +13,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:theme="@style/ToolBarTheme"
-            app:layout_constraintBottom_toTopOf="@id/priceChart"
+            app:layout_constraintBottom_toTopOf="@id/displayLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -34,6 +32,61 @@
             </TextView>
         </androidx.appcompat.widget.Toolbar>
 
+        <LinearLayout
+            android:id="@+id/displayLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/priceChart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/night"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_board">
+
+            <TextView
+                android:id="@+id/chartDate"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="날짜: "
+                android:textColor="@color/night_white"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/chartClose"
+                android:layout_marginStart="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="종가: "
+                android:textColor="@color/night_white"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/chartHigh"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="고: "
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/chartLow"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="저: "
+                    android:textColor="@color/darger_blue"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
         <com.github.mikephil.charting.charts.CandleStickChart
             android:id="@+id/priceChart"
             android:layout_width="0dp"
@@ -43,7 +96,7 @@
             app:layout_constraintBottom_toTopOf="@id/Board_Recycler"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar_board"
+            app:layout_constraintTop_toBottomOf="@id/displayLayout"
             app:layout_constraintVertical_weight="1" />
 
         <androidx.recyclerview.widget.RecyclerView
