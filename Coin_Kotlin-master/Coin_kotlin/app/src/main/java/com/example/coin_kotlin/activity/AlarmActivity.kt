@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.databinding.ActivityAlarmBinding
+import com.example.coin_kotlin.info.Alarm
 import com.example.coin_kotlin.model.Repository
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.functions.Consumer
@@ -23,6 +24,7 @@ class AlarmActivity : AppCompatActivity() {
     }
     private val TAG = "Alarm Act"
     private val activity = this
+    var alarms = ArrayList<Alarm>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
