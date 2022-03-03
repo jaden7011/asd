@@ -60,7 +60,6 @@ class AdmobActivity : AppCompatActivity() {
             if (!task.isSuccessful) {
                 return@OnCompleteListener
             }
-
             // Get new FCM registration token
             val token = task.result
             Log.e("getFcm","token: $token")

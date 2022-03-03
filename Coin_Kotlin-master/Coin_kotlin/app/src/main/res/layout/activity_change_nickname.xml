@@ -55,7 +55,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.5"
+                android:layout_weight="1.65"
                 android:background="@android:drawable/stat_notify_sync" />
 
             <EditText
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/night_white"
+                android:background="@color/night"
                 android:gravity="center"
                 android:maxLength="12"
                 android:singleLine="true"

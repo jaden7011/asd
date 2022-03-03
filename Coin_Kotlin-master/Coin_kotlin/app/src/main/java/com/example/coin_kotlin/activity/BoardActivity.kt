@@ -16,6 +16,7 @@ import com.example.coin_kotlin.R
 import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityBoardBinding
 import com.example.coin_kotlin.model.PreferenceManager
+import com.example.coin_kotlin.utility.Named.ALARMACTIVITY
 import com.example.coin_kotlin.utility.Named.FAVORIT_LIST
 import com.example.coin_kotlin.utility.Named.POSTACTIVITY
 import com.example.coin_kotlin.utility.Named.POSTDELETE
@@ -82,9 +83,9 @@ class BoardActivity : AppCompatActivity() {
         val menuitem = menu?.findItem(R.id.toolbar_board_addfavorit)
 
         if (!PreferenceManager.getStringSet(this, FAVORIT_LIST)!!.contains(coin_name))
-            menuitem?.icon = ContextCompat.getDrawable(this, android.R.drawable.star_big_off)
+            menuitem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_unfavorite)
         else
-            menuitem?.icon = ContextCompat.getDrawable(this, android.R.drawable.star_big_on)
+            menuitem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite)
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -108,10 +109,10 @@ class BoardActivity : AppCompatActivity() {
 
             R.id.toolbar_board_addfavorit -> {
                 if (!PreferenceManager.getStringSet(this, FAVORIT_LIST)!!.contains(coin_name)) {
-                    item.icon = ContextCompat.getDrawable(this, android.R.drawable.star_big_on)
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite)
                     PreferenceManager.setStringSet(this, FAVORIT_LIST, coin_name)
                 } else {
-                    item.icon = ContextCompat.getDrawable(this, android.R.drawable.star_big_off)
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_unfavorite)
                     PreferenceManager.removeSetElement(this, FAVORIT_LIST, coin_name)
                 }
             }
@@ -127,8 +128,10 @@ class BoardActivity : AppCompatActivity() {
                 Toast("새로고침")
             }
 
-            R.id.back_btn -> {
-                onBackPressed()
+            R.id.toolbar_board_alarm -> {
+                startActivityForResult(Intent(this, AlarmActivity::class.java).run {
+                    putExtra("coin_name", coin_name)
+                }, ALARMACTIVITY)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -158,6 +161,10 @@ class BoardActivity : AppCompatActivity() {
                 if (!postid.isNullOrEmpty()){
                     livedataPostinfo.delPost(postid)
                 }
+            }
+
+            ALARMACTIVITY -> {
+//                livedataPostinfo.Get_Candle_Posts(coin_name)
             }
         }
     }

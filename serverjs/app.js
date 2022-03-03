@@ -1,7 +1,14 @@
 var mysql = require('mysql');
 var express = require('express');
 var bodyParser = require('body-parser');
+var axios = require('axios')
+var admin = require('firebase-admin')
+let serviceAccont = require('/Users/ujoohan/Desktop/coinApp/serverjs/coinner-cbf34-firebase-adminsdk-acvke-cf5f0674cf.json')
 var app = express();
+
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccont)
+})
 
 app.use(bodyParser.json({extended: true})); 
 app.use(bodyParser.urlencoded({extended: true})); 
@@ -17,6 +24,61 @@ var connection = mysql.createConnection({
     password: "w19706538",
     port: 3306
 });
+
+setInterval(() => {
+    aram()
+},3000)
+
+app.post('/user/aram/add',function(req,res){
+    var price = req.body.price
+    var coin = req.body.coin
+    var id = req.body.id
+    var token = req.body.token
+
+    var sql = 'INSERT INTO aram (price,coin,id,token) VALUES (?, ?, ?, ?)'
+    var params = [price,coin,id,token]
+    query(sql,params)
+    .then(result => {
+        res.json({
+            mgs:"등록되었습니다."
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+app.post('/user/aram/delete',function(req,res){
+    var price = req.body.price
+    var coin = req.body.coin
+    var id = req.body.id
+
+    var sql = 'DELETE FROM aram WHERE price = ? AND coin =? AND id = ?'
+    var params = [price,coin,id]
+
+    query(sql,params)
+    .then(result => {
+        res.json({
+            mgs:"삭제되었습니다."
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+app.post('/user/aram',function(req,res){
+    var id = req.body.id
+    var sql = 'SELECT * FROM aram WHERE id = ?'
+
+    query(sql,id)
+    .then(result => {
+        res.json(result)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+})
 
 app.post('/user/join', function (req, res) {
     var id = req.body.id;
@@ -414,6 +476,65 @@ function up_Plove(postid,id,res){
     })
     .catch(err => {
         res.json(err)
+    })
+}
+
+function aram(){
+    axios.get('https://api.bithumb.com/public/ticker/ALL')
+    .then(result => {
+        var coinMap = result['data']['data']
+        var sql = 'SELECT * FROM aram'
+    
+        query(sql)
+        .then(result => {
+            // console.log(result)
+            var aramList = result
+    
+            aramList.forEach(element => {
+                var price = parseFloat(element['price'])
+                var token = element['token']
+                var coin = element['coin']
+                var pk = element['pk']
+                var closing_price = parseFloat(coinMap[coin]['closing_price'])
+    
+                var s = (price - (price/3))
+                var e = (price + (price/3))
+    
+                if(s <= closing_price && e >= closing_price){
+                    //send fcm here
+                    sendFcm(coin,closing_price,token,pk)
+                }
+         
+            });
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    })
+    .catch(err => {console.log(err)})
+}
+
+function sendFcm(coin,price,token,pk){
+
+    let message = {
+        notification:{
+            title: coin+"이 설정한 가격에 도달하였습니다.",
+            body: coin+": "+price
+        },
+        token:token
+    }
+
+    admin
+    .messaging()
+    .send(message)
+    .then(result => {
+        var sql = 'DELETE FROM aram WHERE pk = ?'
+        query(sql,pk)
+        .then(result => {console.log('success')})
+        // console.log('success')
+    })
+    .catch(err => {
+        console.log(err)
     })
 }
 

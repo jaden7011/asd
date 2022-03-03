@@ -218,7 +218,7 @@ class CoinAdapter (
             Price.text = item.closing_price
             Total.text = String.format("%d",(item.acc_trade_value_24H.toDouble()/1000000).toInt()) + "백만"
 
-            if(item.fluctate_rate_24H!!.toDouble() > 0.0){
+            if(item.fluctate_rate_24H.toDouble() > 0.0){
                 Rate.setTextColor(ContextCompat.getColor(view.context,R.color.colorAccent))
                 Price.setTextColor(ContextCompat.getColor(view.context,R.color.colorAccent))
             }

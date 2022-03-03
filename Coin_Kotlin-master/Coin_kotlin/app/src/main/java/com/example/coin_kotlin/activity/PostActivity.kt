@@ -71,15 +71,6 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
-    fun getToken(): String{
-        val token = PreferenceManager.getString(this,"fcmToken")
-        return if(token.isNullOrEmpty())
-            ""
-        else{
-            token
-        }
-    }
-
     fun setView(activity: PostActivity) {
         val user = FirebaseAuth.getInstance().currentUser
 

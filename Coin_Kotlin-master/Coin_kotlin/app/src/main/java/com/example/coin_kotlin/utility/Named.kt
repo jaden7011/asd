@@ -25,6 +25,7 @@ object Named {
     const val POSTACTIVITY = 300
     const val WRITEACTIVITY = 301
     const val SEARCHACTIVITY = 302
+    const val ALARMACTIVITY = 303
 
     const val BOARD_FRAGMENT = 1201
     const val NOTIFICATION_FRAGMENT = 1202
