@@ -199,33 +199,6 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
             }
         }
 
-//        Repository.getPost(postid).enqueue(object : Callback<Post> {
-//            override fun onResponse(call: Call<Post>, response: Response<Post>) {
-//                if (response.isSuccessful && response.body() != null) {
-//                    val post = response.body()
-//                    if(posts.value != null){
-//                        val postlist = posts.value!!.clone() as ArrayList<Post>
-//
-//                        for(i in 0 until postlist.size){
-//                            if(postlist[i].postid == post?.postid){
-//                                post.dateFormate_for_layout = Time_to_String(post.createdat)
-//                                postlist[i] = post
-//                                Log.e("postid","current: " +postlist[i].commentNum)
-//                                Log.e("postid","live: " +posts.value!![i].commentNum)
-//                                posts.value = postlist
-//                                return
-//                            }
-//                        }
-//                    }
-//                } else {
-//                    Toast("게시물을 찾지 못했습니다.")
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<Post>, t: Throwable) {
-//                Log.e("getpost", "err: " + t.message)
-//            }
-//        })
     }
 
     fun delPost(postid: String){

@@ -6,6 +6,7 @@ import com.example.coin_kotlin.info.*
 import io.reactivex.rxjava3.core.Single
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.http.Field
 
 object Repository {
 
@@ -184,6 +185,39 @@ object Repository {
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
             .clove(commentid, postid, id)
+    }
+
+    suspend fun addAlarm(
+        price: String,
+        id:String,
+        coin:String,
+        token:String
+    ): Alarm {
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .addAlarm(price, id, coin, token)
+    }
+
+    suspend fun delAlarm(
+        price: String,
+        id:String,
+        coin:String,
+    ): Alarm {
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .delAlarm(price, id, coin)
+    }
+
+    suspend fun getAlarms(
+        id:String,
+        coin:String,
+    ): AlarmList {
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .getAlarms(id, coin)
     }
 
 }

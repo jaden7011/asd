@@ -129,9 +129,14 @@ class BoardActivity : AppCompatActivity() {
             }
 
             R.id.toolbar_board_alarm -> {
-                startActivityForResult(Intent(this, AlarmActivity::class.java).run {
-                    putExtra("coin_name", coin_name)
-                }, ALARMACTIVITY)
+                if(auth != null){
+                    startActivityForResult(Intent(this, AlarmActivity::class.java).run {
+                        putExtra("coin_name", coin_name)
+                        putExtra("id",auth.uid)
+                    }, ALARMACTIVITY)
+                }else{
+                    Toast("로그인 후에 이용가능합니다.")
+                }
             }
         }
         return super.onOptionsItemSelected(item)

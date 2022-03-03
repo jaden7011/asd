@@ -8,11 +8,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coin_kotlin.R
+import com.example.coin_kotlin.activity.AlarmActivity
 import com.example.coin_kotlin.info.Alarm
 
 class AlarmAdapter(
     val activity: Activity,
-    val alarms:ArrayList<Alarm>
+    var alarms:ArrayList<Alarm>
 ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class AlarmHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,6 +33,8 @@ class AlarmAdapter(
 
         holder.deleteBtn.setOnClickListener {
             //todo activity에 livedata를 사용해서 제거
+            val alarm = alarms[holder.absoluteAdapterPosition]
+            (activity as AlarmActivity).liveDate_alarm.delAlarm(alarm.price,alarm.id,alarm.coin)
         }
 
         return holder

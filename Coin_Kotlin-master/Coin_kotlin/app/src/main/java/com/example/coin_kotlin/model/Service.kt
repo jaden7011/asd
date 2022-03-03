@@ -57,12 +57,6 @@ interface Service {
             @Field("token") token: String
     ): User
 
-//    @FormUrlEncoded
-//    @POST("/user/info")
-//    fun getUser(
-//            @Field("id") Id: String
-//    ): Single<User>
-
     @FormUrlEncoded
     @POST("/user/info")
     suspend fun getUser(
@@ -168,6 +162,30 @@ interface Service {
         @Field("postid") postid: String,
         @Field("id") id: String
     ): Post
+
+    @FormUrlEncoded
+    @POST("/user/alarm/add")
+    suspend fun addAlarm(
+        @Field("price") price: String,
+        @Field("id") id:String,
+        @Field("coin") coin:String,
+        @Field("token") token:String
+    ): Alarm
+
+    @FormUrlEncoded
+    @POST("/user/alarm/delete")
+    suspend fun delAlarm(
+        @Field("price") price: String,
+        @Field("id") id:String,
+        @Field("coin") coin:String
+    ): Alarm
+
+    @FormUrlEncoded
+    @POST("/user/alarm")
+    suspend fun getAlarms(
+        @Field("id") id:String,
+        @Field("coin") coin:String,
+    ): AlarmList
 
 
 }

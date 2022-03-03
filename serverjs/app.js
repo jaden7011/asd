@@ -26,16 +26,16 @@ var connection = mysql.createConnection({
 });
 
 setInterval(() => {
-    aram()
+    alarm()
 },3000)
 
-app.post('/user/aram/add',function(req,res){
+app.post('/user/alarm/add',function(req,res){
     var price = req.body.price
     var coin = req.body.coin
     var id = req.body.id
     var token = req.body.token
 
-    var sql = 'INSERT INTO aram (price,coin,id,token) VALUES (?, ?, ?, ?)'
+    var sql = 'INSERT INTO alarm (price,coin,id,token) VALUES (?, ?, ?, ?)'
     var params = [price,coin,id,token]
     query(sql,params)
     .then(result => {
@@ -48,12 +48,12 @@ app.post('/user/aram/add',function(req,res){
     })
 })
 
-app.post('/user/aram/delete',function(req,res){
+app.post('/user/alarm/delete',function(req,res){
     var price = req.body.price
     var coin = req.body.coin
     var id = req.body.id
 
-    var sql = 'DELETE FROM aram WHERE price = ? AND coin =? AND id = ?'
+    var sql = 'DELETE FROM alarm WHERE price = ? AND coin =? AND id = ?'
     var params = [price,coin,id]
 
     query(sql,params)
@@ -67,11 +67,12 @@ app.post('/user/aram/delete',function(req,res){
     })
 })
 
-app.post('/user/aram',function(req,res){
+app.post('/user/alarm',function(req,res){
     var id = req.body.id
-    var sql = 'SELECT * FROM aram WHERE id = ?'
-
-    query(sql,id)
+    var coin = req.body.coin
+    var sql = 'SELECT * FROM alarm WHERE id = ? AND coin = ?'
+    var params = [id, coin]
+    query(sql,params)
     .then(result => {
         res.json(result)
     })
@@ -479,11 +480,11 @@ function up_Plove(postid,id,res){
     })
 }
 
-function aram(){
+function alarm(){
     axios.get('https://api.bithumb.com/public/ticker/ALL')
     .then(result => {
         var coinMap = result['data']['data']
-        var sql = 'SELECT * FROM aram'
+        var sql = 'SELECT * FROM alarm'
     
         query(sql)
         .then(result => {
@@ -528,7 +529,7 @@ function sendFcm(coin,price,token,pk){
     .messaging()
     .send(message)
     .then(result => {
-        var sql = 'DELETE FROM aram WHERE pk = ?'
+        var sql = 'DELETE FROM alarm WHERE pk = ?'
         query(sql,pk)
         .then(result => {console.log('success')})
         // console.log('success')

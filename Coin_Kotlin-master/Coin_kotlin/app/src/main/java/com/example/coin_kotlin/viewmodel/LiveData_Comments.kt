@@ -135,39 +135,6 @@ class LiveData_Comments(
                 Log.e(TAG, "onFailure addComment: ${e.message}")
             }
         }
-
-//        Repository.getUser(uid).enqueue(object : Callback<User> {// 닉네임 db에서 가져오고,
-//            override fun onResponse(call: Call<User>, response: Response<User>) {
-//                if (response.isSuccessful && response.body() != null) {
-//                    val user = response.body()!!
-//
-//                    // 댓글을 썼을 때 -> db에 집어넣고 새로운 댓글리스트를 가져와야하는 것이 한 묶음
-//                    Repository.writeComment(postid, commentid, content, user.nickname,uid)
-//                        .enqueue(object : Callback<Comment> {
-//                            override fun onResponse(call: Call<Comment>, response: Response<Comment>) {
-//                                if (response.isSuccessful) {
-//                                    Log.e("addComment", "onResponse: " + response.body()?.msg)
-//                                    getPost(postid)
-//                                    loadingvisible(false)
-//                                    activity.textclear()
-//                                    CoroutineScope(Dispatchers.IO).launch {
-//                                        fcm.sendNotification(token,"댓글이 달렸어요!",content)
-//                                    }
-//                                }
-//                            }
-//                            override fun onFailure(call: Call<Comment>, t: Throwable) {
-//                                Log.e("addComment", "onFailure: " + t.message)
-//                                activity.textclear()
-//                                loadingvisible(false)
-//                            }
-//                        })
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<User>, t: Throwable) {
-//                Log.e("infoActivity", "onFailure user")
-//            }
-//        })
     }
 
     fun getComment(postid: String) {
@@ -183,20 +150,6 @@ class LiveData_Comments(
                 Log.e("getComment", "onFailure: " + t.message)
             }
         }
-//
-//        Repository.getCommentList(postid).enqueue(object : Callback<CommentList> {
-//            override fun onResponse(call: Call<CommentList>, response: Response<CommentList>) {
-//                if (response.isSuccessful && response.body() != null) {
-//                    for (comment in response.body()!!.commentlist)
-//                        comment.dateFormate_for_layout = Time_to_String(comment.createdat)
-//                    comments.value = response.body()!!.commentlist
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<CommentList>, t: Throwable) {
-//
-//            }
-//        })
     }
 
     fun commentLove(commentid: String, postid: String, id:String){
@@ -213,21 +166,6 @@ class LiveData_Comments(
                 Log.e("clove onfailure", "err: " + e.message)
             }
         }
-
-//        Repository.clove(commentid, postid, id).enqueue(object :Callback<Post>{
-//            override fun onResponse(call: Call<Post>, response: Response<Post>) {
-//                if (response.isSuccessful && response.body() != null) {
-//                    val msg = response.body()?.msg
-//                    if (!msg.isNullOrEmpty()) {
-//                        Toast(msg)
-//                        getPost(postid)
-//                    }
-//                }
-//            }
-//            override fun onFailure(call: Call<Post>, t: Throwable) {
-//                Log.e("clove onfailure", "err: " + t.message)
-//            }
-//        })
     }
 
     fun postLove(postid: String,id: String){
@@ -245,21 +183,6 @@ class LiveData_Comments(
             }
         }
 
-//        Repository.plove(postid,id).enqueue(object :Callback<Post>{
-//            override fun onResponse(call: Call<Post>, response: Response<Post>) {
-//                if (response.isSuccessful && response.body() != null) {
-//                    val msg = response.body()?.msg
-//                    if (!msg.isNullOrEmpty()) {
-//                        Toast(msg)
-//                        getPost(postid)
-//                    }
-//                }
-//            }
-//            override fun onFailure(call: Call<Post>, t: Throwable) {
-//                Log.e("plove onfailure", "err: " + t.message)
-//            }
-//
-//        })
     }
 
     fun delPost(postid: String){
