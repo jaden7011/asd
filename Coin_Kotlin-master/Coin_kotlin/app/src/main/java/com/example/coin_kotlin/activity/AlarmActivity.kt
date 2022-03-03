@@ -32,6 +32,34 @@ class AlarmActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     fun setView() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_alarm)
+
+        getTicker()
+
+        binding.upBtn.setOnClickListener {
+            var price = binding.alarmPriceET.text.toString().toDouble()
+            price += price*0.03
+            binding.alarmPriceET.setText(String.format("%.2f",price))
+        }
+
+        binding.downBtn.setOnClickListener {
+            var price = binding.alarmPriceET.text.toString().toDouble()
+            price -= price*0.03
+            binding.alarmPriceET.setText(String.format("%.2f",price))
+        }
+
+        binding.addBtn.setOnClickListener {
+
+        }
+
+        binding.resetBtn.setOnClickListener {
+            getTicker()
+        }
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    fun getTicker(){
+
         Repository.get_Ticker(coin_name)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -63,22 +91,5 @@ class AlarmActivity : AppCompatActivity() {
                     binding.alarmPriceET.setText(closing_price.toString())
                 }
             })
-
-        binding.upBtn.setOnClickListener {
-            var price = binding.alarmPriceET.text.toString().toDouble()
-            price += price*0.03
-            binding.alarmPriceET.setText(String.format("%.2f",price))
-        }
-
-        binding.downBtn.setOnClickListener {
-            var price = binding.alarmPriceET.text.toString().toDouble()
-            price -= price*0.03
-            binding.alarmPriceET.setText(String.format("%.2f",price))
-        }
-
-        binding.addBtn.setOnClickListener {
-
-        }
-
     }
 }

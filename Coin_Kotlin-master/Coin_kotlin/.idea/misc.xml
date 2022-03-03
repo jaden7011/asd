@@ -25,6 +25,8 @@
         <entry key="app/src/main/res/layout/activity_post.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.15" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.2759259259259259" />
+        <entry key="app/src/main/res/layout/item_alarm.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_coin.xml" value="0.2212962962962963" />
         <entry key="app/src/main/res/layout/item_comments.xml" value="0.4951590594744122" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.47959183673469385" />
         <entry key="app/src/main/res/menu/mypost_menu.xml" value="0.2574074074074074" />
