@@ -58,6 +58,7 @@ class AlarmActivity : AppCompatActivity() {
         liveDate_alarm.alarms.observe(this, Observer {
             liveDate_alarm.adapter.alarms = it
             liveDate_alarm.adapter.notifyDataSetChanged()
+            binding.alarmSizeT.text = "알람 갯수(${it.size}/5)"
         })
 
         binding.upBtn.setOnClickListener {
@@ -73,9 +74,16 @@ class AlarmActivity : AppCompatActivity() {
         }
 
         binding.addBtn.setOnClickListener {
-            val price = binding.alarmPriceET.text.toString()
-            val token = PreferenceManager.getString(this,"fcmToken")
-            liveDate_alarm.addAlarm(price,id,coin_name,token!!)
+            val size = liveDate_alarm.alarms.value?.size!!
+
+            if(size == 5){
+                Toast("5개 이하의 알림만 등록가능합니다.")
+            }else{
+                val price = binding.alarmPriceET.text.toString()
+                val token = PreferenceManager.getString(this,"fcmToken")
+                liveDate_alarm.addAlarm(price,id,coin_name,token!!)
+            }
+
         }
 
         binding.resetBtn.setOnClickListener {

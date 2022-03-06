@@ -30,8 +30,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
 
-        //todo notifiation은 background
-        //todo data는 bacground,forground 따라서 data로 보내줘야겠는데, 방식이 어떤지 알아봐야겠다. , 그리고 테스트기기를 사용해서 테스트해봐야겠음.
+        // notifiation은 background
+        // data는 bacground,forground 따라서 data로 보내줘야겠는데, 방식이 어떤지 알아봐야겠다. , 그리고 테스트기기를 사용해서 테스트해봐야겠음.
         val title = remoteMessage.data["title"]
         val body = remoteMessage.data["body"]
 //        val title = remoteMessage.notification?.title
@@ -89,7 +89,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
 
         val notificationBuilder = NotificationCompat.Builder(this, channel)
-             .setSmallIcon(R.drawable.ic__goodupcomment_post)
+            .setSmallIcon(R.drawable.ic__goodupcomment_post)
             .setContentTitle(title)
             .setContentText(body)
             .setAutoCancel(true)

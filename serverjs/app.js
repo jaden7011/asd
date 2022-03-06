@@ -498,11 +498,12 @@ function alarm(){
                 var pk = element['pk']
                 var closing_price = parseFloat(coinMap[coin]['closing_price'])
     
-                var s = (price - (price/1))
-                var e = (price + (price/1))
+                var s = (price - (price*0.01))
+                var e = (price + (price*0.01))
     
                 if(s <= closing_price && closing_price <= e){
                     //send fcm here
+                    console.log(s,closing_price,e)
                     sendFcm(coin,closing_price,token,pk)
                 }
          

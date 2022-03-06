@@ -21,7 +21,7 @@ object fcm {
                 }
                 val json = JSONObject().run {
                     put("priority", "high")
-                    put("notification", dataJson)
+                    put("data", dataJson)
                     put("to", token)
                 }
 
