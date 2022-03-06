@@ -37,7 +37,6 @@ class AlarmActivity : AppCompatActivity() {
     private val TAG = "Alarm Act"
     private val activity = this
     lateinit var liveDate_alarm: LiveData_Alarms
-    var alarms = ArrayList<Alarm>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +46,14 @@ class AlarmActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     fun setView() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_alarm)
-
+        Toolbar()
         getTicker()
 
         liveDate_alarm =
             ViewModelProvider(this, LiveData_Alarms.Factory(this))[LiveData_Alarms::class.java]
         liveDate_alarm.run {
             onCreate()
-//            getAlarms(id,coin_name)
+            getAlarms(id,coin_name)
         }
         liveDate_alarm.alarms.observe(this, Observer {
             liveDate_alarm.adapter.alarms = it
@@ -81,6 +80,7 @@ class AlarmActivity : AppCompatActivity() {
 
         binding.resetBtn.setOnClickListener {
             getTicker()
+            liveDate_alarm.getAlarms(id,coin_name)
         }
     }
 
@@ -120,6 +120,7 @@ class AlarmActivity : AppCompatActivity() {
     }
 
     fun Toolbar() {
+        toolbar = findViewById(R.id.toolbar_alarm)
         setSupportActionBar(toolbar)
         val actionBar: ActionBar? = supportActionBar
         actionBar?.run {
@@ -132,5 +133,9 @@ class AlarmActivity : AppCompatActivity() {
         toolbar.title = "알림설정"
         toolbar.titleMarginStart = 3
         toolbar.setTitleTextColor(Color.WHITE)
+    }
+
+    fun Toast(str: String) {
+        android.widget.Toast.makeText(this, str, android.widget.Toast.LENGTH_SHORT).show();
     }
 }

@@ -49,7 +49,7 @@ class BoardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_board)
-        toolbar = findViewById(R.id.toolbar_board)
+
         Toolbar()
         MobileAds.initialize(this)
         binding.ads.run {
@@ -64,6 +64,7 @@ class BoardActivity : AppCompatActivity() {
     }
 
     fun Toolbar() {
+        toolbar = findViewById(R.id.toolbar_board)
         setSupportActionBar(toolbar)
         val actionBar: ActionBar? = supportActionBar
         actionBar?.run {

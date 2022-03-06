@@ -32,7 +32,6 @@ class AlarmAdapter(
         val holder = AlarmHolder(view)
 
         holder.deleteBtn.setOnClickListener {
-            //todo activity에 livedata를 사용해서 제거
             val alarm = alarms[holder.absoluteAdapterPosition]
             (activity as AlarmActivity).liveDate_alarm.delAlarm(alarm.price,alarm.id,alarm.coin)
         }

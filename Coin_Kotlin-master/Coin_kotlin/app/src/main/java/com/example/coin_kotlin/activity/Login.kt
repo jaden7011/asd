@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.databinding.ActivityLoginBinding
-import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.NetworkStatus
@@ -19,13 +18,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.function.Consumer
 
 class Login : AppCompatActivity() {
 
@@ -101,7 +94,7 @@ class Login : AppCompatActivity() {
                     for (i in 0..1)
                         tag += uid[i]
                     PreferenceManager.setString(this,"id",uid)
-                    GetSetUser(uid, "$nickname (#$tag)", mail)
+                    getSetUser(uid, "$nickname (#$tag)", mail)
                 } else {
                     Log.e(TAG, "signInWithCredential: failure: " + task.result)
                 }
@@ -111,17 +104,8 @@ class Login : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         //todo 자동로그인 시에도 토큰 확인하자
-        auth.uid?.let { id ->
-            CoroutineScope(Dispatchers.Main).launch {
-                try {
-                    val user = Repository.getUser(id)
-                    if(user.result)
-                        startActivity()
-                }catch (e:Exception){
-                    Log.e(TAG, "onStart in failed: " + e.message)
-                    Toast("로그인에 실패했습니다.")
-                }
-            }
+        auth.currentUser?.let {
+            getSetUser(it.uid,it.displayName?:"익명",it.email?:"이메일없음")
         }
     }
 
@@ -137,7 +121,7 @@ class Login : AppCompatActivity() {
         finish()
     }
 
-    fun GetSetUser(
+    fun getSetUser(
         id: String,
         nickname: String,
         mail: String
@@ -150,6 +134,7 @@ class Login : AppCompatActivity() {
                 val token = getToken()
                 val dbToken = user.token
                 val result = user.result
+                Log.e(TAG,"userToken: $dbToken , preferToken: $token")
 
                 if(result){//이미 가입된 정보가 있는 경우
                     if(dbToken != token) { //다른 기기로 접속해서 아이디는 있으나 토큰이 새로 들어온 경우 토큰이 다를 때
@@ -157,9 +142,12 @@ class Login : AppCompatActivity() {
                         val apply = Repository.updateToken(id,token)
                         Toast(apply.msg)
                         startActivity()
-                    }else
+                    }else{
+                        Log.e(TAG,"token same")
                         startActivity()
+                    }
                 }else{
+                    Log.e(TAG,"first login")
                     val apply = Repository.setUser(id, nickname, mail, token)
                     Toast(apply.msg)
                     startActivity()
@@ -169,122 +157,7 @@ class Login : AppCompatActivity() {
                 Toast("로그인에 실패했습니다.")
             }
         }
-
-//        Repository.getUser(id)
-//            .doOnError {
-//                Log.e(TAG, "onStart in failed: " + it.message)
-//                Toast("로그인에 실패했습니다.")
-//            }
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribeOn(Schedulers.io())
-//            .subscribe { user ->
-//                val token = getToken()
-//                val dbToken = user.token
-//                val result = user.result
-//
-//                if(result){//이미 가입된 정보가 있는 경우
-//                    if(dbToken != token){ //다른 기기로 접속해서 아이디는 있으나 토큰이 새로 들어온 경우 토큰이 다를 때
-//                        Log.e(TAG,"token different")
-//                        Repository.updateToken(id,token).enqueue(object : Callback<User>{
-//                            override fun onResponse(call: Call<User>, response: Response<User>) {
-//                                if (response.isSuccessful && response.body() != null)
-//                                    Toast(response.body()!!.msg)
-//                                startActivity()
-//                            }
-//                            override fun onFailure(call: Call<User>, t: Throwable) {
-//                                Log.e(TAG, "updateToken in failed: " + t.message)
-//                            }
-//                        })
-//
-//                    }else{// 토큰에 문제 없으면 바로 진행
-//                        Log.e(TAG,"token same")
-//                        startActivity()
-//                    }
-//                }else{ //처음 로그인
-//                    Log.e(TAG,"first login")
-//                    Repository.setUser(id, nickname, mail, token).enqueue(object : Callback<User>{
-//                        override fun onResponse(call: Call<User>, response: Response<User>) {
-//                            if (response.isSuccessful && response.body() != null)
-//                                Toast(response.body()!!.msg)
-//                            startActivity()
-//                        }
-//                        override fun onFailure(call: Call<User>, t: Throwable) {
-//                            Log.e(TAG, "onStart in failed: " + t.message)
-//                            Toast("로그인에 실패했습니다.")
-//                        }
-//
-//                    })
-//                }
-//            }
-
-//        Repository.getUser(id).enqueue(object : Callback<User> {
-//            override fun onResponse(call: Call<User>, response: Response<User>) {
-//                if (response.isSuccessful && response.body() != null) {
-//                    val user = response.body()
-//                    val token = getToken()
-//                    val dbToken = user?.token
-//
-//                    if (response.body()!!.result) { //이미 가입된 정보가 있는 경우
-//                        Log.e(TAG,"token: $token\ndbToken: $dbToken")
-//
-//                        if(dbToken != token){ //다른 기기로 접속해서 아이디는 있으나 토큰이 새로 들어온 경우 토큰이 다를 때
-//                            Log.e(TAG,"token different")
-//                            CoroutineScope(Dispatchers.IO).launch {
-//                                updateToken(id,token).await()
-//                            }
-//                        }else{// 토큰에 문제 없으면 바로 진행
-//                            Log.e(TAG,"token same")
-//                            startActivity()
-//                        }
-//                    } else {// 처음이라면 db에 정보 입력
-//                        Log.e(TAG,"first login")
-//                        CoroutineScope(Dispatchers.IO).launch {
-//                            setUser(id,nickname,mail,token).await()
-//                        }
-//                    }
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<User>, t: Throwable) {
-//                Log.e("onFailure", "onFailure: " + t.message)
-//            }
-//        })
     }
-
-//    fun setUser(id:String,nickname: String,mail: String,token: String): Deferred<Unit> {
-//        return CoroutineScope(Dispatchers.IO).async {
-//            Repository.setUser(id, nickname, mail, getToken()).enqueue(object : Callback<User> {
-//                override fun onResponse(call: Call<User>, response: Response<User>) {
-//                    if (response.isSuccessful && response.body() != null) {
-//                        if (response.body()!!.result) {
-//                            Toast(response.body()!!.msg)
-//                            startActivity()
-//                        } else {
-//                            Toast("로그인에 실패하였습니다.")
-//                        }
-//                    }
-//                }
-//
-//                override fun onFailure(call: Call<User>, t: Throwable) {
-//                    Log.e("onFailure", "onFailure: " + t.message)
-//                    Toast("onFailure")
-//                }
-//            })
-//        }
-//    }
-
-//    fun updateToken(id: String, token: String): Deferred<Unit> {
-//        return CoroutineScope(Dispatchers.IO).async {
-//            Repository.updateToken(id, token).enqueue(object : Callback<User>{
-//                override fun onResponse(call: Call<User>, response: Response<User>) {
-//                    Toast(response.body()!!.msg)
-//                    Log.e("updateToken","")
-//                    startActivity()
-//                }
-//                override fun onFailure(call: Call<User>, t: Throwable) {Log.e("updateToken","err: ${t.message}")}
-//            })
-//        }
-//    }
 
     fun getToken(): String{
         val token = PreferenceManager.getString(this,"fcmToken")

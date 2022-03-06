@@ -31,7 +31,6 @@
 
         <service
             android:name=".model.MyFirebaseMessagingService"
-            android:directBootAware="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

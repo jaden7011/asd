@@ -46,7 +46,8 @@ class LiveData_Alarms(
         checkNetWork()
 
         viewModelScope.launch {
-            Repository.addAlarm(price, id, coin, token)
+            val apply = Repository.addAlarm(price, id, coin, token)
+            activity.Toast(apply.msg?:"실패했습니다.")
             getAlarms(id,coin)
         }
 

@@ -3,7 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var axios = require('axios')
 var admin = require('firebase-admin')
-let serviceAccont = require('/Users/ujoohan/Desktop/coinApp/serverjs/coinner-cbf34-firebase-adminsdk-acvke-cf5f0674cf.json')
+let serviceAccont = require('/home/ubuntu/coinner-cbf34-firebase-adminsdk-acvke-cf5f0674cf.json')
 var app = express();
 
 admin.initializeApp({
@@ -40,7 +40,7 @@ app.post('/user/alarm/add',function(req,res){
     query(sql,params)
     .then(result => {
         res.json({
-            mgs:"등록되었습니다."
+            msg:"등록되었습니다."
         })
     })
     .catch(err => {
@@ -59,7 +59,7 @@ app.post('/user/alarm/delete',function(req,res){
     query(sql,params)
     .then(result => {
         res.json({
-            mgs:"삭제되었습니다."
+            msg:"삭제되었습니다."
         })
     })
     .catch(err => {
@@ -74,7 +74,7 @@ app.post('/user/alarm',function(req,res){
     var params = [id, coin]
     query(sql,params)
     .then(result => {
-        res.json(result)
+        res.json({result})
     })
     .catch(err => {
         console.log(err)
@@ -498,10 +498,10 @@ function alarm(){
                 var pk = element['pk']
                 var closing_price = parseFloat(coinMap[coin]['closing_price'])
     
-                var s = (price - (price/3))
-                var e = (price + (price/3))
+                var s = (price - (price/1))
+                var e = (price + (price/1))
     
-                if(s <= closing_price && e >= closing_price){
+                if(s <= closing_price && closing_price <= e){
                     //send fcm here
                     sendFcm(coin,closing_price,token,pk)
                 }
@@ -519,6 +519,10 @@ function sendFcm(coin,price,token,pk){
 
     let message = {
         notification:{
+            title: coin+"이 설정한 가격에 도달하였습니다.",
+            body: coin+": "+price
+        },
+        data:{
             title: coin+"이 설정한 가격에 도달하였습니다.",
             body: coin+": "+price
         },
