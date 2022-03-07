@@ -63,13 +63,13 @@ class AlarmActivity : AppCompatActivity() {
 
         binding.upBtn.setOnClickListener {
             var price = binding.alarmPriceET.text.toString().toDouble()
-            price += price * 0.03
+            price += price * 0.01
             binding.alarmPriceET.setText(String.format("%.2f", price))
         }
 
         binding.downBtn.setOnClickListener {
             var price = binding.alarmPriceET.text.toString().toDouble()
-            price -= price * 0.03
+            price -= price * 0.01
             binding.alarmPriceET.setText(String.format("%.2f", price))
         }
 

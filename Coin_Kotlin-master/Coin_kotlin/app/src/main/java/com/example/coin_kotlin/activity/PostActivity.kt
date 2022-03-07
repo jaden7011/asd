@@ -60,7 +60,6 @@ class PostActivity : AppCompatActivity() {
         setView(this)
 
         binding.AddCommentBtn.setOnClickListener {
-
             auth?.run {
                 val content = binding.AddCommentT.text.toString()
                 val commentid = post.postid + Date().time

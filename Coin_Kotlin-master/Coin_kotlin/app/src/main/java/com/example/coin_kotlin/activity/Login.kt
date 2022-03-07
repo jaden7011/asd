@@ -107,25 +107,15 @@ class Login : AppCompatActivity() {
         super.onStart()
         //todo 자동로그인 시에도 토큰 확인하자
         auth.currentUser?.let {
-            getSetUser(it.uid,it.displayName?:"익명",it.email?:"이메일없음",MainActivity::class.java,null)
+            getSetUser(
+                it.uid,
+                it.displayName ?: "익명",
+                it.email ?: "이메일없음",
+                MainActivity::class.java,
+                null
+            )
         }
     }
-
-//    override fun onNewIntent(intent: Intent?) {
-//        super.onNewIntent(intent)
-//
-//        try{
-//            val psuhIntent = getIntent()
-//            val post = psuhIntent.getParcelableExtra<Post>("post")
-//            if(post != null){
-//                auth.currentUser?.let {
-//                    getSetUser(it.uid,it.displayName?:"익명",it.email?:"이메일없음",PostActivity::class.java,post)
-//                }
-//            }
-//        } catch (e:Exception){
-//            Log.e(TAG,e.message+"")
-//        }
-//    }
 
     private fun logout() {
         val opt = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()

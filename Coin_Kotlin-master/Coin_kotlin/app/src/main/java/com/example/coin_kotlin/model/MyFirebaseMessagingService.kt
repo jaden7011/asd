@@ -52,7 +52,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     @SuppressLint("UnspecifiedImmutableFlag")
     fun sendNotification(title: String, body: String,post:Post?) {
         val intent = Intent(this, MainActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             if(post != null) {
                 putExtras(Bundle().apply {
                     putParcelable("fcmPost", post) })
@@ -95,14 +95,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         )
     }
 
-
     fun saveToken(newToken: String) {
         val originToken = PreferenceManager.getString(this, "fcmToken")
 
         if (originToken != newToken)
             PreferenceManager.setString(this, "fcmToken", newToken)
     }
-
 
     override fun onNewToken(newtToken: String) {
         Log.e(TAG,newtToken)

@@ -42,7 +42,7 @@
             android:value="@string/default_notification_channel_id" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_launcher_foreground" />
+            android:resource="@drawable/ic_favorite" />
         <!--
  Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more.
@@ -72,7 +72,6 @@
             android:exported="true" />
         <activity
             android:name=".activity.Login"
-            android:launchMode="singleInstance"
             android:exported="true" />
         <activity
             android:name=".infoactivity.InfoActivity"
@@ -83,7 +82,7 @@
             android:exported="true" />
         <activity
             android:name=".activity.PostActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTop"
             android:exported="true" />
         <activity
             android:name=".activity.WriteActivity"
@@ -93,7 +92,7 @@
             android:exported="true" />
         <activity
             android:name=".activity.MainActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTop"
             android:exported="true" />
     </application>
 

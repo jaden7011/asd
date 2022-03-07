@@ -2,12 +2,14 @@ package com.example.coin_kotlin.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Process.myPid
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -41,6 +43,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -58,7 +61,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-
         val fcmPost = intent?.getParcelableExtra<Post>("fcmPost")
         Log.e(TAG,"onNewIntent: $fcmPost")
 
@@ -368,9 +370,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (System.currentTimeMillis() <= backKeyPressedTime + 1500) {
             //아래 3줄은 프로세스 종료
 //            moveTaskToBack(true)
-//            Process.killProcess(Process.myPid())
-//            System.exit(1)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+//            android.os.Process.killProcess(android.os.Process.myPid())
+//            exitProcess(1)
             finish()
         }
     }
