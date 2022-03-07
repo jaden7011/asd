@@ -15,14 +15,15 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="131dp"
-            android:layout_height="107dp"
+            android:layout_width="350dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toTopOf="@+id/login_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_delete" />
+            app:srcCompat="@drawable/asd" />
 
         <LinearLayout
             android:id="@+id/login_btn"
@@ -39,10 +40,9 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1.1"
                 android:background="@color/white"
-                android:src="@drawable/googleg_standard_color_18"
-                android:layout_weight="1"
-                />
+                android:src="@drawable/googleg_standard_color_18" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -50,7 +50,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="구글 로그인"
-                android:textSize="13sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
 
@@ -61,7 +61,10 @@
             android:id="@+id/out_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/classicBlue"
+            android:text="로그인 없이 시작"
+            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.52"

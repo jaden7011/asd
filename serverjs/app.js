@@ -27,7 +27,7 @@ var connection = mysql.createConnection({
 
 setInterval(() => {
     alarm()
-},3000)
+},10000)
 
 app.post('/user/alarm/add',function(req,res){
     var price = req.body.price
@@ -504,8 +504,8 @@ function alarm(){
                 return await query(token_sql,id)
                 .then(result => {
                     var token = result[0].token
-                    var s = (price - (price*0.01))
-                    var e = (price + (price*0.01))
+                    var s = (price - (price*0.005))
+                    var e = (price + (price*0.005))
         
                     if(s <= closing_price && closing_price <= e){
                         //send fcm here
