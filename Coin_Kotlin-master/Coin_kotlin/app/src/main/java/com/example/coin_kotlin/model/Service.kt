@@ -168,8 +168,7 @@ interface Service {
     suspend fun addAlarm(
         @Field("price") price: String,
         @Field("id") id:String,
-        @Field("coin") coin:String,
-        @Field("token") token:String
+        @Field("coin") coin:String
     ): Alarm
 
     @FormUrlEncoded

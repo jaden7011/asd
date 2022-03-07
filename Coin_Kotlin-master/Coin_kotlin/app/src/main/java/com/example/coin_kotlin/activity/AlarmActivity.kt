@@ -80,10 +80,8 @@ class AlarmActivity : AppCompatActivity() {
                 Toast("5개 이하의 알림만 등록가능합니다.")
             }else{
                 val price = binding.alarmPriceET.text.toString()
-                val token = PreferenceManager.getString(this,"fcmToken")
-                liveDate_alarm.addAlarm(price,id,coin_name,token!!)
+                liveDate_alarm.addAlarm(price,id,coin_name)
             }
-
         }
 
         binding.resetBtn.setOnClickListener {

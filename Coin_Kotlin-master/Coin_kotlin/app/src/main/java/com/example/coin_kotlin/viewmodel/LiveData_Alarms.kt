@@ -42,11 +42,11 @@ class LiveData_Alarms(
         utility.RecyclerInit("VERTICAL")
     }
 
-    fun addAlarm(price:String,id:String,coin:String,token:String){
+    fun addAlarm(price:String,id:String,coin:String){
         checkNetWork()
 
         viewModelScope.launch {
-            val apply = Repository.addAlarm(price, id, coin, token)
+            val apply = Repository.addAlarm(price, id, coin)
             activity.Toast(apply.msg?:"실패했습니다.")
             getAlarms(id,coin)
         }

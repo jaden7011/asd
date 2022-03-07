@@ -33,10 +33,9 @@ app.post('/user/alarm/add',function(req,res){
     var price = req.body.price
     var coin = req.body.coin
     var id = req.body.id
-    var token = req.body.token
 
-    var sql = 'INSERT INTO alarm (price,coin,id,token) VALUES (?, ?, ?, ?)'
-    var params = [price,coin,id,token]
+    var sql = 'INSERT INTO alarm (price,coin,id) VALUES (?, ?, ?)'
+    var params = [price,coin,id]
     query(sql,params)
     .then(result => {
         res.json({
@@ -484,34 +483,38 @@ function alarm(){
     axios.get('https://api.bithumb.com/public/ticker/ALL')
     .then(result => {
         var coinMap = result['data']['data']
-        var sql = 'SELECT * FROM alarm'
-    
-        query(sql)
+        var select_sql = 'SELECT * FROM alarm'
+
+        query(select_sql)
         .then(result => {
-            // console.log(result)
             var aramList = result
-    
-            aramList.forEach(element => {
+            loop(aramList)
+        })
+
+        const loop = async (list) => {
+            const promises = list.map(async element => {
+                var id = element['id']
                 var price = parseFloat(element['price'])
-                var token = element['token']
                 var coin = element['coin']
                 var pk = element['pk']
                 var closing_price = parseFloat(coinMap[coin]['closing_price'])
-    
-                var s = (price - (price*0.01))
-                var e = (price + (price*0.01))
-    
-                if(s <= closing_price && closing_price <= e){
-                    //send fcm here
-                    console.log(s,closing_price,e)
-                    sendFcm(coin,closing_price,token,pk)
-                }
-         
-            });
-        })
-        .catch(err => {
-            console.log(err)
-        })
+
+                var token_sql = "SELECT token FROM user WHERE id =?"
+                
+                return await query(token_sql,id)
+                .then(result => {
+                    var token = result[0].token
+                    var s = (price - (price*0.01))
+                    var e = (price + (price*0.01))
+        
+                    if(s <= closing_price && closing_price <= e){
+                        //send fcm here
+                        console.log(pk)
+                        sendFcm(coin,closing_price,token,pk)
+                    }
+                })
+            })
+        }
     })
     .catch(err => {console.log(err)})
 }

@@ -13,9 +13,6 @@ data class Alarm(
     @SerializedName("id")
     @Expose
     val id:String,
-    @SerializedName("token")
-    @Expose
-    val token:String,
     @SerializedName("pk")
     @Expose
     val pk: Int,

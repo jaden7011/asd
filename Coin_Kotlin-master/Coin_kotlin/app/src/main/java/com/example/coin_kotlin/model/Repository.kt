@@ -190,13 +190,12 @@ object Repository {
     suspend fun addAlarm(
         price: String,
         id:String,
-        coin:String,
-        token:String
+        coin:String
     ): Alarm {
         return RetrofitFactory
             .createRetrofit(ec2_URL)
             .create(Service::class.java)
-            .addAlarm(price, id, coin, token)
+            .addAlarm(price, id, coin)
     }
 
     suspend fun delAlarm(
