@@ -40,6 +40,9 @@ android {
 }
 
 dependencies {
+    //ripple
+    implementation 'com.balysv:material-ripple:1.0.2'
+
     //mpchart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 

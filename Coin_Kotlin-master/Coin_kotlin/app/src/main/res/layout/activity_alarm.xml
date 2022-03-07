@@ -97,33 +97,62 @@
                 android:gravity="right"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/resetBtn"
+                <com.balysv.materialripple.MaterialRippleLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_reset" />
+                    app:mrl_rippleDuration="250"
+                    app:mrl_rippleOverlay="true">
 
+                    <ImageButton
+                        android:id="@+id/resetBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_reset" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:mrl_rippleDuration="250"
+                    app:mrl_rippleOverlay="true">
                 <ImageButton
                     android:id="@+id/upBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/ic_upward" />
+                </com.balysv.materialripple.MaterialRippleLayout>
 
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:mrl_rippleDuration="250"
+                    app:mrl_rippleOverlay="true">
                 <ImageButton
                     android:id="@+id/downBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/ic_downward" />
+                </com.balysv.materialripple.MaterialRippleLayout>
 
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:mrl_rippleDuration="250"
+                    app:mrl_rippleOverlay="true">
                 <ImageButton
                     android:id="@+id/addBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/ic_add" />
+                </com.balysv.materialripple.MaterialRippleLayout>
             </LinearLayout>
 
             <TextView

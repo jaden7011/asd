@@ -75,7 +75,7 @@ class BoardActivity : AppCompatActivity() {
 //            setLogo(bitmapDrawable)
         }
 
-        toolbar.setTitle(coin_name)
+        toolbar.title = coin_name
         toolbar.titleMarginStart = 3
         toolbar.setTitleTextColor(Color.WHITE)
     }
