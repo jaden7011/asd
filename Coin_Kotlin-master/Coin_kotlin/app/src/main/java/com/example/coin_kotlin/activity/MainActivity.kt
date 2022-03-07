@@ -59,6 +59,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
 
+        val fcmPost = intent?.getParcelableExtra<Post>("fcmPost")
+        Log.e(TAG,"onNewIntent: $fcmPost")
+
+        if(fcmPost != null){
+            startActivity(Intent(this,PostActivity::class.java).apply {
+                putExtra("fcmPost",fcmPost)
+            })
+        }
     }
 
     override fun onResume() {
@@ -108,7 +116,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        startFcmPost()
 
         liveData_tickerMap =
             ViewModelProvider(
@@ -132,6 +140,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun setView() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         if (PreferenceManager.getBoolean(this, SETTING_FAVORIT)) {
             binding.favoritBtn.background =
@@ -215,7 +224,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
             }
         }
+    }
 
+    private fun startFcmPost(){
+        val fcmPost = intent.extras?.getParcelable<Post>("fcmPost")
+        Log.e(TAG,"fcmPost: $fcmPost")
+        if(fcmPost != null){
+            startActivity(Intent(this,PostActivity::class.java).apply {
+                putExtra("fcmPost",fcmPost)
+            })
+        }
     }
 
     private fun Sort(arr: ArrayList<Ticker>): ArrayList<Ticker> { // 가져온 data를 거래금액 순으로 정렬해줍니다.

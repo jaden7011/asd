@@ -34,7 +34,7 @@ class PostActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         Log.e(TAG,"onNewIntent")
         try{
-            val fcmPost = getIntent().extras?.getParcelable<Post>("fcmPost")
+            val fcmPost = intent?.getParcelableExtra<Post>("fcmPost")
             if(fcmPost != null){
                 post = fcmPost
                 setView(this)
@@ -115,14 +115,13 @@ class PostActivity : AppCompatActivity() {
 
     fun setFcmPost(){
         val fcmPost = intent.extras?.getParcelable<Post>("fcmPost")
-        Log.e(TAG,"fcmpPost: $fcmPost")
+        Log.e(TAG,"fcmPost: $fcmPost")
         if(fcmPost != null){
             post = fcmPost
         }else{
             post = intent.extras?.getParcelable<Post>("post")!!
             Log.e(TAG,"post: $post")
         }
-
     }
 
     fun toolbar() {

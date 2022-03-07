@@ -16,6 +16,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.Login
+import com.example.coin_kotlin.activity.MainActivity
 import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.info.Post
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -50,16 +51,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("UnspecifiedImmutableFlag")
     fun sendNotification(title: String, body: String,post:Post?) {
-        val intent = Intent(this, PostActivity::class.java).apply {
-            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        val intent = Intent(this, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             if(post != null) {
-//                putExtras(Bundle().apply {
-//                    putParcelable("fcmPost", post) })
-                putExtra("fcmPost",post)
+                putExtras(Bundle().apply {
+                    putParcelable("fcmPost", post) })
+//                putExtra("fcmPost",post)
             }
         }
         val pendingIntent = PendingIntent.getActivity(this, 0, intent,
-            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             //MUTABLE을 사용하면 새로운 액티비티가 실행되면서 인텐트가 새로운 액티비티의 클래스 인텐트로 교체되므로 IMMUTALE해야함
             //FLAG_UPDATE_CURRENT 사용해야 인텐트 안에 번들이 정확하게 들어감
         )
