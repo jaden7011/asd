@@ -19,6 +19,7 @@ import com.example.coin_kotlin.adapter.CoinAdapter
 import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.databinding.ActivityMainBinding
+import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.infoactivity.InfoActivity
 import com.example.coin_kotlin.model.PreferenceManager
@@ -52,7 +53,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var adapter: CoinAdapter
     private var thread_all: NetworkThread? = null
     private var thread_search: NetworkThread? = null
+    lateinit var post:Post
     private val TAG = "MainActivity"
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+    }
 
     override fun onResume() {
         super.onResume()

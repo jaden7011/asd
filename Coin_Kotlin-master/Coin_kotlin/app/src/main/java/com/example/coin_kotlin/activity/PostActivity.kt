@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
@@ -16,8 +17,6 @@ import com.example.coin_kotlin.R
 import com.example.coin_kotlin.admob.MyApplication
 import com.example.coin_kotlin.databinding.ActivityPostBinding
 import com.example.coin_kotlin.info.Post
-import com.example.coin_kotlin.model.PreferenceManager
-import com.example.coin_kotlin.utility.Named.CHANGED
 import com.example.coin_kotlin.utility.Named.POSTACTIVITY
 import com.example.coin_kotlin.viewmodel.LiveData_Comments
 import com.google.firebase.auth.FirebaseAuth
@@ -27,13 +26,27 @@ class PostActivity : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance().currentUser
     lateinit var binding: ActivityPostBinding
-    val post: Post by lazy {
-        intent.extras?.getParcelable<Post>("post")!!
-    }
+    lateinit var post:Post
     lateinit var livedataComment: LiveData_Comments
+    private val TAG = "PostActivity"
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        Log.e(TAG,"onNewIntent")
+        try{
+            val fcmPost = getIntent().extras?.getParcelable<Post>("fcmPost")
+            if(fcmPost != null){
+                post = fcmPost
+                setView(this)
+            }
+        } catch (e:Exception){
+            Log.e(TAG,e.message+"")
+        }
+    }
 
     override fun onRestart() {
         super.onRestart()
+        Log.e(TAG,"onRestart")
         (application as MyApplication).getAdManager().run {
             if (isTimetoAd)
                 showAdIfAvailable()
@@ -42,9 +55,8 @@ class PostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPostBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+        Log.e(TAG,"onCreate")
+        setFcmPost()
         setView(this)
 
         binding.AddCommentBtn.setOnClickListener {
@@ -71,7 +83,9 @@ class PostActivity : AppCompatActivity() {
         }
     }
 
-    fun setView(activity: PostActivity) {
+    private fun setView(activity: PostActivity) {
+        binding = ActivityPostBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val user = FirebaseAuth.getInstance().currentUser
 
         if (user == null) {
@@ -80,7 +94,7 @@ class PostActivity : AppCompatActivity() {
                 isEnabled = false
                 background = ContextCompat.getDrawable(activity, R.drawable.corner_dark)
                 setHintTextColor(ContextCompat.getColor(activity, R.color.white))
-                setHint(" 로그인이 필요합니다.")
+                hint = " 로그인이 필요합니다."
             }
         }
 
@@ -97,6 +111,18 @@ class PostActivity : AppCompatActivity() {
                 textclear()
             })
         }
+    }
+
+    fun setFcmPost(){
+        val fcmPost = intent.extras?.getParcelable<Post>("fcmPost")
+        Log.e(TAG,"fcmpPost: $fcmPost")
+        if(fcmPost != null){
+            post = fcmPost
+        }else{
+            post = intent.extras?.getParcelable<Post>("post")!!
+            Log.e(TAG,"post: $post")
+        }
+
     }
 
     fun toolbar() {

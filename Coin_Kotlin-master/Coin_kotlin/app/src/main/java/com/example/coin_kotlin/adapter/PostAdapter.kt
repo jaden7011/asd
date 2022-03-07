@@ -46,7 +46,7 @@ class PostAdapter(
 
         view.setOnClickListener {
             activity.startActivityForResult(Intent(activity,PostActivity::class.java).apply {
-                    this.putExtra("post",posts[holder.absoluteAdapterPosition])
+                    putExtra("post",posts[holder.absoluteAdapterPosition])
                 }, POSTACTIVITY)
         }
 

@@ -1,6 +1,8 @@
 package com.example.coin_kotlin.model
 
 import android.util.Log
+import com.example.coin_kotlin.info.Post
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,17 +13,19 @@ import java.io.IOException
 object fcm {
     val JSON = MediaType.parse("application/json; charset=utf-8")
 
-    suspend fun sendNotification(token: String, title: String, message: String){
+    suspend fun sendNotification(token: String, title: String, message: String,post:Post){
         withContext(CoroutineScope(Dispatchers.IO).coroutineContext) {
             try {
                 val client = OkHttpClient()
                 val dataJson = JSONObject().run {
                     put("title", title)
                     put("body", message)
+                    put("fcmPost",Gson().toJson(post))
                 }
                 val json = JSONObject().run {
                     put("priority", "high")
                     put("data", dataJson)
+                    put("notification:",dataJson)
                     put("to", token)
                 }
 

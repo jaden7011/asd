@@ -122,7 +122,8 @@ class LiveData_Comments(
                         c.dateFormate_for_layout = Time_to_String(c.createdat)
                     }
                     comments.value = commentList.commentlist
-                    fcm.sendNotification(postuser.token,"댓글이 달렸어요!",content)
+                    if(uid != postuser.id)
+                        fcm.sendNotification(postuser.token,"댓글이 달렸어요!",content,post)
                     loadingvisible(false)
                 }else{
                     if (msg != null) {

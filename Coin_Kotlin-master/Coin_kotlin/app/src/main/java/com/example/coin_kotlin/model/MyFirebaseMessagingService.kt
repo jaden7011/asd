@@ -10,13 +10,17 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.Login
+import com.example.coin_kotlin.activity.PostActivity
+import com.example.coin_kotlin.info.Post
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,42 +38,31 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         // data는 bacground,forground 따라서 data로 보내줘야겠는데, 방식이 어떤지 알아봐야겠다. , 그리고 테스트기기를 사용해서 테스트해봐야겠음.
         val title = remoteMessage.data["title"]
         val body = remoteMessage.data["body"]
-//        val title = remoteMessage.notification?.title
-//        val body = remoteMessage.notification?.body
-        Log.e(TAG,"title: $title  body: $body")
+        val post = Gson().fromJson(remoteMessage.data["fcmPost"],Post::class.java)
+        Log.e(TAG,"title: $title  body: $body fcmPost: $post")
         if (!title.isNullOrEmpty() && !body.isNullOrEmpty())
-            sendNotification(title,body)
-    }
-
-    override fun onNewToken(newtToken: String) {
-        Log.e(TAG,newtToken)
-        val id = PreferenceManager.getString(this,"id")
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                if(id != null)
-                    Repository.updateToken(id,newtToken)
-                saveToken(newtToken)
-            }catch (e:Exception){
-                Log.e(TAG,e.message+"")
-            }
-        }
-    }
-
-    fun saveToken(newToken: String) {
-        val originToken = PreferenceManager.getString(this, "fcmToken")
-
-        if (originToken != newToken)
-            PreferenceManager.setString(this, "fcmToken", newToken)
+            if(post == null)
+                sendNotification(title,body,null)
+            else
+                sendNotification(title,body,post)
     }
 
     @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("UnspecifiedImmutableFlag")
-    fun sendNotification(title: String, body: String) {
-        val intent = Intent(this, Login::class.java).run {
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    fun sendNotification(title: String, body: String,post:Post?) {
+        val intent = Intent(this, PostActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            if(post != null) {
+//                putExtras(Bundle().apply {
+//                    putParcelable("fcmPost", post) })
+                putExtra("fcmPost",post)
+            }
         }
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+            //MUTABLE을 사용하면 새로운 액티비티가 실행되면서 인텐트가 새로운 액티비티의 클래스 인텐트로 교체되므로 IMMUTALE해야함
+            //FLAG_UPDATE_CURRENT 사용해야 인텐트 안에 번들이 정확하게 들어감
+        )
         val channel = getString(R.string.default_notification_channel_id)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationManager =
@@ -89,7 +82,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
 
         val notificationBuilder = NotificationCompat.Builder(this, channel)
-            .setSmallIcon(R.drawable.ic__goodupcomment_post)
+            .setSmallIcon(R.drawable.ic_autorenew)
             .setContentTitle(title)
             .setContentText(body)
             .setAutoCancel(true)
@@ -99,5 +92,29 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         notificationManager.notify(
             Calendar.getInstance().timeInMillis.toInt(), notificationBuilder.build()
         )
+    }
+
+
+    fun saveToken(newToken: String) {
+        val originToken = PreferenceManager.getString(this, "fcmToken")
+
+        if (originToken != newToken)
+            PreferenceManager.setString(this, "fcmToken", newToken)
+    }
+
+
+    override fun onNewToken(newtToken: String) {
+        Log.e(TAG,newtToken)
+        val id = PreferenceManager.getString(this,"id")
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                if(id != null)
+                    Repository.updateToken(id,newtToken)
+                saveToken(newtToken)
+            }catch (e:Exception){
+                Log.e(TAG,e.message+"")
+            }
+        }
     }
 }

@@ -62,36 +62,38 @@
         </activity>
         <activity
             android:name=".infoactivity.MypostActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".infoactivity.ChangeNicknameActivity"
-            android:exported="false"
+            android:exported="true"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
             android:name=".infoactivity.InfoActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.Login"
-            android:exported="false" />
+            android:launchMode="singleInstance"
+            android:exported="true" />
         <activity
             android:name=".infoactivity.InfoActivity"
-            android:exported="false"
+            android:exported="true"
             tools:ignore="DuplicateActivity" />
         <activity
             android:name=".activity.SearchActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.PostActivity"
-            android:exported="false" />
+            android:launchMode="singleInstance"
+            android:exported="true" />
         <activity
             android:name=".activity.WriteActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.BoardActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".activity.MainActivity"
-            android:exported="false" />
+            android:exported="true" />
     </application>
 
 </manifest>

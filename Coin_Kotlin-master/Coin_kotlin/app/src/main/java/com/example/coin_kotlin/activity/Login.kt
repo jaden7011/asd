@@ -1,6 +1,7 @@
 package com.example.coin_kotlin.activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.databinding.ActivityLoginBinding
+import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.NetworkStatus
@@ -46,7 +48,7 @@ class Login : AppCompatActivity() {
 
         binding.outBtn.setOnClickListener {
 //            logout()
-            startActivity()
+            startActivity(MainActivity::class.java,null)
         }
     }
 
@@ -94,7 +96,7 @@ class Login : AppCompatActivity() {
                     for (i in 0..1)
                         tag += uid[i]
                     PreferenceManager.setString(this,"id",uid)
-                    getSetUser(uid, "$nickname (#$tag)", mail)
+                    getSetUser(uid, "$nickname (#$tag)", mail,MainActivity::class.java,null)
                 } else {
                     Log.e(TAG, "signInWithCredential: failure: " + task.result)
                 }
@@ -105,9 +107,25 @@ class Login : AppCompatActivity() {
         super.onStart()
         //todo 자동로그인 시에도 토큰 확인하자
         auth.currentUser?.let {
-            getSetUser(it.uid,it.displayName?:"익명",it.email?:"이메일없음")
+            getSetUser(it.uid,it.displayName?:"익명",it.email?:"이메일없음",MainActivity::class.java,null)
         }
     }
+
+//    override fun onNewIntent(intent: Intent?) {
+//        super.onNewIntent(intent)
+//
+//        try{
+//            val psuhIntent = getIntent()
+//            val post = psuhIntent.getParcelableExtra<Post>("post")
+//            if(post != null){
+//                auth.currentUser?.let {
+//                    getSetUser(it.uid,it.displayName?:"익명",it.email?:"이메일없음",PostActivity::class.java,post)
+//                }
+//            }
+//        } catch (e:Exception){
+//            Log.e(TAG,e.message+"")
+//        }
+//    }
 
     private fun logout() {
         val opt = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).build()
@@ -115,16 +133,29 @@ class Login : AppCompatActivity() {
         client.signOut()
     }
 
-    private fun startActivity() {
+    private fun startActivity(activity: Class<*>,post:Post?) {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        startActivity(Intent(this, MainActivity::class.java))
+        when(activity){
+            MainActivity::class.java -> {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+
+            PostActivity::class.java -> {
+                startActivity(Intent(this, PostActivity::class.java).apply {
+                    if(post != null)
+                     this.putExtra("post",post)
+                })
+            }
+        }
         finish()
     }
 
     fun getSetUser(
         id: String,
         nickname: String,
-        mail: String
+        mail: String,
+        activity: Class<*>,
+        post:Post?
     ) {
         checkNetWork()
 
@@ -141,16 +172,16 @@ class Login : AppCompatActivity() {
                         Log.e(TAG,"token different")
                         val apply = Repository.updateToken(id,token)
                         Toast(apply.msg)
-                        startActivity()
+                        startActivity(activity,post)
                     }else{
                         Log.e(TAG,"token same")
-                        startActivity()
+                        startActivity(activity,post)
                     }
                 }else{
                     Log.e(TAG,"first login")
                     val apply = Repository.setUser(id, nickname, mail, token)
                     Toast(apply.msg)
-                    startActivity()
+                    startActivity(activity,post)
                 }
             }catch (e:Exception){
                 Log.e(TAG, "onStart in failed: " + e.message)
