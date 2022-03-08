@@ -522,10 +522,10 @@ function alarm(){
 function sendFcm(coin,price,token,pk){
 
     let message = {
-        notification:{
-            title: coin+"이 설정한 가격에 도달하였습니다.",
-            body: coin+": "+price
-        },
+        // notification:{
+        //     title: coin+"이 설정한 가격에 도달하였습니다.",
+        //     body: coin+": "+price
+        // },
         data:{
             title: coin+"이 설정한 가격에 도달하였습니다.",
             body: coin+": "+price

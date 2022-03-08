@@ -68,6 +68,10 @@ class InfoActivity : AppCompatActivity() {
         binding.withdraw.setOnClickListener {
             withdrawDialog()
         }
+
+        binding.appNotificationT.setOnClickListener {
+            startActivity(Intent(this, AlarmSettingActivity::class.java))
+        }
     }
 
     private fun withdrawDialog() {

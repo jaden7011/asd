@@ -34,17 +34,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     @RequiresApi(Build.VERSION_CODES.S)
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-
         // notifiation은 background
         // data는 bacground,forground 따라서 data로 보내줘야겠는데, 방식이 어떤지 알아봐야겠다. , 그리고 테스트기기를 사용해서 테스트해봐야겠음.
+        // 결론: noti, noti+data, data 세 경우로 나뉘는데 data만 보내면 백그라운드에서도 onmessagereceived를 거치게 되고 나머진 아님.
         val title = remoteMessage.data["title"]
         val body = remoteMessage.data["body"]
         val post = Gson().fromJson(remoteMessage.data["fcmPost"],Post::class.java)
         Log.e(TAG,"title: $title  body: $body fcmPost: $post")
+        Log.e(TAG,"post: $postNoti coin: $coinNoti")
+
         if (!title.isNullOrEmpty() && !body.isNullOrEmpty())
-            if(post == null)
+            if(post == null && coinNoti) //코인시세 알림
                 sendNotification(title,body,null)
-            else
+            else if(post != null && postNoti)//댓글 달린경우
                 sendNotification(title,body,post)
     }
 
@@ -116,4 +118,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
         }
     }
+
+    private val allNoti: Boolean
+        get() = PreferenceManager.getNoti(this,"allNoti")
+
+    private val postNoti: Boolean
+        get() = PreferenceManager.getNoti(this,"postNoti")
+
+    private val coinNoti: Boolean
+        get() = PreferenceManager.getNoti(this,"coinNoti")
 }

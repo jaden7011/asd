@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Coin_kotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".infoactivity.AlarmSettingActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.AlarmActivity"
             android:exported="false" />
 
@@ -82,8 +85,8 @@
             android:exported="true" />
         <activity
             android:name=".activity.PostActivity"
-            android:launchMode="singleTop"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTop" />
         <activity
             android:name=".activity.WriteActivity"
             android:exported="true" />
@@ -92,8 +95,8 @@
             android:exported="true" />
         <activity
             android:name=".activity.MainActivity"
-            android:launchMode="singleTop"
-            android:exported="true" />
+            android:exported="true"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

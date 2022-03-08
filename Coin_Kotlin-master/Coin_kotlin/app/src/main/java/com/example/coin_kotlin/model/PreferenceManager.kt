@@ -45,11 +45,23 @@ object PreferenceManager {
         return getPreferences(context).getBoolean(key,false)
     }
 
+    fun getNoti(context: Context, key:String): Boolean { //setting에 같이 쓰고 싶었는데 기본을 true로 놓아야해서 따로 만듬
+        val pre = context.getSharedPreferences("NOTIFICATION",Context.MODE_PRIVATE)
+        return pre.getBoolean(key,true)
+    }
+
+    @SuppressLint("CommitPrefEdits")
+    fun setNoti(context: Context, key:String, value:Boolean) {
+        val pre = context.getSharedPreferences("NOTIFICATION",Context.MODE_PRIVATE)
+        pre.edit().putBoolean(key,value).apply()
+    }
+
     fun getInt(context: Context, key:String): Int {
         return getPreferences(context).getInt(key,-1)
     }
 
-    fun removeSetElement(context: Context,key:String,value:String){
+    @SuppressLint("MutatingSharedPrefs")
+    fun removeSetElement(context: Context, key:String, value:String){
         val set = getPreferences(context).getStringSet(key,HashSet<String>())
         set?.remove(value)
         getPreferences(context).edit().putStringSet(key,set).apply()
