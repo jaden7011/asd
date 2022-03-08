@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "900857055162-9l0h986npim0ir68ndo4s42tcq7ul07t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.coin_kotlin",
+            "certificate_hash": "e441d6a845182c288d49f33467049913597951be"
+          }
+        },
+        {
           "client_id": "900857055162-ecmpiesm6p3qidvs907i8khg36pvbo8o.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -15,9 +15,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.example.coin_kotlin.R
-import com.example.coin_kotlin.activity.Login
 import com.example.coin_kotlin.activity.MainActivity
-import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.info.Post
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage

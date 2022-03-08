@@ -22,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.*
 
-class Login : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "LoginActivity"

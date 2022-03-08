@@ -1,16 +1,13 @@
 package com.example.coin_kotlin.infoactivity
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.databinding.DataBindingUtil
 import com.example.coin_kotlin.R
-import com.example.coin_kotlin.activity.Login
-import com.example.coin_kotlin.admob.MyApplication
+import com.example.coin_kotlin.activity.LoginActivity
 import com.example.coin_kotlin.databinding.ActivityInfoBinding
 import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.model.Repository
@@ -20,10 +17,6 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.ktx.Firebase
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.functions.Consumer
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -188,7 +181,7 @@ class InfoActivity : AppCompatActivity() {
     }
 
     fun loginActivity() {
-        startActivity(Intent(this, Login::class.java).run {
+        startActivity(Intent(this, LoginActivity::class.java).run {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         })
     }

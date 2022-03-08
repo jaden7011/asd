@@ -2,14 +2,12 @@ package com.example.coin_kotlin.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Process.myPid
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -43,7 +41,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -319,6 +316,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     val client = GoogleSignIn.getClient(this, opt)
                     client.signOut()
                     auth.signOut()
+                    startActivity(Intent(this,LoginActivity::class.java))
+                    finish()
                 } else {
                     Toast("로그인이 되어있지 않습니다.")
                 }
@@ -350,7 +349,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun loginActivity() {
-        startActivity(Intent(this, Login::class.java).run {
+        startActivity(Intent(this, LoginActivity::class.java).run {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         })
     }

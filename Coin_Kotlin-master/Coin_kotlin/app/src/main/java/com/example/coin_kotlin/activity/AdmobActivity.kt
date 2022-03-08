@@ -76,7 +76,7 @@ class AdmobActivity : AppCompatActivity() {
     }
 
     fun launchMainActivity() {
-        startActivity(Intent(this, Login::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 
