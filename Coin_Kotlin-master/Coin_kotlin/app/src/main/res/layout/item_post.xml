@@ -52,6 +52,7 @@
                     android:layout_marginBottom="3dp"
                     android:maxLines="1"
                     android:text="TextView"
+                    android:textColor="@color/black"
                     android:textSize="12.5sp" />
 
             </LinearLayout>
@@ -69,6 +70,7 @@
                     android:layout_marginStart="2dp"
                     android:maxLines="1"
                     android:text="TextView"
+                    android:textColor="@color/black"
                     android:textSize="10sp" />
 
                 <TextView

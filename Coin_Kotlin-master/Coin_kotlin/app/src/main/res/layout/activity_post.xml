@@ -92,7 +92,7 @@
                                 android:layout_height="wrap_content"
                                 android:gravity="start|center_vertical"
                                 android:text="@{Post.nickname}"
-                                android:textColor="@color/maincolor"
+                                android:textColor="@color/black"
                                 android:textSize="15.5sp"
                                 android:textStyle="bold" />
 
@@ -101,6 +101,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="@{Post.dateFormate_for_layout}"
+                                android:textColor="@color/night"
                                 android:textSize="12sp" />
 
                         </LinearLayout>
@@ -133,6 +134,7 @@
                                     android:layout_weight="1"
                                     android:gravity="left|center_vertical"
                                     android:text="좋아요"
+                                    android:textColor="@color/black"
                                     android:textSize="12sp" />
                             </LinearLayout>
                         </FrameLayout>
