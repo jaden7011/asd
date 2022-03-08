@@ -240,6 +240,7 @@ app.post('/post/search', function (req, res) {
     .then(result => {
         if(result.length === 0)
             res.json({
+                result:result,
                 issuccess:false,
                 msg:"찾는 게시물이 없습니다."
             })

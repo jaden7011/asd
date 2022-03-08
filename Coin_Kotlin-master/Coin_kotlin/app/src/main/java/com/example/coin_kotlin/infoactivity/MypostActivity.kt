@@ -2,6 +2,7 @@ package com.example.coin_kotlin.infoactivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -55,7 +56,18 @@ class MypostActivity : AppCompatActivity() {
         livedataPosts =
             ViewModelProvider(this, LiveData_Posts.Factory(this))[LiveData_Posts::class.java]
         livedataPosts.posts.observe(this, Observer {
-            livedataPosts.adapter.PostDiffUtil(it)
+            if(it.isNotEmpty() && it != null){
+                binding.run {
+                    myPostRecyclerView.visibility = View.VISIBLE
+                    nothingSearch.root.visibility = View.GONE
+                    livedataPosts.adapter.PostDiffUtil(it)
+                }
+            }else{
+                binding.run {
+                    myPostRecyclerView.visibility = View.GONE
+                    nothingSearch.root.visibility = View.VISIBLE
+                }
+            }
         })
     }
 

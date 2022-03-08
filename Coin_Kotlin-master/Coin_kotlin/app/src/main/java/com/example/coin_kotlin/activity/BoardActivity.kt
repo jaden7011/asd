@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -59,7 +60,18 @@ class BoardActivity : AppCompatActivity() {
             ViewModelProvider(this, LiveData_Posts.Factory(this))[LiveData_Posts::class.java]
         livedataPostinfo.Get_Candle_Posts(coin_name)
         livedataPostinfo.posts.observe(this, Observer {
-            livedataPostinfo.adapter.PostDiffUtil(it)
+            if(it.isNotEmpty() && it != null){
+                binding.run {
+                    BoardRecycler.visibility = View.VISIBLE
+                    nothing.root.visibility = View.GONE
+                    livedataPostinfo.adapter.PostDiffUtil(it)
+                }
+            }else{
+                binding.run {
+                    BoardRecycler.visibility = View.GONE
+                    nothing.root.visibility = View.VISIBLE
+                }
+            }
         })
     }
 

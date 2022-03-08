@@ -11,9 +11,10 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_mypost"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:theme="@style/ToolBarTheme"
+            app:layout_constraintBottom_toTopOf="@id/ads"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -33,25 +34,35 @@
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/ads"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:adSize="BANNER"
             app:adUnitId="@string/banner"
-            app:layout_constraintBottom_toTopOf="@+id/mypostRecyclerView"
+            app:layout_constraintBottom_toTopOf="@+id/nothingSearch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar_mypost">
-
         </com.google.android.gms.ads.AdView>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mypostRecyclerView"
+        <include
+            android:id="@+id/nothingSearch"
+            layout="@layout/view_nothing_search"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/myPostRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ads" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/myPostRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nothingSearch" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

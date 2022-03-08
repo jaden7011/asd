@@ -60,7 +60,7 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
 
             is MypostActivity -> {
                 adapter = PostAdapter(activity, ArrayList())
-                val utility = Utility(activity, activity.binding.mypostRecyclerView, adapter)
+                val utility = Utility(activity, activity.binding.myPostRecyclerView, adapter)
                 utility.RecyclerInit("VERTICAL")
             }
         }
@@ -110,7 +110,6 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
                             )
                         }
                     }
-
                     override fun onFailure(call: Call<PostList>, t: Throwable) {
                         Log.e("getPostList onfail", "err: " + t.message)
                     }
@@ -137,6 +136,7 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
                         posts.value = response.body()!!.postList
                         Toast(msg)
                     } else {
+                        posts.value = response.body()!!.postList
                         Toast(msg)
                     }
                 } else {

@@ -43,17 +43,40 @@
                 android:textColorHighlight="@color/classicBlue"
                 android:textColorHint="@color/night_white"
                 android:textColorLink="@color/classicBlue" />
-
         </LinearLayout>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/ads"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:adSize="BANNER"
+            app:adUnitId="@string/banner"
+            app:layout_constraintBottom_toTopOf="@+id/nothingSearch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_layout">
+        </com.google.android.gms.ads.AdView>
+
+        <include
+            android:id="@+id/nothingSearch"
+            layout="@layout/view_nothing_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/searchRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ads" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/search_layout" />
+            app:layout_constraintTop_toBottomOf="@id/nothingSearch" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

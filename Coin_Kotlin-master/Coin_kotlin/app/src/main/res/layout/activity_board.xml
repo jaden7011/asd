@@ -93,25 +93,36 @@
             android:layout_height="170dp"
             android:background="@color/night"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@id/Board_Recycler"
+            app:layout_constraintBottom_toTopOf="@id/nothing"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/displayLayout"
             app:layout_constraintVertical_weight="1" />
 
-        <androidx.recyclerview.widget.RecyclerView
-
-            android:id="@+id/Board_Recycler"
+        <include
+            android:id="@+id/nothing"
+            layout="@layout/view_nothing"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@id/ads"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/Board_Recycler"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/priceChart" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Board_Recycler"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/ads"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nothing" />
+
         <com.google.android.gms.ads.AdView
             android:id="@+id/ads"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:adSize="BANNER"
             app:adUnitId="@string/banner"
