@@ -22,6 +22,7 @@ import com.example.coin_kotlin.databinding.ActivityMainBinding
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.infoactivity.InfoActivity
+import com.example.coin_kotlin.infoactivity.PolicyActivity
 import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.Named.FAVORIT_LIST
@@ -336,12 +337,21 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             R.id.item_private -> {
+                startActivity(Intent(this,PolicyActivity::class.java).apply {
+                    putExtra("policy","private")
+                })
             }
 
             R.id.item_policy -> {
+                startActivity(Intent(this,PolicyActivity::class.java).apply {
+                    putExtra("policy","policy")
+                })
             }
 
             R.id.item_source -> {
+                startActivity(Intent(this,PolicyActivity::class.java).apply {
+                    putExtra("policy","source")
+                })
             }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.END)
