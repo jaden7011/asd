@@ -96,9 +96,9 @@ class BoardActivity : AppCompatActivity() {
         val menuitem = menu?.findItem(R.id.toolbar_board_addfavorit)
 
         if (!PreferenceManager.getStringSet(this, FAVORIT_LIST)!!.contains(coin_name))
-            menuitem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_unfavorite)
+            menuitem?.icon = ContextCompat.getDrawable(this, R.drawable.x)
         else
-            menuitem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite)
+            menuitem?.icon = ContextCompat.getDrawable(this, R.drawable.o)
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -122,10 +122,10 @@ class BoardActivity : AppCompatActivity() {
 
             R.id.toolbar_board_addfavorit -> {
                 if (!PreferenceManager.getStringSet(this, FAVORIT_LIST)!!.contains(coin_name)) {
-                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite)
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.o)
                     PreferenceManager.setStringSet(this, FAVORIT_LIST, coin_name)
                 } else {
-                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_unfavorite)
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.x)
                     PreferenceManager.removeSetElement(this, FAVORIT_LIST, coin_name)
                 }
             }

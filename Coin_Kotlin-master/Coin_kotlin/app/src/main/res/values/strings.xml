@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Coin_kotlin</string>
+    <string name="app_name">Coinner</string>
     <string name="default_notification_channel_id">default_channel</string>
     <string name="banner">ca-app-pub-2931857165077003/1321734659</string>
     <string name="adKey">ca-app-pub-2931857165077003~4700036026</string>

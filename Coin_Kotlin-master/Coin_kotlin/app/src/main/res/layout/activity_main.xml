@@ -66,22 +66,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:mrl_rippleDuration="250"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/search_ET"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:mrl_rippleDuration="250"
                     app:mrl_rippleOverlay="true">
-                <ImageButton
-                    android:id="@+id/favorit_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:layout_marginEnd="5dp"
-                    android:padding="18dp"
-                    android:text="Button"
-                    android:visibility="visible"
-                     />
+
+                    <ImageView
+                        android:id="@+id/favorit_btn"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:padding="15dp"
+                        android:text="Button"
+                        android:visibility="visible" />
                 </com.balysv.materialripple.MaterialRippleLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 

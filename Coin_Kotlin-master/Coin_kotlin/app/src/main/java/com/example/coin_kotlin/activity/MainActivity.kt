@@ -143,10 +143,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         if (PreferenceManager.getBoolean(this, SETTING_FAVORIT)) {
             binding.favoritBtn.background =
-                ContextCompat.getDrawable(this, R.drawable.ic_favorite)
+                ContextCompat.getDrawable(this, R.drawable.o)
         } else {
             binding.favoritBtn.background =
-                ContextCompat.getDrawable(this, R.drawable.ic_unfavorite)
+                ContextCompat.getDrawable(this, R.drawable.x)
         }
 
         binding.favoritBtn.setOnClickListener {
@@ -157,12 +157,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ) { //관심목록만 보기 설정이 되어있다면 -> 클릭시 -> 관심목록보기 제거
                 PreferenceManager.setBoolean(this, SETTING_FAVORIT, false)
                 binding.favoritBtn.background =
-                    ContextCompat.getDrawable(this, R.drawable.ic_unfavorite)
+                    ContextCompat.getDrawable(this, R.drawable.x)
                 Set_threads(binding.searchET.text.toString(), false)
             } else {
                 PreferenceManager.setBoolean(this, SETTING_FAVORIT, true)
                 binding.favoritBtn.background =
-                    ContextCompat.getDrawable(this, R.drawable.ic_favorite)
+                    ContextCompat.getDrawable(this, R.drawable.o)
                 Set_threads(binding.searchET.text.toString(), true)
             }
         }
