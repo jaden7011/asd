@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.activity.MainActivity
+import com.example.coin_kotlin.data.NameMap
 import com.example.coin_kotlin.data.Ticker
 import com.example.coin_kotlin.data.Ticker_Response
 import com.example.coin_kotlin.model.Repository
@@ -34,6 +35,7 @@ class LiveData_TickerMap(val activity: MainActivity):ViewModel(){
         MutableLiveData<ArrayList<Ticker>>()
     }
     val single: Single<Ticker_Response> = Repository.get_Ticker("ALL")
+    private val TAG = "LiveData_TickerMap"
 
     fun Get_API(search_str:String, favoritSet:HashSet<String>?){
 
@@ -75,12 +77,13 @@ class LiveData_TickerMap(val activity: MainActivity):ViewModel(){
 
                 for(entry in it.data){
 
-                    val name = entry.key!!
-                    val obj = entry.value!!
+                    val name = entry.key!! //ex) ETH,BTC
+                    val obj = entry.value!! //ticker
+                    val ko_name = NameMap.nameEn_To_Ko[name]?:name
 
-                    if(favoritSet != null){ //전체목록을 볼 때
+                    if(favoritSet != null){ //관심목록을 볼 때
                         if(name != "date" && favoritSet.contains(name)){ //api 마지막에 껴있는 불필요한 정보 date 제외,관심목록에 있는 데이터만
-                            if( (search_str.length >= 2 && name.contains(search_str,ignoreCase = true))
+                            if( (search_str.length >= 2 && (name.contains(search_str,ignoreCase = true)|| ko_name.contains(search_str)))
                                     || search_str.isEmpty()){
 
                                 val gson = Gson()
@@ -92,9 +95,9 @@ class LiveData_TickerMap(val activity: MainActivity):ViewModel(){
                                 arr.add(ticker)
                             }
                         }
-                    }else{ //관심목록을 볼 때
+                    }else{ //전체목록을 볼 때
                         if(name != "date"){ //api 마지막에 껴있는 불필요한 정보 date 제외
-                            if( (search_str.length >= 2 && name.contains(search_str,ignoreCase = true))
+                            if( (search_str.length >= 2 && (name.contains(search_str,ignoreCase = true)|| ko_name.contains(search_str)))
                                     || search_str.isEmpty()){
 
                                 val gson = Gson()

@@ -331,7 +331,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 loginActivity()
             }
 
-            //todo navi drawal 메뉴들 구현해줘야함
             R.id.item_info -> {
                 startActivity(Intent(this, InfoActivity::class.java))
             }
@@ -360,7 +359,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    fun loginActivity() {
+    private fun loginActivity() {
         startActivity(Intent(this, LoginActivity::class.java).run {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         })

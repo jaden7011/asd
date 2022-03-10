@@ -212,7 +212,7 @@ class CoinAdapter (
         @SuppressLint("SetTextI18n")
         fun bind(item: Ticker){
 
-            Name.text = NameMap.Name_map.getOrDefault(item.name,item.name)
+            Name.text = NameMap.nameEn_To_Ko.getOrDefault(item.name,item.name)
             Name_sub.text = item.sub_name
             Rate.text = item.fluctate_rate_24H + "%"
             Price.text = item.closing_price

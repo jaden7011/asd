@@ -2,7 +2,7 @@ package com.example.coin_kotlin.data
 
 object NameMap {
 
-    val Name_map : Map<String,String> = hashMapOf(
+    val nameEn_To_Ko : Map<String,String> = hashMapOf(
             "BTC" to "비트코인",
             "ETH" to "이더리움",
             "ASM" to "어셈블프로토콜",
@@ -147,11 +147,5 @@ object NameMap {
             "NMR" to "뉴메레르",
             "KSM" to "쿠사마",
             "BNT" to "뱅코르"
-
-
-
-
-
             )
-
 }
