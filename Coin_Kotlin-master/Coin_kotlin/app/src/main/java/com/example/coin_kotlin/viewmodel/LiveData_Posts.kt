@@ -15,6 +15,7 @@ import com.example.coin_kotlin.data.Candle
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.PostList
 import com.example.coin_kotlin.infoactivity.MypostActivity
+import com.example.coin_kotlin.infoactivity.NoticeActivity
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.MPchart
 import com.example.coin_kotlin.utility.Named.Time_to_String
@@ -44,7 +45,7 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
         MutableLiveData<ArrayList<Post>>()
     }
 
-    fun onCreate() {
+    fun initRecyclerView() {
         when (activity) {
             is BoardActivity -> {
                 adapter = PostAdapter(activity, ArrayList())
@@ -63,13 +64,19 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
                 val utility = Utility(activity, activity.binding.myPostRecyclerView, adapter)
                 utility.RecyclerInit("VERTICAL")
             }
+
+            is NoticeActivity -> {
+                adapter = PostAdapter(activity, ArrayList())
+                val utility = Utility(activity,activity.binding.noticeRecyclerview,adapter)
+                utility.RecyclerInit("VERTICAL")
+            }
         }
 
     }
 
     fun Get_Candle_Posts(coin: String) {
         checkNetWork()
-        onCreate()
+        initRecyclerView()
 
         Repository.get_CandleList_Single(coin)
             .subscribeOn(Schedulers.io())
@@ -134,7 +141,7 @@ class LiveData_Posts(val activity: Activity) : ViewModel() {
                             post.dateFormate_for_layout = Time_to_String(post.createdat)
                         }
                         posts.value = response.body()!!.postList
-                        Toast(msg)
+//                        Toast(msg)
                     } else {
                         posts.value = response.body()!!.postList
                         Toast(msg)

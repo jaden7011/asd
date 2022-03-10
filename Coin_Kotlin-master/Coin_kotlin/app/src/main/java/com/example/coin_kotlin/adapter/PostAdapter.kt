@@ -14,6 +14,7 @@ import com.example.coin_kotlin.R
 import com.example.coin_kotlin.activity.PostActivity
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.infoactivity.MypostActivity
+import com.example.coin_kotlin.infoactivity.NoticeActivity
 import com.example.coin_kotlin.utility.Named.HOUR
 import com.example.coin_kotlin.utility.Named.MIN
 import com.example.coin_kotlin.utility.Named.POSTACTIVITY
@@ -46,7 +47,9 @@ class PostAdapter(
 
         view.setOnClickListener {
             activity.startActivityForResult(Intent(activity,PostActivity::class.java).apply {
-                    putExtra("post",posts[holder.absoluteAdapterPosition])
+                putExtra("post",posts[holder.absoluteAdapterPosition])
+                if(activity is NoticeActivity)
+                    putExtra("notice",true)
                 }, POSTACTIVITY)
         }
 
@@ -81,7 +84,7 @@ class PostAdapter(
             commentNum.text = item.commentNum.toString()
             nicknameT.text = item.nickname
 
-            if(activity is MypostActivity){
+            if(activity is MypostActivity || activity is NoticeActivity){
                 coinNameT.visibility = View.VISIBLE
                 coinNameT.text = item.coin
             }else

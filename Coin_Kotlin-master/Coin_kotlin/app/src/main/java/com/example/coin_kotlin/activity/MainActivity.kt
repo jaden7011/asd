@@ -22,6 +22,7 @@ import com.example.coin_kotlin.databinding.ActivityMainBinding
 import com.example.coin_kotlin.info.Post
 import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.infoactivity.InfoActivity
+import com.example.coin_kotlin.infoactivity.NoticeActivity
 import com.example.coin_kotlin.infoactivity.PolicyActivity
 import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
@@ -334,6 +335,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             R.id.item_notice -> {
+                startActivity(Intent(this,NoticeActivity::class.java))
             }
 
             R.id.item_private -> {

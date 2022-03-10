@@ -9,6 +9,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
@@ -85,6 +86,12 @@ class PostActivity : AppCompatActivity() {
     private fun setView(activity: PostActivity) {
         binding = ActivityPostBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        intent.getBooleanExtra("notice",false).let {
+            if(it)
+                binding.commentFrame.visibility = View.GONE
+            else
+                binding.commentFrame.visibility = View.VISIBLE
+        }
         val user = FirebaseAuth.getInstance().currentUser
 
         if (user == null) {

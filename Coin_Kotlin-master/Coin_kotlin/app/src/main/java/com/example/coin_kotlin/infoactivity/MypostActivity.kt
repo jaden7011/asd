@@ -8,12 +8,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.coin_kotlin.R
 import com.example.coin_kotlin.admob.MyApplication
-import com.example.coin_kotlin.databinding.ActivityChangeNicknameBinding
 import com.example.coin_kotlin.databinding.ActivityMypostBinding
 import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.viewmodel.LiveData_Posts
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.MobileAds
 
 class MypostActivity : AppCompatActivity() {
@@ -33,7 +31,7 @@ class MypostActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         livedataPosts.run{
-            onCreate()
+            initRecyclerView()
             myPost(user!!.id)
         }
     }

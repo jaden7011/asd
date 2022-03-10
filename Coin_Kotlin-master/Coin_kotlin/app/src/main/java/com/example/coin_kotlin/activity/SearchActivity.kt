@@ -61,7 +61,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         livedataPostinfo = ViewModelProvider(this, LiveData_Posts.Factory(this))[LiveData_Posts::class.java]
-        livedataPostinfo.onCreate() //recyclerview adapter init
+        livedataPostinfo.initRecyclerView() //recyclerview adapter init
         livedataPostinfo.posts.observe(this, Observer {
             if(it.isNotEmpty()){
                 binding.run {
