@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Parcelize
-data class notification(
+data class Notification(
     @SerializedName("postid")
     @Expose
     val postid: String,

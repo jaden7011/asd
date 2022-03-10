@@ -18,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
             app:srcCompat="@drawable/ic_login" />
 
@@ -26,9 +25,8 @@
             android:id="@+id/login_btn"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:padding="8dp"
             android:background="@drawable/shadow_btn"
+            android:padding="8dp"
             app:layout_constraintBottom_toTopOf="@+id/out_btn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

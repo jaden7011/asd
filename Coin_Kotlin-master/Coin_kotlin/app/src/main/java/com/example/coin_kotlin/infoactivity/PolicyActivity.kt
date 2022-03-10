@@ -31,11 +31,6 @@ class PolicyActivity : AppCompatActivity() {
             "private" -> {
                 binding.policyT.text = getText(R.string.user_private)
             }
-
-            "source" -> {
-                binding.policyT.text = getText(R.string.source)
-            }
-
         }
     }
 }

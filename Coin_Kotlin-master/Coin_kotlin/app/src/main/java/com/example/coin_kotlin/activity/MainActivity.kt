@@ -1,5 +1,6 @@
 package com.example.coin_kotlin.activity
 
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,7 @@ import com.example.coin_kotlin.info.User
 import com.example.coin_kotlin.infoactivity.InfoActivity
 import com.example.coin_kotlin.infoactivity.NoticeActivity
 import com.example.coin_kotlin.infoactivity.PolicyActivity
+import com.example.coin_kotlin.infoactivity.SourceActivity
 import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.utility.Named.FAVORIT_LIST
@@ -351,9 +353,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
 
             R.id.item_source -> {
-                startActivity(Intent(this,PolicyActivity::class.java).apply {
-                    putExtra("policy","source")
-                })
+                startActivity(Intent(this,SourceActivity::class.java))
             }
         }
         binding.drawerLayout.closeDrawer(GravityCompat.END)

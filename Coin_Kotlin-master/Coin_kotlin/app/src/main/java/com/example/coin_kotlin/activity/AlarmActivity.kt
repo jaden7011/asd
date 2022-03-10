@@ -19,6 +19,7 @@ import com.example.coin_kotlin.model.PreferenceManager
 import com.example.coin_kotlin.model.Repository
 import com.example.coin_kotlin.viewmodel.LiveData_Alarms
 import com.example.coin_kotlin.viewmodel.LiveData_Posts
+import com.google.firebase.auth.FirebaseAuth
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.functions.Consumer
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -27,6 +28,7 @@ import java.math.BigDecimal
 class AlarmActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAlarmBinding
+    private val auth = FirebaseAuth.getInstance()
     private lateinit var toolbar: Toolbar
     val coin_name: String by lazy {
         intent.extras?.getString("coin_name")!!
@@ -74,6 +76,11 @@ class AlarmActivity : AppCompatActivity() {
         }
 
         binding.addBtn.setOnClickListener {
+            if(auth.currentUser == null){
+                Toast("로그인 후에 이용가능합니다.")
+                return@setOnClickListener
+            }
+
             val size = liveDate_alarm.alarms.value?.size!!
 
             if(size == 5){

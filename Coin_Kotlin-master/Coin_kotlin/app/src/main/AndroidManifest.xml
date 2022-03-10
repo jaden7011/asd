@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Coin_kotlin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".infoactivity.SourceActivity"
+            android:exported="false" />
+        <activity
             android:name=".infoactivity.NoticeActivity"
             android:exported="false" />
         <activity

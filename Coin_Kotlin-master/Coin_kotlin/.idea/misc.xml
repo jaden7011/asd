@@ -28,15 +28,17 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_mypost.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_notice.xml" value="0.2911458333333333" />
-        <entry key="app/src/main/res/layout/activity_policy.xml" value="0.27375122428991183" />
+        <entry key="app/src/main/res/layout/activity_policy.xml" value="0.19780608634111818" />
         <entry key="app/src/main/res/layout/activity_post.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_source.xml" value="0.2830269345874305" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.2759259259259259" />
         <entry key="app/src/main/res/layout/activity_write.xml" value="0.2864583333333333" />
         <entry key="app/src/main/res/layout/item_alarm.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_coin.xml" value="0.2212962962962963" />
         <entry key="app/src/main/res/layout/item_comments.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_source.xml" value="0.25" />
         <entry key="app/src/main/res/layout/mpchart_items.xml" value="0.2640625" />
         <entry key="app/src/main/res/layout/toolbar_board.xml" value="0.2" />
         <entry key="app/src/main/res/layout/toolbar_writepost.xml" value="0.2640625" />

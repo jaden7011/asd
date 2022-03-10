@@ -185,6 +185,4 @@ interface Service {
         @Field("id") id:String,
         @Field("coin") coin:String,
     ): AlarmList
-
-
 }

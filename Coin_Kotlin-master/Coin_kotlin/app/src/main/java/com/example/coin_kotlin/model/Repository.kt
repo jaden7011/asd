@@ -218,5 +218,4 @@ object Repository {
             .create(Service::class.java)
             .getAlarms(id, coin)
     }
-
 }
