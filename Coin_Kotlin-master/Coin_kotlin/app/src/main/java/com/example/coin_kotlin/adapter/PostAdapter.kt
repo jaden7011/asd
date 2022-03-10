@@ -52,7 +52,6 @@ class PostAdapter(
                     putExtra("notice",true)
                 }, POSTACTIVITY)
         }
-
         return holder
     }
 
