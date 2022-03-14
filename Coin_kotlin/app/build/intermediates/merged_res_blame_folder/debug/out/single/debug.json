@@ -1,0 +1,354 @@
+[
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic__goodupcomment_post.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic__goodupcomment_post.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_board.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_board.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_back_button.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_back_button.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_corner_dark.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/corner_dark.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_icon.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_icon.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic__485477009_like_78561.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic__485477009_like_78561.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/menu_toolbar_menu.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/menu/toolbar_menu.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/menu_otherspost_menu.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/menu/otherspost_menu.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/menu_navi_usermenu.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/menu/navi_usermenu.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_cursor_edittext.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/cursor_edittext.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_source.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_source.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_info.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_info.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_underline_blue.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/underline_blue.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_search.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_search.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_comment_send_post.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_comment_send_post.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_alarm.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_alarm.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_admob.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_admob.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_logo.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/logo.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_add.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_add.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_favorite.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_favorite.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_notice.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_notice.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_item_coin.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_coin.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_upward.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_upward.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_reset.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_reset.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_o.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/o.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_item_source.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_source.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_policy.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_policy.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_get_outline.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/get_outline.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_write_btn.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_write_btn.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_search.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_search.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_underline_red.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/underline_red.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_change_nickname.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_change_nickname.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable-v24/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_downward.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_downward.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/anim_adbtn.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/anim/adbtn.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_mpchart_items.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/mpchart_items.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_autorenew.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_autorenew.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_toolbar_writepost.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/toolbar_writepost.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/menu_navi_guestmenu.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/menu/navi_guestmenu.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_shadow_btn.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/shadow_btn.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_item_comments.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_comments.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_write.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_write.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_view_nothing.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/view_nothing.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_mypost.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_mypost.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_commentnum_post.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_commentnum_post.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_drawer_header.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/drawer_header.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_main.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_notificaion.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_notificaion.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/menu_mypost_menu.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/menu/mypost_menu.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_post.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_post.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_corner.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/corner.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_corner_gray.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/corner_gray.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_outline_under_night.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/outline_under_night.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_toolbar_board.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/toolbar_board.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_unfavorite.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_unfavorite.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_view_nothing_search.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/view_nothing_search.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_alarm_setting.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_alarm_setting.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_awkward.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/awkward.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_item_post.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_post.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_get_outline_rec.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/get_outline_rec.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_get_outlline_top.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/get_outlline_top.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_activity_login.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_login.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_outline_under.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/outline_under.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_person_24.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_person_24.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_menu_button.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_menu_button.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_x.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/x.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_item_alarm.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_alarm.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/layout_view_loader.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/view_loader.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_minus.xml.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_minus.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_kitty.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_kitty.png"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/merged_res/debug/drawable_ic_login.png.flat",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/drawable/ic_login.png"
+    }
+]

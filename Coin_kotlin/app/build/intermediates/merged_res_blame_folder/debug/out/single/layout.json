@@ -1,0 +1,110 @@
+[
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/item_source.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_source.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/view_nothing_search.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/view_nothing_search.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_admob.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_admob.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/drawer_header.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/drawer_header.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_mypost.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_mypost.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_search.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_search.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_main.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/item_alarm.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_alarm.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/item_coin.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_coin.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_write.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_write.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_source.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_source.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/mpchart_items.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/mpchart_items.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_alarm_setting.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_alarm_setting.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/toolbar_writepost.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/toolbar_writepost.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/item_post.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_post.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_change_nickname.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_change_nickname.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/item_comments.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/item_comments.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_notice.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_notice.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/view_nothing.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/view_nothing.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_alarm.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_alarm.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_login.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_login.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_board.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_board.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/view_loader.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/view_loader.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_info.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_info.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_policy.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_policy.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/activity_post.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/activity_post.xml"
+    },
+    {
+        "merged": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/stripped.dir/layout/toolbar_board.xml",
+        "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/layout/toolbar_board.xml"
+    }
+]
