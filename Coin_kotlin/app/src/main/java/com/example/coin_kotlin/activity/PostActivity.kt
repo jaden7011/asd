@@ -165,7 +165,7 @@ class PostActivity : AppCompatActivity() {
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     item.isEnabled = true
-                }, 1000)
+                }, 2000)
             }
         }
         return super.onOptionsItemSelected(item)

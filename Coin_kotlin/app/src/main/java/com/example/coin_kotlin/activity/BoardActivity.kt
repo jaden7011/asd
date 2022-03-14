@@ -3,6 +3,8 @@ package com.example.coin_kotlin.activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -137,8 +139,14 @@ class BoardActivity : AppCompatActivity() {
             }
 
             R.id.toolbar_board_reset -> {
+                item.isEnabled = false
+
                 livedataPostinfo.Get_Candle_Posts(coin_name)
                 Toast("새로고침")
+
+                Handler(Looper.getMainLooper()).postDelayed({
+                    item.isEnabled = true
+                }, 2000)
             }
 
             R.id.toolbar_board_alarm -> {

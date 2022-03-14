@@ -32,14 +32,29 @@ class LoginActivity : AppCompatActivity() {
     val auth = FirebaseAuth.getInstance()
     lateinit var binding: ActivityLoginBinding
 
+    override fun onStart() {
+        super.onStart()
+        Handler(Looper.getMainLooper()).postDelayed({
+            auth.currentUser?.let {
+                getSetUser(
+                    it.uid,
+                    it.displayName ?: "익명",
+                    it.email ?: "이메일없음",
+                    MainActivity::class.java,
+                    null
+                )
+            }
+        }, 900)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         setView()
     }
 
     @SuppressLint("SetTextI18n")
     private fun setView() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 //        (binding.loginBtn.getChildAt(0) as TextView).text = "Google 로그인"
         binding.loginBtn.setOnClickListener {
             Log.e("onclick login", "")
@@ -76,7 +91,7 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.e(TAG, "Google sign in failed: " + e.message)
-                Toast("로그인에 실패했습니다.")
+//                Toast("로그인에 실패했습니다.")
             }
         }
     }
@@ -101,20 +116,6 @@ class LoginActivity : AppCompatActivity() {
                     Log.e(TAG, "signInWithCredential: failure: " + task.result)
                 }
             }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        //todo 자동로그인 시에도 토큰 확인하자
-        auth.currentUser?.let {
-            getSetUser(
-                it.uid,
-                it.displayName ?: "익명",
-                it.email ?: "이메일없음",
-                MainActivity::class.java,
-                null
-            )
-        }
     }
 
     private fun logout() {
