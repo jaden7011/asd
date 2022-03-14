@@ -14,7 +14,7 @@ public class ActivityLoginBindingImpl extends ActivityLoginBinding  {
     static {
         sIncludes = null;
         sViewsWithIds = new android.util.SparseIntArray();
-        sViewsWithIds.put(R.id.imageView9, 1);
+        sViewsWithIds.put(R.id.logoView, 1);
         sViewsWithIds.put(R.id.login_btn, 2);
         sViewsWithIds.put(R.id.out_btn, 3);
     }
@@ -31,8 +31,8 @@ public class ActivityLoginBindingImpl extends ActivityLoginBinding  {
     }
     private ActivityLoginBindingImpl(androidx.databinding.DataBindingComponent bindingComponent, View root, Object[] bindings) {
         super(bindingComponent, root, 0
-            , (android.widget.ImageView) bindings[1]
             , (android.widget.LinearLayout) bindings[2]
+            , (android.widget.ImageView) bindings[1]
             , (android.widget.Button) bindings[3]
             );
         this.mboundView0 = (android.widget.LinearLayout) bindings[0];

@@ -1,17 +1,17 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-night-v8/values-night-v8.xml",
+            "outputFile": "C:\\Users\\fpdlq\\Desktop\\android\\asd\\Coin_kotlin\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/src/main/res/values-night/themes.xml",
+                    "source": "C:\\Users\\fpdlq\\Desktop\\android\\asd\\Coin_kotlin\\app\\src\\main\\res\\values-night\\themes.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
-                        "startOffsets": "100",
+                        "startOffsets": "102",
                         "endLines": "14",
                         "endColumns": "12",
-                        "endOffsets": "820"
+                        "endOffsets": "834"
                     },
                     "to": {
                         "startLines": "9",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/Users/ujoohan/.gradle/caches/transforms-3/fdc49c444d02015d4e6a9178822776f0/transformed/appcompat-1.4.1/res/values-night-v8/values-night-v8.xml",
+                    "source": "C:\\Users\\fpdlq\\.gradle\\caches\\transforms-3\\fdc49c444d02015d4e6a9178822776f0\\transformed\\appcompat-1.4.1\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -40,7 +40,7 @@
                     }
                 },
                 {
-                    "source": "/Users/ujoohan/.gradle/caches/transforms-3/e39830fdd4c9f7563f3ed614cd7f3772/transformed/material-1.5.0/res/values-night-v8/values-night-v8.xml",
+                    "source": "C:\\Users\\fpdlq\\.gradle\\caches\\transforms-3\\e39830fdd4c9f7563f3ed614cd7f3772\\transformed\\material-1.5.0\\res\\values-night-v8\\values-night-v8.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

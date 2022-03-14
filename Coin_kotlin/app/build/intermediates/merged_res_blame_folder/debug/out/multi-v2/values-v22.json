@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/ujoohan/Desktop/coinner/Coin_kotlin/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v22/values-v22.xml",
+            "outputFile": "C:\\Users\\fpdlq\\Desktop\\android\\asd\\Coin_kotlin\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v22\\values-v22.xml",
             "map": [
                 {
-                    "source": "/Users/ujoohan/.gradle/caches/transforms-3/fdc49c444d02015d4e6a9178822776f0/transformed/appcompat-1.4.1/res/values-v22/values-v22.xml",
+                    "source": "C:\\Users\\fpdlq\\.gradle\\caches\\transforms-3\\fdc49c444d02015d4e6a9178822776f0\\transformed\\appcompat-1.4.1\\res\\values-v22\\values-v22.xml",
                     "from": {
                         "startLines": "2,3,4,9",
                         "startColumns": "4,4,4,4",

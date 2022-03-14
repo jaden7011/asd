@@ -1,12 +1,13 @@
 package com.example.coin_kotlin.activity
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.coin_kotlin.R
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.coroutines.*
 
+
 class LoginActivity : AppCompatActivity() {
 
     companion object {
@@ -32,8 +34,15 @@ class LoginActivity : AppCompatActivity() {
     val auth = FirebaseAuth.getInstance()
     lateinit var binding: ActivityLoginBinding
 
+    fun animateLogo(){
+        val animation: Animation =
+            AnimationUtils.loadAnimation(baseContext, R.anim.adbtn)
+        binding.logoView.startAnimation(animation)
+    }
+
     override fun onStart() {
         super.onStart()
+        animateLogo()
         Handler(Looper.getMainLooper()).postDelayed({
             auth.currentUser?.let {
                 getSetUser(
@@ -44,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
                     null
                 )
             }
-        }, 900)
+        }, 1500)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

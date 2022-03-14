@@ -17,19 +17,19 @@ import java.lang.Object;
 
 public abstract class ActivityLoginBinding extends ViewDataBinding {
   @NonNull
-  public final ImageView imageView9;
+  public final LinearLayout loginBtn;
 
   @NonNull
-  public final LinearLayout loginBtn;
+  public final ImageView logoView;
 
   @NonNull
   public final Button outBtn;
 
   protected ActivityLoginBinding(Object _bindingComponent, View _root, int _localFieldCount,
-      ImageView imageView9, LinearLayout loginBtn, Button outBtn) {
+      LinearLayout loginBtn, ImageView logoView, Button outBtn) {
     super(_bindingComponent, _root, _localFieldCount);
-    this.imageView9 = imageView9;
     this.loginBtn = loginBtn;
+    this.logoView = logoView;
     this.outBtn = outBtn;
   }
 

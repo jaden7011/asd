@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/fpdlq/Desktop/android/asd/Coin_kotlin/app/src/main/res/layout/activity_login.xml" value="0.3515625" />
         <entry key="..\:/Users/fpdlq/Desktop/android/asd/Coin_kotlin/app/src/main/res/layout/item_source.xml" value="0.33" />
+        <entry key="..\:/Users/fpdlq/Desktop/android/asd/Coin_kotlin/app/src/main/res/layout/view_nothing.xml" value="0.3515625" />
+        <entry key="..\:/Users/fpdlq/Desktop/android/asd/Coin_kotlin/app/src/main/res/layout/view_nothing_search.xml" value="0.3515625" />
         <entry key="app/src/main/res/drawable/corner.xml" value="0.1285" />
         <entry key="app/src/main/res/drawable/corner_dark.xml" value="0.235" />
         <entry key="app/src/main/res/drawable/cursor_edittext.xml" value="0.2645" />

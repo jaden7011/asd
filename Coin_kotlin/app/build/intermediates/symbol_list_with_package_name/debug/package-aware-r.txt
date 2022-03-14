@@ -2944,7 +2944,6 @@ id imageView4
 id imageView5
 id imageView6
 id imageView8
-id imageView9
 id imageView_post
 id immediateStop
 id included
@@ -2984,6 +2983,7 @@ id list_item
 id loaderLyaout
 id login_btn
 id logo
+id logoView
 id mailT
 id mail_T
 id masked
