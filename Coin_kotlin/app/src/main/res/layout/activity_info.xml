@@ -6,11 +6,11 @@
     <data>
         <variable
             name="User"
-            type="com.example.coin_kotlin.info.User" />
+            type="com.coinner.coin_kotlin.info.User" />
 
         <variable
             name="infoActivity"
-            type="com.example.coin_kotlin.infoactivity.InfoActivity" />
+            type="com.coinner.coin_kotlin.infoactivity.InfoActivity" />
     </data>
 
     <FrameLayout

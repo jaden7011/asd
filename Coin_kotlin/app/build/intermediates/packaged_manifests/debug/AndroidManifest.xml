@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.coin_kotlin"
-    android:versionCode="1"
+    package="com.coinner.coin_kotlin"
+    android:versionCode="2"
     android:versionName="1.0" >
 
     <uses-sdk
@@ -36,7 +36,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="com.example.coin_kotlin.admob.MyApplication"
+        android:name="com.coinner.coin_kotlin.admob.MyApplication"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
@@ -51,23 +51,23 @@
         android:theme="@style/Theme.Coin_kotlin"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name="com.example.coin_kotlin.infoactivity.SourceActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.SourceActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.infoactivity.NoticeActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.NoticeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.infoactivity.PolicyActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.PolicyActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.infoactivity.AlarmSettingActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.AlarmSettingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.activity.AlarmActivity"
+            android:name="com.coinner.coin_kotlin.activity.AlarmActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
@@ -80,7 +80,7 @@
             android:value="@string/adKey" />
 
         <service
-            android:name="com.example.coin_kotlin.model.MyFirebaseMessagingService"
+            android:name="com.coinner.coin_kotlin.model.MyFirebaseMessagingService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -102,7 +102,7 @@
             android:resource="@color/night" />
 
         <activity
-            android:name="com.example.coin_kotlin.activity.AdmobActivity"
+            android:name="com.coinner.coin_kotlin.activity.AdmobActivity"
             android:exported="true"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -112,45 +112,44 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.coin_kotlin.infoactivity.MypostActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.MypostActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.infoactivity.ChangeNicknameActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.ChangeNicknameActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
-            android:name="com.example.coin_kotlin.infoactivity.InfoActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.InfoActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.activity.LoginActivity"
+            android:name="com.coinner.coin_kotlin.activity.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.infoactivity.InfoActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.InfoActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.activity.SearchActivity"
+            android:name="com.coinner.coin_kotlin.activity.SearchActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.activity.PostActivity"
+            android:name="com.coinner.coin_kotlin.activity.PostActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.activity.WriteActivity"
+            android:name="com.coinner.coin_kotlin.activity.WriteActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.activity.BoardActivity"
+            android:name="com.coinner.coin_kotlin.activity.BoardActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.example.coin_kotlin.activity.MainActivity"
+            android:name="com.coinner.coin_kotlin.activity.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
@@ -275,7 +274,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.example.coin_kotlin.firebaseinitprovider"
+            android:authorities="com.coinner.coin_kotlin.firebaseinitprovider"
             android:directBootAware="true"
             android:exported="false"
             android:initOrder="100" /> <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
@@ -287,7 +286,7 @@
 
         <provider
             android:name="com.google.android.gms.ads.MobileAdsInitProvider"
-            android:authorities="com.example.coin_kotlin.mobileadsinitprovider"
+            android:authorities="com.coinner.coin_kotlin.mobileadsinitprovider"
             android:exported="false"
             android:initOrder="100" />
 
@@ -326,7 +325,7 @@
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.coin_kotlin.androidx-startup"
+            android:authorities="com.coinner.coin_kotlin.androidx-startup"
             android:exported="false" >
             <meta-data
                 android:name="androidx.work.WorkManagerInitializer"
