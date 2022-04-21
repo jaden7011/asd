@@ -98,6 +98,13 @@ object Repository {
                 .getPostList(coin)
     }
 
+    suspend fun submission(postid: String,id: String):Boolean{
+        return RetrofitFactory
+            .createRetrofit(ec2_URL)
+            .create(Service::class.java)
+            .submission(postid,id)
+    }
+
     suspend fun getPost(postid: String
     ): Post {
         return RetrofitFactory

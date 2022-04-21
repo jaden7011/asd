@@ -18,13 +18,19 @@ import com.coinner.coin_kotlin.R
 import com.coinner.coin_kotlin.admob.MyApplication
 import com.coinner.coin_kotlin.databinding.ActivityPostBinding
 import com.coinner.coin_kotlin.info.Post
+import com.coinner.coin_kotlin.model.PreferenceManager
+import com.coinner.coin_kotlin.model.Repository
 import com.coinner.coin_kotlin.utility.Named.POSTACTIVITY
 import com.coinner.coin_kotlin.viewmodel.LiveData_Comments
 import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
 class PostActivity : AppCompatActivity() {
 
+    private val activity  = this
     private val auth = FirebaseAuth.getInstance().currentUser
     lateinit var binding: ActivityPostBinding
     lateinit var post:Post
@@ -68,7 +74,7 @@ class PostActivity : AppCompatActivity() {
                 if (content.isNotEmpty()) {
                     livedataComment.addComment(auth.uid,post.postid, commentid, content)
                 }else{
-                    Toast("내용을 적어주세요.")
+                    toast("내용을 적어주세요.")
                 }
             }
         }
@@ -78,7 +84,7 @@ class PostActivity : AppCompatActivity() {
                 livedataComment.postLove(post.postid, auth?.uid!!)
             }
             else {
-                Toast("로그인 후에 이용가능합니다..")
+                toast("로그인 후에 이용가능합니다..")
             }
         }
     }
@@ -161,11 +167,21 @@ class PostActivity : AppCompatActivity() {
                 item.isEnabled = false
 
                 livedataComment.getPost(post.postid)
-                Toast("게시물을 불러옵니다.")
+                toast("게시물을 불러옵니다.")
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     item.isEnabled = true
                 }, 2000)
+            }
+
+            R.id.submission -> {
+                CoroutineScope(Dispatchers.Main).launch {
+                    val res = Repository.submission(post.postid,PreferenceManager.getString(activity,"id")!!)
+                    if(res)
+                        toast("신고되었습니다.\n(신고 누적시 관리자판단에 따라 삭제 처리됩니다.)")
+                    else
+                        toast("이미 신고하였습니다.")
+                }
             }
         }
         return super.onOptionsItemSelected(item)
@@ -187,7 +203,7 @@ class PostActivity : AppCompatActivity() {
         finish()
     }
 
-    fun Toast(str: String) {
+    fun toast(str: String) {
         android.widget.Toast.makeText(this, str, android.widget.Toast.LENGTH_SHORT).show();
     }
 

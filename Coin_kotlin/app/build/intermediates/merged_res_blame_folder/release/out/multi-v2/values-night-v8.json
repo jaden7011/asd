@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\fpdlq\\Desktop\\android\\asd\\Coin_kotlin\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "C:\\Users\\fpdlq\\Desktop\\android\\coinner\\Coin_kotlin\\app\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\fpdlq\\Desktop\\android\\asd\\Coin_kotlin\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "source": "C:\\Users\\fpdlq\\Desktop\\android\\coinner\\Coin_kotlin\\app\\src\\main\\res\\values-night\\themes.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

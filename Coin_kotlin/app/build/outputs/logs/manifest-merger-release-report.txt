@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-127:12
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-127:12
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-127:12
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-127:12
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-126:12
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-126:12
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-126:12
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-126:12
 MERGED from [androidx.databinding:databinding-adapters:7.1.1] C:\Users\fpdlq\.gradle\caches\transforms-3\4d6ada30c39daa2d66e29a0d5397bc65\transformed\databinding-adapters-7.1.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.databinding:databinding-ktx:7.1.1] C:\Users\fpdlq\.gradle\caches\transforms-3\9c0721bd5490d81fc2d802e4f959e6fd\transformed\jetified-databinding-ktx-7.1.1\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.databinding:databinding-runtime:7.1.1] C:\Users\fpdlq\.gradle\caches\transforms-3\49376e5bdac9f38f3841359afebf5a95\transformed\databinding-runtime-7.1.1\AndroidManifest.xml:17:1-24:12
@@ -109,27 +109,27 @@ MERGED from [androidx.print:print:1.0.0] C:\Users\fpdlq\.gradle\caches\transform
 MERGED from [androidx.sqlite:sqlite-framework:2.1.0] C:\Users\fpdlq\.gradle\caches\transforms-3\ed46efa46afd5b3656035aa079c63b3a\transformed\sqlite-framework-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\fpdlq\.gradle\caches\transforms-3\1cb10eb1caae05c98b52bc0148bb81dc\transformed\sqlite-2.1.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\fpdlq\.gradle\caches\transforms-3\c3c818f5c601519ed471e6d7e7cf6fe2\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-127:12
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-127:12
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-127:12
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-126:12
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-126:12
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-126:12
 	package
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:4:5-38
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:4:5-38
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-127:12
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-126:12
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
 	xmlns:tools
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:3:5-51
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-127:12
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:1-126:12
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:2:11-69
 uses-permission#android.permission.INTERNET
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:6:5-67
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:6:5-67
 MERGED from [com.google.firebase:firebase-auth:21.0.1] C:\Users\fpdlq\.gradle\caches\transforms-3\d3cce972673bab57c842d84caae42a19\transformed\jetified-firebase-auth-21.0.1\AndroidManifest.xml:23:5-67
 MERGED from [com.google.firebase:firebase-auth:21.0.1] C:\Users\fpdlq\.gradle\caches\transforms-3\d3cce972673bab57c842d84caae42a19\transformed\jetified-firebase-auth-21.0.1\AndroidManifest.xml:23:5-67
 MERGED from [com.google.android.gms:play-services-measurement-api:20.1.0] C:\Users\fpdlq\.gradle\caches\transforms-3\b1da8d6422c542de15fe66af6068cfbb\transformed\jetified-play-services-measurement-api-20.1.0\AndroidManifest.xml:22:5-67
@@ -149,9 +149,9 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:20.1.0] C:
 MERGED from [com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\fpdlq\.gradle\caches\transforms-3\63eaff033e87e35e930add8b2497a36b\transformed\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:26:5-67
 MERGED from [com.google.android.datatransport:transport-backend-cct:3.0.0] C:\Users\fpdlq\.gradle\caches\transforms-3\63eaff033e87e35e930add8b2497a36b\transformed\jetified-transport-backend-cct-3.0.0\AndroidManifest.xml:26:5-67
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:6:22-64
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:6:22-64
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:7:5-79
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:7:5-79
 MERGED from [com.google.firebase:firebase-auth:21.0.1] C:\Users\fpdlq\.gradle\caches\transforms-3\d3cce972673bab57c842d84caae42a19\transformed\jetified-firebase-auth-21.0.1\AndroidManifest.xml:24:5-79
 MERGED from [com.google.firebase:firebase-auth:21.0.1] C:\Users\fpdlq\.gradle\caches\transforms-3\d3cce972673bab57c842d84caae42a19\transformed\jetified-firebase-auth-21.0.1\AndroidManifest.xml:24:5-79
 MERGED from [com.google.firebase:firebase-messaging:23.0.0] C:\Users\fpdlq\.gradle\caches\transforms-3\aa80e437b87789e96e3f2c46c79fd1e1\transformed\jetified-firebase-messaging-23.0.0\AndroidManifest.xml:22:5-79
@@ -177,9 +177,9 @@ MERGED from [androidx.work:work-runtime:2.7.0] C:\Users\fpdlq\.gradle\caches\tra
 MERGED from [com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\fpdlq\.gradle\caches\transforms-3\2a9f38168d3cccf83953d3b991dfcfc1\transformed\jetified-transport-runtime-3.0.0\AndroidManifest.xml:22:5-79
 MERGED from [com.google.android.datatransport:transport-runtime:3.0.0] C:\Users\fpdlq\.gradle\caches\transforms-3\2a9f38168d3cccf83953d3b991dfcfc1\transformed\jetified-transport-runtime-3.0.0\AndroidManifest.xml:22:5-79
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:7:22-76
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:7:22-76
 application
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:9:5-125:19
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:9:5-124:19
 MERGED from [com.google.android.gms:play-services-oss-licenses:17.0.0] C:\Users\fpdlq\.gradle\caches\transforms-3\8cbbfc98645ef7ba9a1d31a939323848\transformed\jetified-play-services-oss-licenses-17.0.0\AndroidManifest.xml:22:5-27:19
 MERGED from [com.google.android.gms:play-services-oss-licenses:17.0.0] C:\Users\fpdlq\.gradle\caches\transforms-3\8cbbfc98645ef7ba9a1d31a939323848\transformed\jetified-play-services-oss-licenses-17.0.0\AndroidManifest.xml:22:5-27:19
 MERGED from [com.balysv:material-ripple:1.0.2] C:\Users\fpdlq\.gradle\caches\transforms-3\b626dfc357c6e3300c8a71fad51b5ce0\transformed\jetified-material-ripple-1.0.2\AndroidManifest.xml:12:5-20
@@ -269,209 +269,207 @@ MERGED from [androidx.startup:startup-runtime:1.0.0] C:\Users\fpdlq\.gradle\cach
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.7.0] C:\Users\fpdlq\.gradle\caches\transforms-3\40cc7e55a50d7233ffa5f513faf3a42d\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:17:9-35
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:17:9-35
 	android:label
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:14:9-41
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:14:9-41
 	android:hardwareAccelerated
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:12:9-44
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:12:9-44
 	android:roundIcon
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:16:9-54
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:16:9-54
 	android:largeHeap
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:15:9-33
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:15:9-33
 	android:icon
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:13:9-43
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:13:9-43
 	android:allowBackup
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:11:9-35
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:11:9-35
 	android:theme
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:18:9-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:18:9-49
 	android:usesCleartextTraffic
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:19:9-44
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:19:9-44
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:10:9-67
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:10:9-67
 activity#com.coinner.coin_kotlin.infoactivity.SourceActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:20:9-23:40
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:20:9-23:40
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:22:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:22:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:23:13-37
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:23:13-37
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:21:13-79
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:21:13-79
 activity#com.coinner.coin_kotlin.infoactivity.NoticeActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:24:9-27:40
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:24:9-27:40
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:26:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:26:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:27:13-37
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:27:13-37
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:25:13-79
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:25:13-79
 activity#com.coinner.coin_kotlin.infoactivity.PolicyActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:28:9-31:40
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:28:9-31:40
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:30:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:30:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:31:13-37
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:31:13-37
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:29:13-79
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:29:13-79
 activity#com.coinner.coin_kotlin.infoactivity.AlarmSettingActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:32:9-35:40
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:32:9-35:40
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:34:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:34:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:35:13-37
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:35:13-37
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:33:13-85
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:33:13-85
 activity#com.coinner.coin_kotlin.activity.AlarmActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:36:9-39:40
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:36:9-39:40
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:38:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:38:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:39:13-37
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:39:13-37
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:37:13-74
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:37:13-74
 uses-library#org.apache.http.legacy
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:41:9-43:40
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:41:9-43:40
 	android:required
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:43:13-37
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:43:13-37
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:42:13-50
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:42:13-50
 meta-data#com.google.android.gms.ads.APPLICATION_ID
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:45:9-47:45
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:45:9-47:45
 	android:value
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:47:13-42
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:47:13-42
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:46:13-69
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:46:13-69
 service#com.coinner.coin_kotlin.model.MyFirebaseMessagingService
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:49:9-55:19
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:49:9-55:19
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:51:13-37
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:51:13-37
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:50:13-84
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:50:13-84
 intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:52:13-54:29
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:52:13-54:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:53:17-78
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:53:17-78
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:53:25-75
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:53:25-75
 meta-data#com.google.firebase.messaging.default_notification_channel_id
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:57:9-59:71
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:57:9-59:71
 	android:value
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:59:13-68
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:59:13-68
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:58:13-89
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:58:13-89
 meta-data#com.google.firebase.messaging.default_notification_icon
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:60:9-62:52
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:60:9-62:52
 	android:resource
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:62:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:62:13-49
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:61:13-83
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:61:13-83
 meta-data#com.google.firebase.messaging.default_notification_color
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:67:9-69:47
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:67:9-69:47
 	android:resource
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:69:13-44
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:69:13-44
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:68:13-84
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:68:13-84
 activity#com.coinner.coin_kotlin.activity.AdmobActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:71:9-80:20
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:71:9-80:20
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:73:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:73:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:74:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:74:13-36
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:72:13-74
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:72:13-74
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:75:13-79:29
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:75:13-79:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:76:17-69
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:76:17-69
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:76:25-66
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:76:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:78:17-77
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:78:17-77
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:78:27-74
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:78:27-74
 activity#com.coinner.coin_kotlin.infoactivity.MypostActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:81:9-84:39
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:81:9-84:39
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:83:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:83:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:84:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:84:13-36
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:82:13-79
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:82:13-79
 activity#com.coinner.coin_kotlin.infoactivity.ChangeNicknameActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:85:9-89:70
-	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:87:13-49
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:85:9-88:70
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:88:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:87:13-36
 	android:theme
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:89:13-67
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:88:13-67
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:86:13-87
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:86:13-87
 activity#com.coinner.coin_kotlin.infoactivity.InfoActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:90:9-93:39
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:89:9-92:39
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:92:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:91:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:93:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:92:13-36
 	tools:ignore
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:102:13-45
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:101:13-45
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:91:13-77
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:90:13-77
 activity#com.coinner.coin_kotlin.activity.LoginActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:94:9-97:39
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:93:9-96:39
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:96:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:95:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:97:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:96:13-36
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:95:13-74
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:94:13-74
 activity#com.coinner.coin_kotlin.activity.SearchActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:103:9-106:39
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:102:9-105:39
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:105:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:104:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:106:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:105:13-36
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:104:13-75
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:103:13-75
 activity#com.coinner.coin_kotlin.activity.PostActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:107:9-111:46
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:106:9-110:46
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:109:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:108:13-49
 	android:launchMode
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:111:13-43
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:110:13-43
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:110:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:109:13-36
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:108:13-73
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:107:13-73
 activity#com.coinner.coin_kotlin.activity.WriteActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:112:9-115:39
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:111:9-114:39
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:114:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:113:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:115:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:114:13-36
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:113:13-74
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:112:13-74
 activity#com.coinner.coin_kotlin.activity.BoardActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:116:9-119:39
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:115:9-118:39
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:118:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:117:13-49
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:119:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:118:13-36
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:117:13-74
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:116:13-74
 activity#com.coinner.coin_kotlin.activity.MainActivity
-ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:120:9-124:46
+ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:119:9-123:46
 	android:screenOrientation
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:122:13-49
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:121:13-49
 	android:launchMode
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:124:13-43
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:123:13-43
 	android:exported
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:123:13-36
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:122:13-36
 	android:name
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml:121:13-73
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml:120:13-73
 uses-sdk
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
 MERGED from [androidx.databinding:databinding-adapters:7.1.1] C:\Users\fpdlq\.gradle\caches\transforms-3\4d6ada30c39daa2d66e29a0d5397bc65\transformed\databinding-adapters-7.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.databinding:databinding-adapters:7.1.1] C:\Users\fpdlq\.gradle\caches\transforms-3\4d6ada30c39daa2d66e29a0d5397bc65\transformed\databinding-adapters-7.1.1\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.databinding:databinding-ktx:7.1.1] C:\Users\fpdlq\.gradle\caches\transforms-3\9c0721bd5490d81fc2d802e4f959e6fd\transformed\jetified-databinding-ktx-7.1.1\AndroidManifest.xml:20:5-22:41
@@ -682,18 +680,18 @@ MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\fpdlq\.gradle\caches\transfo
 MERGED from [androidx.sqlite:sqlite:2.1.0] C:\Users\fpdlq\.gradle\caches\transforms-3\1cb10eb1caae05c98b52bc0148bb81dc\transformed\sqlite-2.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\fpdlq\.gradle\caches\transforms-3\c3c818f5c601519ed471e6d7e7cf6fe2\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\fpdlq\.gradle\caches\transforms-3\c3c818f5c601519ed471e6d7e7cf6fe2\transformed\jetified-annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
-INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
 	tools:overrideLibrary
 		ADDED from [com.google.android.gms:play-services-ads:20.6.0] C:\Users\fpdlq\.gradle\caches\transforms-3\c148bbc1edbded348d8902c2fbb5c10d\transformed\jetified-play-services-ads-20.6.0\AndroidManifest.xml:23:9-49
 	android:targetSdkVersion
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\fpdlq\Desktop\android\asd\Coin_kotlin\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\fpdlq\Desktop\android\coinner\Coin_kotlin\app\src\main\AndroidManifest.xml
 activity#com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 ADDED from [com.google.android.gms:play-services-oss-licenses:17.0.0] C:\Users\fpdlq\.gradle\caches\transforms-3\8cbbfc98645ef7ba9a1d31a939323848\transformed\jetified-play-services-oss-licenses-17.0.0\AndroidManifest.xml:23:9-25:57
 	android:label

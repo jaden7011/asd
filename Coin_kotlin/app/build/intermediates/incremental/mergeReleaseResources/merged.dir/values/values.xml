@@ -1681,7 +1681,7 @@
     <string name="fcm_key">AAAA0b9Dx7o:APA91bGyxtDqDggU6I5gRiKxuFW6tld7cpPERm53_WkFwD7tSHZcEp8p3l6slrRQAJEk34Q8XVjJXYvUkKDBmX9y--rHCBAMr5hb-oGFukYvVkAM7Vdhrl72y822SR-LnvDGuk9oWjrZ</string>
     <string name="gcm_defaultSenderId" translatable="false">900857055162</string>
     <string name="google_api_key" translatable="false">AIzaSyDXT3TkVDMi21j2zPvDEpuVeq9x3MYMFTk</string>
-    <string name="google_app_id" translatable="false">1:900857055162:android:2df4e49a74994f8aebbf83</string>
+    <string name="google_app_id" translatable="false">1:900857055162:android:6a44a696a9581a58ebbf83</string>
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDXT3TkVDMi21j2zPvDEpuVeq9x3MYMFTk</string>
     <string name="google_storage_bucket" translatable="false">coinner-cbf34.appspot.com</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>

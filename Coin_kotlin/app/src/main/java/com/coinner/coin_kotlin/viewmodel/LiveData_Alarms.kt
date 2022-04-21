@@ -72,7 +72,7 @@ class LiveData_Alarms(
         if (!NetworkStatus.isConnected(activity)) {
             Log.e("main_network", "network is disconnected")
             (activity as PostActivity).run {
-                Handler(Looper.getMainLooper()).postDelayed({ Toast("인터넷 연결이 되어있지 않습니다.") }, 0)
+                Handler(Looper.getMainLooper()).postDelayed({ toast("인터넷 연결이 되어있지 않습니다.") }, 0)
             }
             return
         }

@@ -27,7 +27,7 @@ var connection = mysql.createConnection({
 
 setInterval(() => {
     alarm()
-},10000)
+},60000*60*5)
 
 app.post('/user/alarm/add',function(req,res){
     var price = req.body.price
@@ -393,6 +393,59 @@ app.post('/post/love', function(req,res) { //love에 중복이 있ㄷ면 진행�
         }else{
             up_Plove(postid,id,res)
         }
+    })
+})
+
+// app.post('/submission/check',(req,res)=>{
+//     let postid = req.body.postid
+//     let id = req.body.id
+//     let sql = 'SELECT * FROM submission WHERE postid = ? AND id = ?'
+
+//     query(sql,[postid,id])
+//     .then(result => {
+//         if(result.length === 0)
+//             res.json(true)
+//         else
+//             res.json(false)
+//     })
+//     .catch(err=>{
+//         res.json(false)
+//         console.log(err)
+//     })
+// })
+
+app.post('/post/submission',(req,res)=>{
+    let postid = req.body.postid
+    let id = req.body.id
+    let check_sql = 'SELECT * FROM submission WHERE postid = ? AND id = ?'
+    let post_sql = 'SELECT submission FROM post WHERE postid = ?'
+    let up_sql = 'UPDATE post SET submission = ? WHERE postid = ?'
+    let sub_sql = 'INSERT INTO submission (postid,id) VALUES (?,?)'
+
+    query(check_sql,[postid,id])
+    .then(result => {
+        if(result.length === 0){
+            console.log("0")
+            return query(post_sql,postid)
+        }
+        else{
+            console.log("else: "+result.length)
+            res.json(false)
+            return
+        }
+    })
+    .then(result => {
+        let submission = result[0].submission + 1
+        return query(up_sql,[submission,postid])
+    })
+    .then(result=>{
+        return query(sub_sql,[postid,id])
+    })
+    .then(result => {
+        res.json(true)
+    })
+    .catch(err => {
+        console.log(err)
     })
 })
 

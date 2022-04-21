@@ -184,4 +184,11 @@ interface Service {
         @Field("id") id:String,
         @Field("coin") coin:String,
     ): AlarmList
+
+    @FormUrlEncoded
+    @POST("/post/submission")
+    suspend fun submission(
+        @Field("postid") postid:String,
+        @Field("id") id:String,
+    ): Boolean
 }
