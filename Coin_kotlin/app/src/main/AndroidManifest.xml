@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.coin_kotlin">
+    package="com.coinner.coin_kotlin">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".admob.MyApplication"
+        android:name="com.coinner.coin_kotlin.admob.MyApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
@@ -18,23 +18,23 @@
         android:theme="@style/Theme.Coin_kotlin"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".infoactivity.SourceActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.SourceActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
         <activity
-            android:name=".infoactivity.NoticeActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.NoticeActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
         <activity
-            android:name=".infoactivity.PolicyActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.PolicyActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
         <activity
-            android:name=".infoactivity.AlarmSettingActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.AlarmSettingActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
         <activity
-            android:name=".activity.AlarmActivity"
+            android:name="com.coinner.coin_kotlin.activity.AlarmActivity"
             android:screenOrientation="portrait"
             android:exported="false" />
 
@@ -47,7 +47,7 @@
             android:value="@string/adKey" />
 
         <service
-            android:name=".model.MyFirebaseMessagingService"
+            android:name="com.coinner.coin_kotlin.model.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -69,7 +69,7 @@
             android:resource="@color/night" />
 
         <activity
-            android:name=".activity.AdmobActivity"
+            android:name="com.coinner.coin_kotlin.activity.AdmobActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
@@ -79,46 +79,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".infoactivity.MypostActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.MypostActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".infoactivity.ChangeNicknameActivity"
-            android:screenOrientation="portrait"
+            android:name="com.coinner.coin_kotlin.infoactivity.ChangeNicknameActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
-            android:name=".infoactivity.InfoActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.InfoActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="com.coinner.coin_kotlin.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".infoactivity.InfoActivity"
+            android:name="com.coinner.coin_kotlin.infoactivity.InfoActivity"
             android:screenOrientation="portrait"
             android:exported="true"
             tools:ignore="DuplicateActivity" />
         <activity
-            android:name=".activity.SearchActivity"
+            android:name="com.coinner.coin_kotlin.activity.SearchActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".activity.PostActivity"
+            android:name="com.coinner.coin_kotlin.activity.PostActivity"
             android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop" />
         <activity
-            android:name=".activity.WriteActivity"
+            android:name="com.coinner.coin_kotlin.activity.WriteActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".activity.BoardActivity"
+            android:name="com.coinner.coin_kotlin.activity.BoardActivity"
             android:screenOrientation="portrait"
             android:exported="true" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.coinner.coin_kotlin.activity.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop" />

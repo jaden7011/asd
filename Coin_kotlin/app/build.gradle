@@ -9,10 +9,10 @@ android {
     compileSdkVersion 32
 
     defaultConfig {
-        applicationId "com.example.coin_kotlin"
+        applicationId "com.coinner.coin_kotlin"
         minSdkVersion 26
         targetSdkVersion 32
-        versionCode 1
+        versionCode 3
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

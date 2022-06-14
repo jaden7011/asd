@@ -14,7 +14,7 @@
         tools:context=".activity.LoginActivity">
 
         <ImageView
-            android:id="@+id/imageView9"
+            android:id="@+id/logoView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
